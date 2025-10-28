@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Abdullah | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth;}
+  body{background:#f5f5f5;color:#333;overflow-x:hidden;}
+
+  header{
+    width:100%;padding:20px 50px;display:flex;justify-content:space-between;align-items:center;
+    position:fixed;top:0;left:0;background:rgba(255,255,255,0.95);box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    z-index:100;border-bottom-left-radius:15px;border-bottom-right-radius:15px;
+  }
+  .logo{font-weight:600;font-size:1.8rem;color:#7b5cff;}
+  nav a{margin-left:30px;text-decoration:none;color:#333;font-weight:500;transition:0.3s;}
+  nav a:hover{color:#7b5cff;}
+
+  section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 20px 50px 20px;position:relative;}
+
+  /* Home section */
+  #home{
+    position:relative;overflow:hidden;background:linear-gradient(135deg,#7b5cff,#c17eff);
+    color:#fff;
+  }
+
+  /* Floating circles */
+  .circle{
+    position:absolute;border-radius:50%;opacity:0.2;animation:float 20s linear infinite;
+    background: radial-gradient(circle at top left,#ff9fff,#7b5cff);
+  }
+  @keyframes float{
+    0%{transform:translateY(100vh) scale(0);}
+    50%{transform:translateY(50vh) scale(0.5);}
+    100%{transform:translateY(-20vh) scale(0);}
+  }
+
+  #home h1{font-size:3rem;margin-bottom:20px;position:relative;z-index:1;}
+  #home p{font-size:1.2rem;max-width:700px;position:relative;z-index:1;}
+
+  h2{font-size:2rem;color:#7b5cff;margin-bottom:15px;}
+  p{font-size:1.1rem;max-width:700px;color:#555;}
+
+  .projects{display:flex;flex-wrap:wrap;justify-content:center;gap:25px;margin-top:30px;}
+
+  /* Glass cards */
+  .card{
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+    border-radius:20px;padding:25px;width:280px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+    transition:transform 0.4s,box-shadow 0.4s;
+    text-align:left;
+  }
+  .card:hover{transform:translateY(-10px);box-shadow:0 20px 35px rgba(123,95,255,0.25);}
+  .card h3{color:#7b5cff;margin-bottom:10px;}
+  .card a{color:#7b5cff;font-weight:500;text-decoration:none;margin-top:10px;display:inline-block;}
+
+  #contact a{color:#7b5cff;font-weight:500;text-decoration:none;margin:5px 10px;display:inline-block;transition:0.3s;}
+  #contact a:hover{color:#c17eff;}
+
+  footer{text-align:center;padding:20px;font-size:0.9rem;color:#555;background:#f0f0f5;}
+
+  /* Waves */
+  .wave{position:relative;width:100%;height:80px;}
+  .wave svg{width:100%;height:100%;}
+
+  @media(max-width:768px){.projects{flex-direction:column;align-items:center;}header{padding:15px 20px;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Muhammad Abdullah</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section id="home">
+  <h1>Hello, I'm Muhammad Abdullah</h1>
+  <p>Welcome! I showcase creative ideas and projects, using AI when needed to bring them to life. Simple, modern, and stylish design to highlight my work.</p>
+  <!-- floating circles -->
+  <div class="circle" style="width:60px;height:60px;left:10%;animation-duration:25s;"></div>
+  <div class="circle" style="width:100px;height:100px;left:80%;animation-duration:30s;"></div>
+  <div class="circle" style="width:40px;height:40px;left:50%;animation-duration:22s;"></div>
+  <div class="circle" style="width:80px;height:80px;left:30%;animation-duration:28s;"></div>
+</section>
+
+<div class="wave">
+  <svg viewBox="0 0 500 80" preserveAspectRatio="none">
+    <path d="M0,40 C150,80 350,0 500,40 L500,00 L0,0 Z" style="stroke:none;fill:#f5f5f5;"></path>
+  </svg>
+</div>
+
+<section id="about">
+  <h2>About Me</h2>
+  <p>I’m a passionate web developer and creative thinker.I am 14 years old. I use AI to implement ideas and transform them into real digital projects. My goal is to share innovative concepts with clarity and style.</p>
+</section>
+
+<div class="wave">
+  <svg viewBox="0 0 500 80" preserveAspectRatio="none">
+    <path d="M0,40 C150,0 350,80 500,40 L500,00 L0,0 Z" style="stroke:none;fill:#ffffff;"></path>
+  </svg>
+</div>
+
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="projects">
+    <div class="card">
+      <h3>Symbol Cipher</h3>
+      <p>A creative cipher tool that lets you communicate using symbols, letters, and numbers. Messages are easy to write but tricky to decrypt without the key, perfect for secret communication and fun encoding. e.g. ewq534'3# </p>
+      <a href="qwertycode.html" target="_blank">Visit →</a>
+    </div>
+   <div class="card">
+  <h3>Number Prefix Converter</h3>
+  <p>A fully functional tool to convert numbers with prefixes like Million, Billion, Quintillion into full numbers and back. Designed to make large number conversions simple, clean, and fast.</p>
+  <a href="prefixconverter.html" target="_target">Visit →</a>
+</div>
+    <div class="card">
+      <h3>Project 3</h3>
+      <p>Another project to bring ideas to life.</p>
+      <a href="#">Coming Soon</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Want to collaborate or discuss ideas? Reach out to me!</p>
+  <div>
+<a href="mailto:muhammad4bdullah123@gmail.com">Email</a>
+<a href="https://www.instagram.com/itz._abdullah_.7?igsh=cDF3Y3d6ZXRjcHh3" target="_blank">Insta</a>
+
+  </div>
+</section>
+
+<footer>
+  © 2025 Muhammad Abdullah | All Rights Reserved ⚡
+</footer>
+
+</body>
+</html>
