@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cipher 2.0 - Emoji Only</title>
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#1f1f1f,#121212);
+    color: #fff;
+    margin:0;
+    padding:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+.container {
+    max-width:600px;
+    width:90%;
+    padding:30px;
+    background: #1a1a1a;
+    border-radius:20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    text-align:center;
+}
+h1 {
+    margin-bottom:20px;
+    font-size:2rem;
+    background: linear-gradient(90deg,#ff6ec4,#7873f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+textarea {
+    width:100%;
+    height:120px;
+    padding:15px;
+    border-radius:12px;
+    border:none;
+    margin-bottom:15px;
+    font-size:1rem;
+    resize:none;
+    transition:0.3s;
+}
+textarea:focus {
+    box-shadow: 0 0 10px #ff6ec4;
+    outline:none;
+}
+.button-group {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+}
+button {
+    padding:12px 20px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+    background: linear-gradient(90deg,#ff6ec4,#7873f5);
+    color:#fff;
+    transition: 0.3s;
+}
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+/* Encode animation */
+@keyframes encodeAnim {
+    0% { transform: translateY(-10px); opacity:0; }
+    50% { transform: translateY(5px); opacity:0.7; }
+    100% { transform: translateY(0); opacity:1; }
+}
+.animated {
+    animation: encodeAnim 0.5s ease forwards;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Cipher 2.0</h1>
+    <textarea id="inputText" placeholder="Type your text here..."></textarea>
+    <textarea id="outputText" placeholder="Output..." readonly></textarea>
+
+    <div class="button-group">
+        <button onclick="encodeText()">Encode</button>
+        <button onclick="decodeText()">Decode</button>
+        <button onclick="copyOutput()">Copy</button>
+        <button onclick="clearAll()">Clear</button>
+    </div>
+</div>
+
+<script>
+// ===== Emoji Maps =====
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const emojis = ['😀','😁','😚','😍','🥳','🙂','🥲','🙃','😌','☺',
+                '😋','🤪','😛','🥴','🥺','😑','😐','🤗','🤫','😠',
+                '😤','🙄','😲','🤯','🫠','🫡'];
+
+const emojiInvMap = {};
+for(let i=0;i<letters.length;i++){
+    emojiInvMap[letters[i]] = emojis[letters.length-1-i];
+}
+
+const numberEmojis = ['🤩','🥰','😎','🤔','😇','🥵','🫣','🫠','🤡','🤑'];
+const numberMap = {};
+for(let i=0;i<10;i++) numberMap[i.toString()] = numberEmojis[i];
+const numberRevMap = {};
+for(let i=0;i<10;i++) numberRevMap[numberEmojis[i]] = i.toString();
+
+// ===== Animate output =====
+function animateOutput(){
+    const out = document.getElementById('outputText');
+    out.classList.remove('animated');
+    void out.offsetWidth; // trigger reflow
+    out.classList.add('animated');
+}
+
+// ===== Encode =====
+function encodeText(){
+    let text = document.getElementById('inputText').value.toUpperCase();
+    let output = '';
+    for(let c of text){
+        if(letters.includes(c)){
+            output += emojiInvMap[c];
+        } else if(numberMap[c]){
+            output += numberMap[c];
+        } else {
+            output += c;
+        }
+    }
+    document.getElementById('outputText').value = output;
+    animateOutput();
+}
+
+// ===== Decode =====
+function decodeText(){
+    let text = document.getElementById('inputText').value;
+    let revMap = {};
+    for(let k in emojiInvMap) revMap[emojiInvMap[k]] = k;
+
+    let output = '';
+    let i = 0;
+    while(i < text.length){
+        let found=false;
+
+        // letters
+        for(let e of Object.values(emojiInvMap)){
+            if(text.startsWith(e,i)){
+                output += revMap[e];
+                i += e.length;
+                found=true;
+                break;
+            }
+        }
+        if(found) continue;
+
+        // numbers
+        for(let e of Object.values(numberMap)){
+            if(text.startsWith(e,i)){
+                output += numberRevMap[e];
+                i += e.length;
+                found=true;
+                break;
+            }
+        }
+        if(found) continue;
+
+        output += text[i];
+        i++;
+    }
+
+    document.getElementById('outputText').value = output;
+    animateOutput();
+}
+
+// ===== Copy / Clear =====
+function copyOutput(){
+    let output = document.getElementById('outputText');
+    output.select();
+    output.setSelectionRange(0,99999);
+    navigator.clipboard.writeText(output.value);
+    alert('Copied!');
+}
+function clearAll(){
+    document.getElementById('inputText').value='';
+    document.getElementById('outputText').value='';
+}
+</script>
+
+</body>
+</html>
