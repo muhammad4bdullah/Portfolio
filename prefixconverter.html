@@ -3,92 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Number Prefix Converter</title>
+<title>Quantity Converter | Muhammad Abdullah</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth;}
-body{background: linear-gradient(135deg,#f5f7fa,#c3cfe2);color:#333;overflow-x:hidden;}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#0b0f1a;color:#fff;overflow-x:hidden;scroll-behavior:smooth;}
 header{
   width:100%;padding:20px 50px;display:flex;justify-content:space-between;align-items:center;
-  position:fixed;top:0;left:0;background:rgba(255,255,255,0.95);box-shadow:0 5px 20px rgba(0,0,0,0.1);
+  position:fixed;top:0;left:0;background:rgba(11,15,26,0.95);box-shadow:0 5px 20px rgba(0,0,0,0.4);
   z-index:100;border-bottom-left-radius:15px;border-bottom-right-radius:15px;
 }
 .logo{font-weight:600;font-size:1.8rem;color:#7b5cff;}
-nav a{margin-left:30px;text-decoration:none;color:#333;font-weight:500;transition:0.3s;}
-nav a:hover{color:#7b5cff;}
+nav a{margin-left:30px;text-decoration:none;color:#fff;font-weight:500;transition:0.3s;}
+nav a:hover{color:#00ffe0;}
+section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 20px 50px 20px;position:relative;}
+h1{font-size:2.8rem;color:#7b5cff;margin-bottom:15px;text-shadow:0 0 10px #000;}
+p{font-size:1.1rem;color:#e0e0e0;max-width:700px;margin-bottom:40px;text-align:center;line-height:1.7;}
 
-section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:100px 20px 50px 20px;position:relative;}
+/* Neon buttons */
+.buttons-container{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:10px 0;}
+button.neon-btn{
+  padding:12px 20px;border:none;border-radius:10px;background:#0b0f1a;color:#7b5cff;font-weight:600;
+  cursor:pointer;font-size:1rem;transition:0.3s;text-shadow:0 0 5px #7b5cff,0 0 10px #00ffe0;
+}
+button.neon-btn:hover{color:#00ffe0;text-shadow:0 0 15px #00ffe0,0 0 25px #7b5cff;transform:scale(1.05);}
+button.selected{background:#7b5cff;color:#0b0f1a;text-shadow:0 0 15px #00ffe0;}
 
-h1{color:#7b5cff;margin-bottom:20px;}
-p{font-size:1.1rem;color:#555;max-width:700px;margin-bottom:40px;}
-
+/* Converter card */
 .converter-card{
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(12px);
-  padding: 40px 30px;
-  border-radius: 20px;
-  width: 350px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+  background: rgba(255,255,255,0.05);backdrop-filter: blur(15px);
+  border-radius:20px;padding:30px 25px;width:90%;max-width:600px;box-shadow:0 10px 25px rgba(0,0,0,0.4);
+  margin-top:20px;
 }
-.converter-card:hover{transform: translateY(-5px); box-shadow: 0 20px 35px rgba(123,95,255,0.25);}
-  
-input[type="text"]{
-  width:80%;padding:12px 15px;margin:10px 0;border-radius:10px;border:1px solid #ccc;font-size:1rem;
+input[type="number"]{
+  width:80%;padding:12px 15px;margin:10px 0;border-radius:10px;border:none;font-size:1rem;text-align:center;
+  background: rgba(255,255,255,0.1);color:#fff;box-shadow:0 0 10px #7b5cff inset;
 }
-button{
-  padding:10px 20px;margin:10px 5px;border:none;border-radius:10px;background:#7b5cff;color:#fff;font-weight:600;cursor:pointer;transition:0.3s;
+#outputResult{
+  width:80%;padding:12px 15px;margin:15px 0;border-radius:10px;border:none;font-size:1rem;text-align:center;
+  background: rgba(0,255,224,0.1);color:#00ffe0;box-shadow:0 0 15px #00ffe0 inset;font-weight:600;
 }
-button:hover{background:#5a3dbd;}
 
-.prefix-buttons{
-  display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:15px;
-}
-.prefix-buttons button{padding:8px 12px;background:#c3cfe2;color:#333;font-weight:500;font-size:0.9rem;}
-.prefix-buttons button:hover{background:#7b5cff;color:#fff;}
-
-footer{text-align:center;padding:20px;font-size:0.9rem;color:#555;background:linear-gradient(135deg,#f5f7fa,#c3cfe2);margin-top:50px;}
+/* Footer */
+footer{text-align:center;padding:20px;font-size:0.9rem;color:#ccc;background:#0a0d1a;margin-top:40px;}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">Prefix Converter</div>
+  <div class="logo">Muhammad Abdullah</div>
   <nav>
     <a href="#about">About</a>
-    <a href="#calculator">Convertor</a>
+    <a href="#converter">Converter</a>
   </nav>
 </header>
 
 <section id="about">
-  <h1>About</h1>
-  <p>This tool makes converting large numbers simple. Enter a number, select a prefix, and get instant results. Built with HTML, JS, and designed with AI support.</p>
+  <h1>Quantity Converter</h1>
+  <p>This tool lets you convert numbers, length, weight, and speed values with a modern neon-style interface. Select the type, units, enter your value, and get results instantly!</p>
 </section>
 
-<section id="calculator">
+<section id="converter">
   <div class="converter-card">
-    <input type="text" id="inputNumber" placeholder="Enter number">
-    
-    <h3>Valid Prefixes</h3>
-    <div class="prefix-buttons">
-      <button onclick="setPrefix('K')">K</button>
-      <button onclick="setPrefix('M')">M</button>
-      <button onclick="setPrefix('B')">B</button>
-      <button onclick="setPrefix('T')">T</button>
-      <button onclick="setPrefix('Qa')">Qa</button>
-      <button onclick="setPrefix('Qi')">Qi</button>
+    <h2>1. Choose Conversion Type</h2>
+    <div class="buttons-container" id="typeButtons">
+      <button class="neon-btn" onclick="selectType('number')">Number</button>
+      <button class="neon-btn" onclick="selectType('length')">Length</button>
+      <button class="neon-btn" onclick="selectType('weight')">Weight</button>
+      <button class="neon-btn" onclick="selectType('speed')">Speed</button>
     </div>
 
-    <div>
-      <button onclick="convertToFull()">Short → Full</button>
-      <button onclick="convertToShort()">Full → Short</button>
-    </div>
-    <input type="text" id="outputNumber" placeholder="Result will appear here" readonly>
-    <div>
-      <button onclick="copyResult()">Copy Result</button>
-    </div>
+    <h2>2. Enter Value</h2>
+    <input type="number" id="inputValue" placeholder="Enter value">
+
+    <h2>3. Select Input Unit</h2>
+    <div class="buttons-container" id="inputUnitButtons"></div>
+
+    <h2>4. Select Desired Unit</h2>
+    <div class="buttons-container" id="outputUnitButtons"></div>
+
+    <button class="neon-btn" style="margin-top:15px;" onclick="convert()">Convert →</button>
+
+    <input type="text" id="outputResult" placeholder="Result will appear here" readonly>
   </div>
 </section>
 
@@ -97,57 +93,78 @@ footer{text-align:center;padding:20px;font-size:0.9rem;color:#555;background:lin
 </footer>
 
 <script>
-const prefixMap = {
-  'K': 3,
-  'M': 6,
-  'B': 9,
-  'T': 12,
-  'Qa': 15,
-  'Qi': 18
+// Define units
+const units = {
+  number: ['K','M','B','T','Qa','Qi'],
+  length: ['m','km','cm','mm','inch','mile'],
+  weight: ['kg','g','mg','lb','oz'],
+  speed: ['m/s','km/h','mph','ft/s']
 };
 
-// Append prefix to number without removing number
-function setPrefix(prefix){
-  const input = document.getElementById('inputNumber');
-  let value = input.value.trim();
-  value = value.replace(/\s*[a-zA-Z]+$/,''); // Remove existing prefix
-  input.value = value + ' ' + prefix;
+let selectedType = null;
+let selectedInputUnit = null;
+let selectedOutputUnit = null;
+
+function selectType(type){
+  selectedType = type;
+  selectedInputUnit = null;
+  selectedOutputUnit = null;
+  // Highlight selected button
+  document.querySelectorAll('#typeButtons .neon-btn').forEach(btn=>{
+    btn.classList.remove('selected');
+    if(btn.innerText.toLowerCase()===type) btn.classList.add('selected');
+  });
+  // Render input/output units
+  renderUnitButtons('inputUnitButtons', units[type], true);
+  renderUnitButtons('outputUnitButtons', units[type], false);
 }
 
-function convertToFull(){
-  const input = document.getElementById('inputNumber').value.trim();
-  let match = input.match(/^([\d.]+)\s*([a-zA-Z]+)$/);
-  if(!match){alert('Enter number with valid prefix like 1.3 Qi'); return;}
-  let num = parseFloat(match[1]);
-  let prefix = match[2];
-  if(!prefixMap[prefix]){alert('Invalid prefix'); return;}
-  let result = num * Math.pow(10,prefixMap[prefix]);
-  document.getElementById('outputNumber').value = result.toLocaleString('fullwide',{useGrouping:true});
+function renderUnitButtons(containerId, unitArray, isInput){
+  const container = document.getElementById(containerId);
+  container.innerHTML='';
+  unitArray.forEach(unit=>{
+    const btn = document.createElement('button');
+    btn.classList.add('neon-btn');
+    btn.innerText = unit;
+    btn.onclick = ()=>selectUnit(unit,isInput,btn);
+    container.appendChild(btn);
+  });
 }
 
-function convertToShort(){
-  let input = document.getElementById('inputNumber').value.trim();
-  let num = Number(input.replace(/,/g,''));
-  if(isNaN(num)){alert('Enter a valid number'); return;}
-  let selectedPrefix = 'K';
-  let selectedExp = 3;
-  for(let [key,exp] of Object.entries(prefixMap).reverse()){
-    if(num >= Math.pow(10,exp)){
-      selectedPrefix = key;
-      selectedExp = exp;
-      break;
-    }
+function selectUnit(unit,isInput,btn){
+  if(isInput) selectedInputUnit = unit;
+  else selectedOutputUnit = unit;
+  // Highlight selected button
+  const container = btn.parentElement;
+  container.querySelectorAll('.neon-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+// Conversion logic
+function convert(){
+  const value = parseFloat(document.getElementById('inputValue').value);
+  if(isNaN(value)){alert('Enter a valid number'); return;}
+  if(!selectedType || !selectedInputUnit || !selectedOutputUnit){alert('Select type and units'); return;}
+  let result = value;
+
+  if(selectedType==='number'){
+    const powers = {'K':3,'M':6,'B':9,'T':12,'Qa':15,'Qi':18};
+    result = value * Math.pow(10,powers[selectedInputUnit]-powers[selectedOutputUnit]);
   }
-  let shortNum = num/Math.pow(10,selectedExp);
-  document.getElementById('outputNumber').value = shortNum.toFixed(2) + ' ' + selectedPrefix;
-}
+  if(selectedType==='length'){
+    const toMeters = {'m':1,'km':1000,'cm':0.01,'mm':0.001,'inch':0.0254,'mile':1609.34};
+    result = value * toMeters[selectedInputUnit]/toMeters[selectedOutputUnit];
+  }
+  if(selectedType==='weight'){
+    const toKg = {'kg':1,'g':0.001,'mg':0.000001,'lb':0.453592,'oz':0.0283495};
+    result = value * toKg[selectedInputUnit]/toKg[selectedOutputUnit];
+  }
+  if(selectedType==='speed'){
+    const toMS = {'m/s':1,'km/h':0.277778,'mph':0.44704,'ft/s':0.3048};
+    result = value * toMS[selectedInputUnit]/toMS[selectedOutputUnit];
+  }
 
-function copyResult(){
-  const output = document.getElementById('outputNumber');
-  output.select();
-  output.setSelectionRange(0, 99999);
-  navigator.clipboard.writeText(output.value);
-  alert('Copied to clipboard!');
+  document.getElementById('outputResult').value = result;
 }
 </script>
 
