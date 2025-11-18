@@ -90,6 +90,7 @@
     <button id="encodeBtn">Encode</button>
     <button id="decodeBtn">Decode</button>
     <button id="clearBtn">Clear</button>
+    <button id="pasteBtn">Paste Input</button>
     <button id="copyBtn">Copy Output</button>
   </div>
   <label>Output:</label>
@@ -102,19 +103,19 @@ const output = document.getElementById('output');
 const encodeBtn = document.getElementById('encodeBtn');
 const decodeBtn = document.getElementById('decodeBtn');
 const clearBtn = document.getElementById('clearBtn');
+const pasteBtn = document.getElementById('pasteBtn');
 const copyBtn = document.getElementById('copyBtn');
 const copyMsg = document.getElementById('copyMsg');
 
 // Noise symbols
 const noiseSymbols = ["§","¶","™","µ","Ω","∆","√","≈","‽","‡","‾","⁂","※","⁎","⟨","⟩","⦅","⦆","⟪","⫫","⊕","⊗","✧","✦","✩"];
 
-// Unified encode/decode map with symbols properly inverse-mapped
+// Unified encode/decode map
 const encodeMap = {
   '1':'Q','2':'W','3':'E','4':'R','5':'T','6':'Y','7':'U','8':'I','9':'O','0':'P',
   'A':'@','S':'#','D':'$','F':'_','G':'&','H':'-','J':'+','K':'(','L':')',
   'Z':'*','X':'"','C':'\'','V':':','B':';','N':'!','M':'?',
 
-  // For your symbols, map to letters/numbers so inverse mapping works
   '!':'N','@':'A','#':'S','$':'D','_':'F','&':'G','-':'H','+':'J','(':'K',')':'L',
   '*':'Z','"':'X','\'':'C',':':'V',';':'B','?':'M'
 };
@@ -135,15 +136,14 @@ function blockReverse(str, blockSize){
   return res;
 }
 
-// Encode function with \ as space placeholder
+// Encode function
 function encode(text){
-  text = text.replace(/ /g,'\\'); // preserve spaces
-
+  text = text.replace(/ /g,'\\');
   let mapped = text.split('').map(ch=>{
-    if(ch==='\\') return '\\';       // preserve space
+    if(ch==='\\') return '\\';
     if(encodeMap[ch]) return encodeMap[ch];
     if(encodeMap[ch.toUpperCase()]) return encodeMap[ch.toUpperCase()];
-    return ch;                        // leave unknowns as is
+    return ch;
   }).join('');
 
   let noisy='';
@@ -151,7 +151,6 @@ function encode(text){
     noisy += c;
     if(c!=='\\' && Math.random()<1) noisy += randomNoise();
   }
-
   return blockReverse(noisy,7);
 }
 
@@ -173,6 +172,16 @@ copyBtn.addEventListener('click',async()=>{
   await navigator.clipboard.writeText(text);
   copyMsg.classList.add('show');
   setTimeout(()=>copyMsg.classList.remove('show'),1000);
+});
+
+// Paste input button
+pasteBtn.addEventListener('click', async ()=>{
+  try{
+    const text = await navigator.clipboard.readText();
+    input.value = text;
+  }catch(e){
+    alert('Failed to read clipboard: ' + e);
+  }
 });
 </script>
 </body>
