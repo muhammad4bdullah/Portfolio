@@ -6,68 +6,84 @@
 <title>Muhammad Abdullah | Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth;}
-  body{background:#f5f5f5;color:#333;overflow-x:hidden;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth;}
+body{background:#0b0f1a;color:#fff;overflow-x:hidden;}
 
-  header{
-    width:100%;padding:20px 50px;display:flex;justify-content:space-between;align-items:center;
-    position:fixed;top:0;left:0;background:rgba(255,255,255,0.95);box-shadow:0 5px 20px rgba(0,0,0,0.1);
-    z-index:100;border-bottom-left-radius:15px;border-bottom-right-radius:15px;
-  }
-  .logo{font-weight:600;font-size:1.8rem;color:#7b5cff;}
-  nav a{margin-left:30px;text-decoration:none;color:#333;font-weight:500;transition:0.3s;}
-  nav a:hover{color:#7b5cff;}
+header{
+  width:100%;padding:20px 50px;display:flex;justify-content:space-between;align-items:center;
+  position:fixed;top:0;left:0;background:rgba(11,15,26,0.95);box-shadow:0 5px 20px rgba(0,0,0,0.4);
+  z-index:100;border-bottom-left-radius:15px;border-bottom-right-radius:15px;
+}
+.logo{font-weight:600;font-size:1.8rem;color:#7b5cff;}
+nav a{margin-left:30px;text-decoration:none;color:#fff;font-weight:500;transition:0.3s;}
+nav a:hover{color:#00ffe0;}
 
-  section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 20px 50px 20px;position:relative;}
+section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 20px 50px 20px;position:relative;}
 
-  /* Home section */
-  #home{
-    position:relative;overflow:hidden;background:linear-gradient(135deg,#7b5cff,#c17eff);
-    color:#fff;
-  }
+/* Home section */
+#home{
+  position:relative;overflow:hidden;background:linear-gradient(135deg,#7b5cff,#00ffe0);
+  color:#fff;
+}
+#home h1{font-size:3rem;margin-bottom:20px;position:relative;z-index:1;text-shadow:0 0 10px #000;}
+#home p{font-size:1.2rem;max-width:700px;position:relative;z-index:1;text-shadow:0 0 5px #000;}
+#home .sub-text{font-size:1rem;margin-top:15px;color:#e0e0e0;text-shadow:0 0 5px #000;}
 
-  /* Floating circles */
-  .circle{
-    position:absolute;border-radius:50%;opacity:0.2;animation:float 20s linear infinite;
-    background: radial-gradient(circle at top left,#ff9fff,#7b5cff);
-  }
-  @keyframes float{
-    0%{transform:translateY(100vh) scale(0);}
-    50%{transform:translateY(50vh) scale(0.5);}
-    100%{transform:translateY(-20vh) scale(0);}
-  }
+/* Floating circles */
+.circle{
+  position:absolute;border-radius:50%;opacity:0.2;animation:float 25s linear infinite;
+  background: radial-gradient(circle at top left,#ff9fff,#7b5cff);
+}
+@keyframes float{
+  0%{transform:translateY(100vh) scale(0);}
+  50%{transform:translateY(50vh) scale(0.5);}
+  100%{transform:translateY(-20vh) scale(0);}
+}
 
-  #home h1{font-size:3rem;margin-bottom:20px;position:relative;z-index:1;}
-  #home p{font-size:1.2rem;max-width:700px;position:relative;z-index:1;}
+/* About Section */
+#about h2{font-size:2rem;color:#7b5cff;margin-bottom:15px;}
+#about p{font-size:1.1rem;max-width:750px;color:#e0e0e0;line-height:1.7;text-align:center;}
 
-  h2{font-size:2rem;color:#7b5cff;margin-bottom:15px;}
-  p{font-size:1.1rem;max-width:700px;color:#555;}
+/* Projects Section */
+.projects-container{position:relative;width:100%;height:700px;display:block;margin-top:30px;}
 
-  .projects{display:flex;flex-wrap:wrap;justify-content:center;gap:25px;margin-top:30px;}
+.card{
+  position:absolute;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+  border-radius:20px;padding:25px;width:250px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+  transition: transform 0.4s, box-shadow 0.4s;
+  text-align:left;
+  transform: rotate(var(--angle)); /* keep rotation */
+}
+.card:hover {
+  transform: rotate(var(--angle)) translateY(-10px) scale(1.05);
+  box-shadow: 0 20px 50px rgba(123,95,255,0.6), 0 0 15px rgba(123,95,255,0.4) inset;
+}
+.card h3{color:#00ffe0;margin-bottom:10px;text-shadow:0 0 8px #7b5cff;}
+.card p{color:#e0e0e0;font-size:0.95rem;margin-bottom:15px;}
+.card a{color:#7b5cff;font-weight:500;text-decoration:none;margin-top:10px;display:inline-block;transition:0.3s;}
+.card a:hover{color:#00ffe0;}
 
-  /* Glass cards */
-  .card{
-    background: rgba(255,255,255,0.25);
-    backdrop-filter: blur(10px);
-    border-radius:20px;padding:25px;width:280px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.1);
-    transition:transform 0.4s,box-shadow 0.4s;
-    text-align:left;
-  }
-  .card:hover{transform:translateY(-10px);box-shadow:0 20px 35px rgba(123,95,255,0.25);}
-  .card h3{color:#7b5cff;margin-bottom:10px;}
-  .card a{color:#7b5cff;font-weight:500;text-decoration:none;margin-top:10px;display:inline-block;}
+/* Contact */
+#contact a{color:#7b5cff;font-weight:500;text-decoration:none;margin:5px 10px;display:inline-block;transition:0.3s;}
+#contact a:hover{color:#00ffe0;}
 
-  #contact a{color:#7b5cff;font-weight:500;text-decoration:none;margin:5px 10px;display:inline-block;transition:0.3s;}
-  #contact a:hover{color:#c17eff;}
+/* Footer */
+footer{text-align:center;padding:20px;font-size:0.9rem;color:#ccc;background:#0a0d1a;margin-top:40px;}
 
-  footer{text-align:center;padding:20px;font-size:0.9rem;color:#555;background:#f0f0f5;}
+/* Waves */
+.wave{position:relative;width:100%;height:80px;}
+.wave svg{width:100%;height:100%;}
 
-  /* Waves */
-  .wave{position:relative;width:100%;height:80px;}
-  .wave svg{width:100%;height:100%;}
-
-  @media(max-width:768px){.projects{flex-direction:column;align-items:center;}header{padding:15px 20px;}}
+/* Responsive */
+@media(max-width:1024px){.projects-container{height:900px;}}
+@media(max-width:768px){
+  nav a{margin-left:15px;font-size:0.9rem;}
+  .projects-container{height:auto;}
+  .card{position:relative;top:0;left:0;transform:none;margin-bottom:20px;width:90%;}
+}
 </style>
 </head>
 <body>
@@ -84,7 +100,8 @@
 
 <section id="home">
   <h1>Hello, I'm Muhammad Abdullah</h1>
-  <p>Welcome! I showcase creative ideas and projects, sometimes using AI when needed to bring them to life. Simple, modern, and stylish design to highlight my work.</p>
+  <p>Welcome to my creative world! I showcase projects that mix coding, AI, and design to bring ideas to life.</p>
+  <p class="sub-text">Always learning, experimenting, and pushing boundaries to make web experiences unique and memorable.</p>
   <!-- floating circles -->
   <div class="circle" style="width:60px;height:60px;left:10%;animation-duration:25s;"></div>
   <div class="circle" style="width:100px;height:100px;left:80%;animation-duration:30s;"></div>
@@ -94,49 +111,53 @@
 
 <div class="wave">
   <svg viewBox="0 0 500 80" preserveAspectRatio="none">
-    <path d="M0,40 C150,80 350,0 500,40 L500,00 L0,0 Z" style="stroke:none;fill:#f5f5f5;"></path>
+    <path d="M0,40 C150,80 350,0 500,40 L500,00 L0,0 Z" style="stroke:none;fill:#0b0f1a;"></path>
   </svg>
 </div>
 
 <section id="about">
   <h2>About Me</h2>
-  <p>I’m a passionate HTML developer and creative thinker. I am 14 years old. I use AI for style and script to implement ideas and transform them into real digital projects. My goal is to share innovative concepts with clarity and style.</p>
+  <p>I'm a 14-year-old passionate developer and creative thinker from Pakistan. I love building interactive web apps and unique digital experiences. I experiment with AI, HTML, CSS, and JS to bring concepts to life. My goal is to share knowledge, inspire creativity, and continuously improve my skills while having fun with code. I enjoy problem-solving, learning new technologies, and designing projects that are visually appealing and functional. Beyond coding, I explore AI-generated designs, try new UI concepts, and constantly innovate to make web experiences engaging and memorable.</p>
 </section>
 
 <div class="wave">
   <svg viewBox="0 0 500 80" preserveAspectRatio="none">
-    <path d="M0,40 C150,0 350,80 500,40 L500,00 L0,0 Z" style="stroke:none;fill:#ffffff;"></path>
+    <path d="M0,40 C150,0 350,80 500,40 L500,00 L0,0 Z" style="stroke:none;fill:#0b0f1a;"></path>
   </svg>
 </div>
 
 <section id="projects">
   <h2>Projects</h2>
-  <div class="projects">
-    <div class="card">
+  <div class="projects-container">
+    <div class="card" style="--angle:349deg; top:20px; left:5%;">
       <h3>Symbol Cipher</h3>
-      <p>A creative cipher tool that lets you communicate using symbols, letters, and numbers. Messages are easy to write but tricky to decrypt without the key, perfect for secret communication and fun encoding. e.g. ewq534'3# </p>
+      <p>A creative cipher tool that lets you communicate using symbols, letters, and numbers. Perfect for secret communication and fun encoding.</p>
       <a href="qwertycode.html" target="_blank">Visit →</a>
     </div>
-   <div class="card">
-  <h3>Number Prefix Converter</h3>
-  <p>A fully functional tool to convert numbers with prefixes like Million, Billion, Quintillion into full numbers and back. Designed to make large number conversions simple, clean, and fast.</p>
-  <a href="prefixconverter.html" target="_target">Visit →</a>
-</div>
-   <div class="card">
-  <h3>Cipher 2.0</h3>
-  <p>Emoji-only, tough cipher. Letters map to inverse emojis, numbers use random extra emojis. Encode, decode, copy & clear — fully interactive!</p>
-  <a href="Cipher 2.0.html" target="_blank">Visit →</a>
-</div>
+    <div class="card" style="--angle:34deg; top:180px; left:30%;">
+      <h3>Number Prefix Converter</h3>
+      <p>Convert numbers with prefixes like Million, Billion, Quintillion into full numbers and back. Clean, fast, and easy to use.</p>
+      <a href="prefixconverter.html" target="_blank">Visit →</a>
+    </div>
+    <div class="card" style="--angle:356deg; top:50px; left:55%;">
+      <h3>Cipher 2.0</h3>
+      <p>Emoji-only, tough cipher. Letters map to inverse emojis, numbers use random extra emojis. Fully interactive encode/decode tool.</p>
+      <a href="Cipher 2.0.html" target="_blank">Visit →</a>
+    </div>
+    <div class="card" style="--angle:16deg; top:200px; left:80%;">
+      <h3>Upcoming Project</h3>
+      <p>Showcasing another creative idea with interactive elements. Great example of scattered, visually engaging cards.</p>
+      <a href="#" target="_blank">Visit →</a>
+    </div>
   </div>
 </section>
 
 <section id="contact">
   <h2>Contact</h2>
-  <p>Want to collaborate or discuss ideas? Reach out to me!</p>
+  <p>Want to collaborate, discuss projects, or just say hi? Reach out!</p>
   <div>
-<a href="mailto:muhammad4bdullah123@gmail.com">Email: muhammad4bdullah123@gmail.com</a> <br>
-<a href="https://www.instagram.com/itz._abdullah_.7?igsh=cDF3Y3d6ZXRjcHh3" target="_blank">Instagram</a>
-
+    <a href="mailto:muhammad4bdullah123@gmail.com">Email</a> <br>
+    <a href="https://www.instagram.com/itz._abdullah_.7?igsh=cDF3Y3d6ZXRjcHh3" target="_blank">Instagram</a>
   </div>
 </section>
 
@@ -145,9 +166,4 @@
 </footer>
 
 </body>
-
 </html>
-
-
-
-
