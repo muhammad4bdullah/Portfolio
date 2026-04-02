@@ -1,235 +1,173 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Color Analyzer Pro</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Abdullah | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
-body {
-  margin: 0;
-  background: #0f0f0f;
-  font-family: Arial;
-  color: white;
-  display: flex;
-  justify-content: center;
-  padding: 30px;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth;}
+body{background:#0b0f1a;color:#fff;overflow-x:hidden;}
+
+header{
+  width:100%;padding:20px 50px;display:flex;justify-content:space-between;align-items:center;
+  position:fixed;top:0;left:0;background:rgba(11,15,26,0.95);box-shadow:0 5px 20px rgba(0,0,0,0.4);
+  z-index:100;border-bottom-left-radius:15px;border-bottom-right-radius:15px;
+}
+.logo{font-weight:600;font-size:1.8rem;color:#7b5cff;}
+nav a{margin-left:30px;text-decoration:none;color:#fff;font-weight:500;transition:0.3s;}
+nav a:hover{color:#00ffe0;}
+
+section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 20px 50px 20px;position:relative;}
+
+/* Home section */
+#home{
+  position:relative;overflow:hidden;background:linear-gradient(135deg,#7b5cff,#00ffe0);
+  color:#fff;
+}
+#home h1{font-size:3rem;margin-bottom:20px;position:relative;z-index:1;text-shadow:0 0 10px #000;}
+#home p{font-size:1.2rem;max-width:700px;position:relative;z-index:1;text-shadow:0 0 5px #000;}
+#home .sub-text{font-size:1rem;margin-top:15px;color:#e0e0e0;text-shadow:0 0 5px #000;}
+
+/* Floating circles */
+.circle{
+  position:absolute;border-radius:50%;opacity:0.2;animation:float 25s linear infinite;
+  background: radial-gradient(circle at top left,#ff9fff,#7b5cff);
+}
+@keyframes float{
+  0%{transform:translateY(100vh) scale(0);}
+  50%{transform:translateY(50vh) scale(0.5);}
+  100%{transform:translateY(-20vh) scale(0);}
 }
 
-.container {
-  width: 420px;
-}
+/* About Section */
+#about h2{font-size:2rem;color:#7b5cff;margin-bottom:15px;}
+#about p{font-size:1.1rem;max-width:750px;color:#e0e0e0;line-height:1.7;text-align:center;}
 
-canvas {
-  display: none;
-}
+/* Projects Section */
+.projects-container{position:relative;width:100%;height:700px;display:block;margin-top:30px;}
 
-.upload {
-  background: #1c1c1c;
-  padding: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  text-align: center;
-  margin-bottom: 20px;
+.card{
+  position:absolute;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+  border-radius:20px;padding:25px;width:250px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+  transition: transform 0.4s, box-shadow 0.4s;
+  text-align:left;
+  transform: rotate(var(--angle)); /* keep rotation */
 }
-
-.preview {
-  width: 100%;
-  height: 120px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #333;
+.card:hover {
+  transform: rotate(var(--angle)) translateY(-10px) scale(1.05);
+  box-shadow: 0 20px 50px rgba(123,95,255,0.6), 0 0 15px rgba(123,95,255,0.4) inset;
 }
+.card h3{color:#00ffe0;margin-bottom:10px;text-shadow:0 0 8px #7b5cff;}
+.card p{color:#e0e0e0;font-size:0.95rem;margin-bottom:15px;}
+.card a{color:#7b5cff;font-weight:500;text-decoration:none;margin-top:10px;display:inline-block;transition:0.3s;}
+.card a:hover{color:#00ffe0;}
 
-.bar {
-  position: relative;
-  height: 18px;
-  border-radius: 10px;
-  margin: 14px 0;
-  overflow: hidden;
+/* Contact */
+#contact a{color:#7b5cff;font-weight:500;text-decoration:none;margin:5px 10px;display:inline-block;transition:0.3s;}
+#contact a:hover{color:#00ffe0;}
+
+/* Footer */
+footer{text-align:center;padding:20px;font-size:0.9rem;color:#ccc;background:#0a0d1a;margin-top:40px;}
+
+/* Waves */
+.wave{position:relative;width:100%;height:80px;}
+.wave svg{width:100%;height:100%;}
+
+/* Responsive */
+@media(max-width:1024px){.projects-container{height:900px;}}
+@media(max-width:768px){
+  nav a{margin-left:15px;font-size:0.9rem;}
+  .projects-container{height:auto;}
+  .card{position:relative;top:0;left:0;transform:none;margin-bottom:20px;width:90%;}
 }
-
-.knob {
-  position: absolute;
-  width: 6px;
-  height: 18px;
-  background: white;
-  top: 0;
-  transform: translateX(-50%);
-  transition: left 0.15s ease;
-  border-radius: 4px;
-}
-
-.label {
-  font-size: 12px;
-  margin-bottom: 4px;
-  opacity: 0.8;
-}
-
-.value {
-  font-size: 13px;
-  margin-bottom: 10px;
-  color: #aaa;
-}
-
-/* Hue gradient */
-#hueBar {
-  background: linear-gradient(
-    to right,
-    red, yellow, lime, cyan, blue, magenta, red
-  );
-}
-
-/* Saturation */
-#satBar {
-  background: linear-gradient(to right, gray, red);
-}
-
-/* Brightness */
-#lightBar {
-  background: linear-gradient(to right, black, white);
-}
-
-.result {
-  margin-top: 20px;
-  font-size: 14px;
-  color: #ccc;
-}
-
 </style>
 </head>
-
 <body>
 
-<div class="container">
+<header>
+  <div class="logo">Muhammad Abdullah</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-  <div class="upload">
-    <input type="file" id="file">
-  </div>
+<section id="home">
+  <h1>Hello, I'm Muhammad Abdullah</h1>
+  <p>Welcome to my creative world! I showcase projects that mix coding, AI, and design to bring ideas to life.</p>
+  <p class="sub-text">Always learning, experimenting, and pushing boundaries to make web experiences unique and memorable.</p>
+  <!-- floating circles -->
+  <div class="circle" style="width:60px;height:60px;left:10%;animation-duration:25s;"></div>
+  <div class="circle" style="width:100px;height:100px;left:80%;animation-duration:30s;"></div>
+  <div class="circle" style="width:40px;height:40px;left:50%;animation-duration:22s;"></div>
+  <div class="circle" style="width:80px;height:80px;left:30%;animation-duration:28s;"></div>
+</section>
 
-  <canvas id="canvas"></canvas>
-
-  <div class="preview" id="preview"></div>
-
-  <div class="label">Hue</div>
-  <div class="bar" id="hueBar">
-    <div class="knob" id="hueKnob"></div>
-  </div>
-  <div class="value" id="hueVal"></div>
-
-  <div class="label">Saturation</div>
-  <div class="bar" id="satBar">
-    <div class="knob" id="satKnob"></div>
-  </div>
-  <div class="value" id="satVal"></div>
-
-  <div class="label">Brightness</div>
-  <div class="bar" id="lightBar">
-    <div class="knob" id="lightKnob"></div>
-  </div>
-  <div class="value" id="lightVal"></div>
-
-  <div class="result" id="result"></div>
-
+<div class="wave">
+  <svg viewBox="0 0 500 80" preserveAspectRatio="none">
+    <path d="M0,40 C150,80 350,0 500,40 L500,00 L0,0 Z" style="stroke:none;fill:#0b0f1a;"></path>
+  </svg>
 </div>
 
-<script>
+<section id="about">
+  <h2>About Me</h2>
+  <p>I'm a 14-year-old passionate developer and creative thinker from Pakistan. I love building interactive web apps and unique digital experiences. I experiment with AI, HTML, CSS, and JS to bring concepts to life. My goal is to share knowledge, inspire creativity, and continuously improve my skills while having fun with code. I enjoy problem-solving, learning new technologies, and designing projects that are visually appealing and functional. Beyond coding, I explore AI-generated designs, try new UI concepts, and constantly innovate to make web experiences engaging and memorable.</p>
+</section>
 
-const fileInput = document.getElementById("file");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+<div class="wave">
+  <svg viewBox="0 0 500 80" preserveAspectRatio="none">
+    <path d="M0,40 C150,0 350,80 500,40 L500,00 L0,0 Z" style="stroke:none;fill:#0b0f1a;"></path>
+  </svg>
+</div>
 
-const preview = document.getElementById("preview");
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="projects-container">
+    <div class="card" style="--angle:349deg; top:20px; left:5%;">
+      <h3>Symbol Cipher</h3>
+      <p>A creative cipher tool that lets you communicate using symbols, letters, and numbers. Perfect for secret communication and fun encoding.</p>
+      <a href="https://muhammad4bdullah.github.io/Qwerty-cipher/" target="_blank">Visit →</a>
+    </div>
+    <div class="card" style="--angle:34deg; top:180px; left:30%;">
+      <h3>Number Prefix Converter</h3>
+      <p>Convert numbers with prefixes like Million, Billion, Quintillion into full numbers and back. Clean, fast, and easy to use.</p>
+      <a href="prefixconverter.html" target="_blank">Visit →</a>
+    </div>
+    <div class="card" style="--angle:356deg; top:50px; left:55%;">
+      <h3>Cipher 2.0</h3>
+      <p>Emoji-only, tough cipher. Letters map to inverse emojis, numbers use random extra emojis. Fully interactive encode/decode tool.</p>
+      <a href="Cipher 2.0.html" target="_blank">Visit →</a>
+    </div>
+    <div class="card" style="--angle:16deg; top:200px; left:80%;">
+      <h3>Guardian Lens Project</h3>
+      <p>
+        An interactive web project designed to showcase creative UI elements with a modern, visually engaging layout. 
+        Built to demonstrate smooth user experience, responsive design, and dynamic content presentation through scattered card-based components.
+      </p>
+        <a href="https://muhammad4bdullah.github.io/Guardian-lens/" target="_blank">Visit →</a>
+    </div>
+</section>
 
-fileInput.onchange = function(e) {
-  const file = e.target.files[0];
-  const img = new Image();
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Want to collaborate, discuss projects, or just say hi? Reach out!</p>
+  <div>
+    <a href="mailto:muhammad4bdullah123@gmail.com">Email</a> <br>
+    <a href="https://www.instagram.com/itz._abdullah_.7?igsh=cDF3Y3d6ZXRjcHh3" target="_blank">Instagram</a>
+  </div>
+</section>
 
-  img.onload = function() {
-    canvas.width = 200;
-    canvas.height = 200;
-    ctx.drawImage(img, 0, 0, 200, 200);
-
-    const data = ctx.getImageData(0, 0, 200, 200).data;
-
-    let totalH = 0, totalS = 0, totalL = 0;
-    let count = 0;
-
-    for (let i = 0; i < data.length; i += 4) {
-
-      let r = data[i] / 255;
-      let g = data[i + 1] / 255;
-      let b = data[i + 2] / 255;
-
-      let max = Math.max(r, g, b);
-      let min = Math.min(r, g, b);
-
-      let h, s, l;
-
-      l = (max + min) / 2;
-
-      if (max === min) {
-        h = s = 0;
-      } else {
-        let d = max - min;
-        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-
-        switch (max) {
-          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-          case g: h = (b - r) / d + 2; break;
-          case b: h = (r - g) / d + 4; break;
-        }
-
-        h *= 60;
-      }
-
-      // noise filter (IMPORTANT FIX)
-      if ((r + g + b) < 0.15) continue;
-      if ((r + g + b) > 2.8) continue;
-
-      totalH += h;
-      totalS += s * 100;
-      totalL += l * 100;
-
-      count++;
-    }
-
-    let H = totalH / count;
-    let S = totalS / count;
-    let L = totalL / count;
-
-    if (H < 0) H += 360;
-
-    updateUI(H, S, L, img.src);
-  }
-
-  img.src = URL.createObjectURL(file);
-};
-
-function updateUI(h, s, l, imgSrc) {
-
-  preview.style.backgroundImage = `url(${imgSrc})`;
-  preview.style.backgroundSize = "cover";
-
-  const huePercent = (h / 360) * 100;
-
-  document.getElementById("hueKnob").style.left = huePercent + "%";
-  document.getElementById("satKnob").style.left = s + "%";
-  document.getElementById("lightKnob").style.left = l + "%";
-
-  document.getElementById("hueVal").innerText =
-    `Hue: ${h.toFixed(1)}° (${huePercent.toFixed(1)}%)`;
-
-  document.getElementById("satVal").innerText =
-    `Saturation: ${s.toFixed(1)}%`;
-
-  document.getElementById("lightVal").innerText =
-    `Brightness: ${l.toFixed(1)}%`;
-
-  document.getElementById("result").innerHTML =
-    `HSL(${h.toFixed(1)}, ${s.toFixed(1)}%, ${l.toFixed(1)}%)`;
-}
-
-</script>
+<footer>
+  © 2025 Muhammad Abdullah | All Rights Reserved ⚡
+</footer>
 
 </body>
 </html>
+
