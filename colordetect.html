@@ -137,7 +137,7 @@ body {
 
 </div>
 
-<script>
+  <script>
 
 const fileInput = document.getElementById("file");
 const canvas = document.getElementById("canvas");
@@ -148,14 +148,24 @@ const preview = document.getElementById("preview");
 const hsbCanvas = document.getElementById('hsbCanvas');
 const hsbCtx = hsbCanvas.getContext('2d');
 
-const gradient = hsbCtx.createLinearGradient(0, 0, hsbCanvas.width, 0);
-
-for (let i = 0; i <= 360; i += 10) {
-  gradient.addColorStop(i/360, `hsl(${i},100%,50%)`);
+// 🔥 FIX: make canvas match real screen size
+function resizeHue() {
+  const rect = hsbCanvas.getBoundingClientRect();
+  hsbCanvas.width = rect.width;
+  hsbCanvas.height = rect.height;
+  drawHue();
 }
 
-hsbCtx.fillStyle = gradient;
-hsbCtx.fillRect(0, 0, hsbCanvas.width, hsbCanvas.height);
+function drawHue() {
+  const gradient = hsbCtx.createLinearGradient(0, 0, hsbCanvas.width, 0);
+
+  for (let i = 0; i <= 360; i += 2) {
+    gradient.addColorStop(i / 360, `hsl(${i},100%,50%)`);
+  }
+
+  hsbCtx.fillStyle = gradient;
+  hsbCtx.fillRect(0, 0, hsbCanvas.width, hsbCanvas.height);
+}
 
 // 📷 IMAGE ANALYSIS
 fileInput.onchange = function(e) {
@@ -198,7 +208,6 @@ fileInput.onchange = function(e) {
 
       h *= 60;
 
-      // better filtering
       if (s < 0.15 || l < 0.1 || l > 0.9) continue;
 
       let rad = h * Math.PI / 180;
@@ -230,13 +239,15 @@ function updateUI(h, s, l, imgSrc) {
   preview.style.backgroundImage = `url(${imgSrc})`;
   preview.style.backgroundSize = "cover";
 
+  const rect = hsbCanvas.getBoundingClientRect();
+
+  // 🔥 FIX: correct knob position
   document.getElementById("hueKnob").style.left =
-    (h / 360) * hsbCanvas.width + "px";
+    ((h / 360) * rect.width) + "px";
 
   document.getElementById("satKnob").style.left = s + "%";
   document.getElementById("lightKnob").style.left = l + "%";
 
-  // dynamic saturation color
   document.getElementById("satBar").style.background =
     `linear-gradient(to right, gray, hsl(${h},100%,50%))`;
 
@@ -247,6 +258,10 @@ function updateUI(h, s, l, imgSrc) {
   document.getElementById("result").innerHTML =
     `HSL(${h.toFixed(1)}, ${s.toFixed(1)}%, ${l.toFixed(1)}%)`;
 }
+
+// init
+window.addEventListener("resize", resizeHue);
+resizeHue();
 
 </script>
 
