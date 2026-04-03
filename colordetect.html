@@ -1,3 +1,5 @@
+i sadi whole hml file nga updated
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +17,7 @@ body {
   padding: 40px;
 }
 
+/* GLASS CARD */
 .container {
   width: 420px;
   padding: 20px;
@@ -85,6 +88,15 @@ body {
   border-radius: 10px;
   margin-bottom: 10px;
 }
+
+.result {
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+}
 </style>
 </head>
 
@@ -103,7 +115,7 @@ body {
   <!-- HUE -->
   <div class="label">Hue</div>
   <div style="position:relative;">
-    <canvas id="hsbCanvas"></canvas>
+    <canvas id="hsbCanvas" width="360" height="30"></canvas>
     <div class="knob" id="hueKnob"></div>
   </div>
   <div class="value" id="hueVal"></div>
@@ -122,7 +134,7 @@ body {
   </div>
   <div class="value" id="lightVal"></div>
 
-  <div class="result" id="result"></div>
+  <div class="result" id="result">Upload image</div>
 
 </div>
 
@@ -131,65 +143,22 @@ body {
 const fileInput = document.getElementById("file");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-
 const preview = document.getElementById("preview");
 
-// HUE CANVAS
+// 🎨 HUE CANVAS
 const hsbCanvas = document.getElementById('hsbCanvas');
 const hsbCtx = hsbCanvas.getContext('2d');
-const hueKnob = document.getElementById("hueKnob");
 
-let dragging = false;
+const gradient = hsbCtx.createLinearGradient(0, 0, hsbCanvas.width, 0);
 
-// FIX: proper canvas resize
-function drawHue() {
-  const rect = hsbCanvas.getBoundingClientRect();
-  hsbCanvas.width = rect.width;
-  hsbCanvas.height = rect.height;
-
-  const gradient = hsbCtx.createLinearGradient(0, 0, hsbCanvas.width, 0);
-
-  for (let i = 0; i <= 360; i += 5) {
-    gradient.addColorStop(i / 360, `hsl(${i},100%,50%)`);
-  }
-
-  hsbCtx.fillStyle = gradient;
-  hsbCtx.fillRect(0, 0, hsbCanvas.width, hsbCanvas.height);
+for (let i = 0; i <= 360; i += 10) {
+  gradient.addColorStop(i/360, `hsl(${i},100%,50%)`);
 }
 
-function getHue(x) {
-  return (x / hsbCanvas.width) * 360;
-}
+hsbCtx.fillStyle = gradient;
+hsbCtx.fillRect(0, 0, hsbCanvas.width, hsbCanvas.height);
 
-function updateHue(e) {
-  const rect = hsbCanvas.getBoundingClientRect();
-  let x = e.clientX - rect.left;
-
-  x = Math.max(0, Math.min(x, hsbCanvas.width));
-
-  const h = getHue(x);
-
-  hueKnob.style.left = x + "px";
-
-  // update only hue color effect if needed
-  document.getElementById("satBar").style.background =
-    `linear-gradient(to right, gray, hsl(${h},100%,50%))`;
-}
-
-// drag support
-hsbCanvas.addEventListener("mousedown", (e) => {
-  dragging = true;
-  updateHue(e);
-});
-
-window.addEventListener("mousemove", (e) => {
-  if (!dragging) return;
-  updateHue(e);
-});
-
-window.addEventListener("mouseup", () => dragging = false);
-
-// IMAGE ANALYSIS (UNCHANGED LOGIC)
+// 📷 IMAGE ANALYSIS
 fileInput.onchange = function(e) {
   const file = e.target.files[0];
   const img = new Image();
@@ -214,12 +183,12 @@ fileInput.onchange = function(e) {
       let max = Math.max(r, g, b);
       let min = Math.min(r, g, b);
 
+      let h, s, l;
+      l = (max + min) / 2;
+
       if (max === min) continue;
 
       let d = max - min;
-
-      let h, s, l;
-      l = (max + min) / 2;
       s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
 
       switch (max) {
@@ -230,6 +199,7 @@ fileInput.onchange = function(e) {
 
       h *= 60;
 
+      // better filtering
       if (s < 0.15 || l < 0.1 || l > 0.9) continue;
 
       let rad = h * Math.PI / 180;
@@ -255,28 +225,29 @@ fileInput.onchange = function(e) {
   img.src = URL.createObjectURL(file);
 };
 
-// UI UPDATE
+// 🎯 UI UPDATE
 function updateUI(h, s, l, imgSrc) {
 
   preview.style.backgroundImage = `url(${imgSrc})`;
   preview.style.backgroundSize = "cover";
 
-  hueKnob.style.left = (h / 360) * hsbCanvas.width + "px";
+  document.getElementById("hueKnob").style.left =
+    (h / 360) * hsbCanvas.width + "px";
 
   document.getElementById("satKnob").style.left = s + "%";
   document.getElementById("lightKnob").style.left = l + "%";
+
+  // dynamic saturation color
+  document.getElementById("satBar").style.background =
+    `linear-gradient(to right, gray, hsl(${h},100%,50%))`;
 
   document.getElementById("hueVal").innerText = `Hue: ${h.toFixed(1)}°`;
   document.getElementById("satVal").innerText = `Saturation: ${s.toFixed(1)}%`;
   document.getElementById("lightVal").innerText = `Brightness: ${l.toFixed(1)}%`;
 
-  document.getElementById("result").innerText =
+  document.getElementById("result").innerHTML =
     `HSL(${h.toFixed(1)}, ${s.toFixed(1)}%, ${l.toFixed(1)}%)`;
 }
-
-// INIT
-window.addEventListener("resize", drawHue);
-drawHue();
 
 </script>
 
