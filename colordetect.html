@@ -7,94 +7,94 @@
 <style>
 body {
   margin: 0;
-  background: #0f0f0f;
-  font-family: Arial;
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+  font-family: 'Segoe UI', sans-serif;
   color: white;
   display: flex;
   justify-content: center;
-  padding: 30px;
+  padding: 40px;
 }
 
+/* GLASS CARD */
 .container {
   width: 420px;
-}
-
-canvas {
-  display: none;
+  padding: 20px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 30px rgba(0,0,0,0.6);
 }
 
 .upload {
-  background: #1c1c1c;
-  padding: 10px;
-  border-radius: 10px;
-  cursor: pointer;
+  background: rgba(255,255,255,0.08);
+  padding: 12px;
+  border-radius: 12px;
   text-align: center;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 
 .preview {
   width: 100%;
-  height: 120px;
-  border-radius: 10px;
-  margin-bottom: 15px;
+  height: 130px;
+  border-radius: 12px;
+  margin-bottom: 20px;
   border: 1px solid #333;
+}
+
+.label {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 10px;
+}
+
+.value {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 10px;
 }
 
 .bar {
   position: relative;
-  height: 18px;
+  height: 16px;
   border-radius: 10px;
-  margin: 14px 0;
   overflow: hidden;
 }
 
 .knob {
   position: absolute;
   width: 6px;
-  height: 18px;
+  height: 30px;
   background: white;
-  top: 0;
+  top: -7px;
   transform: translateX(-50%);
-  transition: left 0.15s ease;
   border-radius: 4px;
+  box-shadow: 0 0 10px white;
 }
 
-.label {
-  font-size: 12px;
-  margin-bottom: 4px;
-  opacity: 0.8;
-}
-
-.value {
-  font-size: 13px;
-  margin-bottom: 10px;
-  color: #aaa;
-}
-
-/* Hue gradient */
-#hueBar {
-  background: linear-gradient(
-    to right,
-    red, yellow, lime, cyan, blue, magenta, red
-  );
-}
-
-/* Saturation */
 #satBar {
   background: linear-gradient(to right, gray, red);
 }
 
-/* Brightness */
 #lightBar {
   background: linear-gradient(to right, black, white);
 }
 
-.result {
-  margin-top: 20px;
-  font-size: 14px;
-  color: #ccc;
+#hsbCanvas {
+  width: 100%;
+  height: 30px;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
+.result {
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+}
 </style>
 </head>
 
@@ -106,29 +106,33 @@ canvas {
     <input type="file" id="file">
   </div>
 
-  <canvas id="canvas"></canvas>
+  <canvas id="canvas" style="display:none;"></canvas>
 
   <div class="preview" id="preview"></div>
 
+  <!-- HUE -->
   <div class="label">Hue</div>
-  <div class="bar" id="hueBar">
+  <div style="position:relative;">
+    <canvas id="hsbCanvas" width="360" height="30"></canvas>
     <div class="knob" id="hueKnob"></div>
   </div>
   <div class="value" id="hueVal"></div>
 
+  <!-- SAT -->
   <div class="label">Saturation</div>
   <div class="bar" id="satBar">
     <div class="knob" id="satKnob"></div>
   </div>
   <div class="value" id="satVal"></div>
 
+  <!-- LIGHT -->
   <div class="label">Brightness</div>
   <div class="bar" id="lightBar">
     <div class="knob" id="lightKnob"></div>
   </div>
   <div class="value" id="lightVal"></div>
 
-  <div class="result" id="result"></div>
+  <div class="result" id="result">Upload image</div>
 
 </div>
 
@@ -137,9 +141,22 @@ canvas {
 const fileInput = document.getElementById("file");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-
 const preview = document.getElementById("preview");
 
+// 🎨 HUE CANVAS
+const hsbCanvas = document.getElementById('hsbCanvas');
+const hsbCtx = hsbCanvas.getContext('2d');
+
+const gradient = hsbCtx.createLinearGradient(0, 0, hsbCanvas.width, 0);
+
+for (let i = 0; i <= 360; i += 10) {
+  gradient.addColorStop(i/360, `hsl(${i},100%,50%)`);
+}
+
+hsbCtx.fillStyle = gradient;
+hsbCtx.fillRect(0, 0, hsbCanvas.width, hsbCanvas.height);
+
+// 📷 IMAGE ANALYSIS
 fileInput.onchange = function(e) {
   const file = e.target.files[0];
   const img = new Image();
@@ -151,7 +168,8 @@ fileInput.onchange = function(e) {
 
     const data = ctx.getImageData(0, 0, 200, 200).data;
 
-    let totalH = 0, totalS = 0, totalL = 0;
+    let sumX = 0, sumY = 0;
+    let totalS = 0, totalL = 0;
     let count = 0;
 
     for (let i = 0; i < data.length; i += 4) {
@@ -164,40 +182,40 @@ fileInput.onchange = function(e) {
       let min = Math.min(r, g, b);
 
       let h, s, l;
-
       l = (max + min) / 2;
 
-      if (max === min) {
-        h = s = 0;
-      } else {
-        let d = max - min;
-        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      if (max === min) continue;
 
-        switch (max) {
-          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-          case g: h = (b - r) / d + 2; break;
-          case b: h = (r - g) / d + 4; break;
-        }
+      let d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
 
-        h *= 60;
+      switch (max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
       }
 
-      // noise filter (IMPORTANT FIX)
-      if ((r + g + b) < 0.15) continue;
-      if ((r + g + b) > 2.8) continue;
+      h *= 60;
 
-      totalH += h;
+      // better filtering
+      if (s < 0.15 || l < 0.1 || l > 0.9) continue;
+
+      let rad = h * Math.PI / 180;
+      sumX += Math.cos(rad);
+      sumY += Math.sin(rad);
+
       totalS += s * 100;
       totalL += l * 100;
 
       count++;
     }
 
-    let H = totalH / count;
+    let avgRad = Math.atan2(sumY/count, sumX/count);
+    let H = avgRad * 180 / Math.PI;
+    if (H < 0) H += 360;
+
     let S = totalS / count;
     let L = totalL / count;
-
-    if (H < 0) H += 360;
 
     updateUI(H, S, L, img.src);
   }
@@ -205,25 +223,25 @@ fileInput.onchange = function(e) {
   img.src = URL.createObjectURL(file);
 };
 
+// 🎯 UI UPDATE
 function updateUI(h, s, l, imgSrc) {
 
   preview.style.backgroundImage = `url(${imgSrc})`;
   preview.style.backgroundSize = "cover";
 
-  const huePercent = (h / 360) * 100;
+  document.getElementById("hueKnob").style.left =
+    (h / 360) * hsbCanvas.width + "px";
 
-  document.getElementById("hueKnob").style.left = huePercent + "%";
   document.getElementById("satKnob").style.left = s + "%";
   document.getElementById("lightKnob").style.left = l + "%";
 
-  document.getElementById("hueVal").innerText =
-    `Hue: ${h.toFixed(1)}° (${huePercent.toFixed(1)}%)`;
+  // dynamic saturation color
+  document.getElementById("satBar").style.background =
+    `linear-gradient(to right, gray, hsl(${h},100%,50%))`;
 
-  document.getElementById("satVal").innerText =
-    `Saturation: ${s.toFixed(1)}%`;
-
-  document.getElementById("lightVal").innerText =
-    `Brightness: ${l.toFixed(1)}%`;
+  document.getElementById("hueVal").innerText = `Hue: ${h.toFixed(1)}°`;
+  document.getElementById("satVal").innerText = `Saturation: ${s.toFixed(1)}%`;
+  document.getElementById("lightVal").innerText = `Brightness: ${l.toFixed(1)}%`;
 
   document.getElementById("result").innerHTML =
     `HSL(${h.toFixed(1)}, ${s.toFixed(1)}%, ${l.toFixed(1)}%)`;
