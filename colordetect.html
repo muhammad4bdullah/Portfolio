@@ -18,6 +18,8 @@
   --text: #ffffff;
   --muted: rgba(255,255,255,0.58);
   --accent: #8b5cf6;
+  --success: #22c55e;
+  --danger: #ef4444;
 }
 
 body {
@@ -28,8 +30,16 @@ body {
   color: var(--text);
 
   background:
-    radial-gradient(circle at 20% 10%, rgba(139,92,246,0.18), transparent 28%),
-    radial-gradient(circle at 85% 80%, rgba(59,130,246,0.12), transparent 30%),
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(139,92,246,0.18),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(59,130,246,0.12),
+      transparent 30%
+    ),
     linear-gradient(135deg, #050507, #101014);
 
   display: flex;
@@ -72,7 +82,12 @@ body {
   font-size: clamp(32px, 6vw, 52px);
   letter-spacing: -2px;
 
-  background: linear-gradient(90deg, #ffffff, #c4b5fd);
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #c4b5fd
+  );
+
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -80,6 +95,7 @@ body {
 .header p {
   max-width: 590px;
   margin: 12px auto 0;
+
   color: var(--muted);
   line-height: 1.6;
   font-size: 15px;
@@ -95,6 +111,7 @@ body {
   border-radius: 26px;
 
   background: var(--card);
+
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 
@@ -103,7 +120,7 @@ body {
     inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
-/* INSTRUCTION */
+/* INSTRUCTIONS */
 
 .instructions {
   display: flex;
@@ -129,12 +146,14 @@ body {
   border-radius: 12px;
 
   background: rgba(139,92,246,0.15);
+
   font-size: 19px;
 }
 
 .instructions strong {
   display: block;
   margin-bottom: 5px;
+
   font-size: 14px;
 }
 
@@ -150,11 +169,13 @@ body {
   position: relative;
 
   padding: 28px 20px;
+
   border-radius: 19px;
 
   text-align: center;
 
   border: 1px dashed rgba(255,255,255,0.2);
+
   background: rgba(255,255,255,0.035);
 
   cursor: pointer;
@@ -167,8 +188,18 @@ body {
 
 .upload:hover {
   transform: translateY(-2px);
-  border-color: rgba(139,92,246,0.6);
-  background: rgba(139,92,246,0.06);
+
+  border-color:
+    rgba(139,92,246,0.6);
+
+  background:
+    rgba(139,92,246,0.06);
+}
+
+.upload.dragging {
+  border-color: #a78bfa;
+  background: rgba(139,92,246,0.12);
+  transform: scale(1.01);
 }
 
 .upload-icon {
@@ -183,18 +214,22 @@ body {
 
 .upload-subtitle {
   margin-top: 5px;
+
   font-size: 12px;
+
   color: var(--muted);
 }
 
 #file {
   position: absolute;
+
   inset: 0;
 
   width: 100%;
   height: 100%;
 
   opacity: 0;
+
   cursor: pointer;
 }
 
@@ -207,7 +242,9 @@ body {
 .section-title {
   font-size: 13px;
   color: var(--muted);
+
   margin-bottom: 9px;
+
   font-weight: 600;
 }
 
@@ -220,15 +257,37 @@ body {
   border: 1px solid rgba(255,255,255,0.1);
 
   background:
-    linear-gradient(45deg, #16161a 25%, transparent 25%),
-    linear-gradient(-45deg, #16161a 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #16161a 75%),
-    linear-gradient(-45deg, transparent 75%, #16161a 75%);
+    linear-gradient(
+      45deg,
+      #16161a 25%,
+      transparent 25%
+    ),
+    linear-gradient(
+      -45deg,
+      #16161a 25%,
+      transparent 25%
+    ),
+    linear-gradient(
+      45deg,
+      transparent 75%,
+      #16161a 75%
+    ),
+    linear-gradient(
+      -45deg,
+      transparent 75%,
+      #16161a 75%
+    );
 
   background-size: 28px 28px;
-  background-position: 0 0, 0 14px, 14px -14px, -14px 0;
+
+  background-position:
+    0 0,
+    0 14px,
+    14px -14px,
+    -14px 0;
 
   overflow: hidden;
+
   position: relative;
 }
 
@@ -236,12 +295,15 @@ body {
   content: "No image selected";
 
   position: absolute;
+
   inset: 0;
 
   display: grid;
+
   place-items: center;
 
   color: rgba(255,255,255,0.35);
+
   font-size: 14px;
 
   pointer-events: none;
@@ -254,8 +316,61 @@ body {
 .preview img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+
+  object-fit: contain;
+
   display: block;
+}
+
+/* STATUS */
+
+.status {
+  display: none;
+
+  margin-top: 18px;
+
+  padding: 14px 16px;
+
+  border-radius: 15px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+.status.show {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 10px;
+}
+
+.status.success {
+  background: rgba(34,197,94,0.08);
+
+  border:
+    1px solid rgba(34,197,94,0.2);
+
+  color: #86efac;
+}
+
+.status.warning {
+  background: rgba(245,158,11,0.08);
+
+  border:
+    1px solid rgba(245,158,11,0.2);
+
+  color: #fcd34d;
+}
+
+.status.error {
+  background: rgba(239,68,68,0.08);
+
+  border:
+    1px solid rgba(239,68,68,0.2);
+
+  color: #fca5a5;
 }
 
 /* ANALYSIS */
@@ -270,7 +385,9 @@ body {
 
 .metric-header {
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
 
   margin-bottom: 8px;
@@ -319,7 +436,8 @@ body {
     0 0 0 2px rgba(0,0,0,0.5),
     0 0 14px rgba(255,255,255,0.9);
 
-  transition: left 0.25s ease;
+  transition:
+    left 0.25s ease;
 }
 
 /* BARS */
@@ -341,27 +459,13 @@ body {
   content: "";
 
   position: absolute;
+
   inset: 0;
 
-  border: 1px solid rgba(255,255,255,0.12);
+  border:
+    1px solid rgba(255,255,255,0.12);
+
   border-radius: inherit;
-}
-
-#satBar {
-  background: linear-gradient(
-    90deg,
-    #777,
-    #ff0000
-  );
-}
-
-#lightBar {
-  background: linear-gradient(
-    90deg,
-    #000,
-    #777,
-    #fff
-  );
 }
 
 .bar .marker {
@@ -386,20 +490,28 @@ body {
       rgba(59,130,246,0.08)
     );
 
-  border: 1px solid rgba(139,92,246,0.2);
+  border:
+    1px solid rgba(139,92,246,0.2);
 }
 
 .result-label {
   font-size: 11px;
+
   text-transform: uppercase;
+
   letter-spacing: 1.5px;
+
   color: var(--muted);
+
   margin-bottom: 8px;
 }
 
 .result-value {
-  font-size: clamp(21px, 5vw, 30px);
+  font-size:
+    clamp(21px, 5vw, 30px);
+
   font-weight: 800;
+
   letter-spacing: -0.5px;
 }
 
@@ -413,20 +525,72 @@ body {
 
   border-radius: 20px;
 
-  border: 2px solid rgba(255,255,255,0.2);
+  border:
+    2px solid rgba(255,255,255,0.2);
+
+  background: transparent;
 
   box-shadow:
     0 10px 30px rgba(0,0,0,0.35);
 
-  transition: background 0.3s ease;
+  transition:
+    background 0.3s ease;
+}
+
+/* EXTRA VALUES */
+
+.color-details {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 9px;
+
+  margin-top: 18px;
+}
+
+.detail {
+  padding: 11px;
+
+  border-radius: 13px;
+
+  background:
+    rgba(255,255,255,0.045);
+
+  border:
+    1px solid rgba(255,255,255,0.07);
+}
+
+.detail-label {
+  display: block;
+
+  font-size: 10px;
+
+  color: var(--muted);
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.8px;
+
+  margin-bottom: 4px;
+}
+
+.detail-value {
+  font-size: 13px;
+
+  font-weight: 700;
 }
 
 /* FOOTER */
 
 .footer {
   text-align: center;
+
   color: rgba(255,255,255,0.3);
+
   font-size: 11px;
+
   margin-top: 20px;
 }
 
@@ -440,6 +604,7 @@ body {
 
   .container {
     padding: 17px;
+
     border-radius: 21px;
   }
 
@@ -449,6 +614,10 @@ body {
 
   .instructions {
     padding: 13px;
+  }
+
+  .color-details {
+    grid-template-columns: 1fr;
   }
 }
 </style>
@@ -467,8 +636,8 @@ body {
     <h1>Color Analyzer Pro</h1>
 
     <p>
-      Upload a photo and instantly discover its dominant visual
-      color characteristics using HSL color analysis.
+      Upload a photo containing one main color and
+      instantly analyze its HSB characteristics.
     </p>
 
   </header>
@@ -485,17 +654,36 @@ body {
       </div>
 
       <div>
-        <strong>How does it work?</strong>
+
+        <strong>
+          How does it work?
+        </strong>
 
         <span>
-          Upload a clear photo with noticeable colors.
-          The analyzer samples the image, calculates the
-          average hue, saturation, and brightness, then
-          displays the result below.
+
+          Upload a clear photo containing
+          <b>one main color</b>.
+
+          The analyzer samples the pixels and
+          checks whether they belong to one
+          consistent color group.
+
           <br><br>
-          <b>Best results:</b> landscapes, artwork, objects,
-          clothing, rooms, food, or colorful photos.
-          Avoid completely black, white, or extremely dark images.
+
+          <b>Best photos:</b>
+          a blue shirt, red object, green wall,
+          colored paper, paint, flowers, or another
+          object with one dominant color.
+
+          <br><br>
+
+          <b>Important:</b>
+          Avoid photos containing lots of
+          different colors. The analyzer will
+          reject highly multicolored photos
+          instead of creating a color that
+          doesn't actually exist.
+
         </span>
 
       </div>
@@ -505,7 +693,10 @@ body {
 
     <!-- UPLOAD -->
 
-    <label class="upload">
+    <label
+      class="upload"
+      id="uploadArea"
+    >
 
       <input
         type="file"
@@ -542,6 +733,14 @@ body {
       ></div>
 
     </div>
+
+
+    <!-- STATUS -->
+
+    <div
+      class="status"
+      id="status"
+    ></div>
 
 
     <!-- ANALYSIS -->
@@ -631,7 +830,7 @@ body {
 
           <span
             class="metric-value"
-            id="lightVal"
+            id="brightVal"
           >
             —
           </span>
@@ -640,12 +839,12 @@ body {
 
         <div
           class="bar"
-          id="lightBar"
+          id="brightBar"
         >
 
           <div
             class="marker"
-            id="lightMarker"
+            id="brightMarker"
             style="left:0%"
           ></div>
 
@@ -676,6 +875,58 @@ body {
         id="swatch"
       ></div>
 
+
+      <!-- COLOR DETAILS -->
+
+      <div class="color-details">
+
+        <div class="detail">
+
+          <span class="detail-label">
+            HEX
+          </span>
+
+          <span
+            class="detail-value"
+            id="hexValue"
+          >
+            —
+          </span>
+
+        </div>
+
+        <div class="detail">
+
+          <span class="detail-label">
+            RGB
+          </span>
+
+          <span
+            class="detail-value"
+            id="rgbValue"
+          >
+            —
+          </span>
+
+        </div>
+
+        <div class="detail">
+
+          <span class="detail-label">
+            HSB
+          </span>
+
+          <span
+            class="detail-value"
+            id="hsbValue"
+          >
+            —
+          </span>
+
+        </div>
+
+      </div>
+
     </div>
 
   </main>
@@ -696,44 +947,105 @@ body {
 
 <script>
 
-const fileInput = document.getElementById("file");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+/* ==========================================
+   ELEMENTS
+========================================== */
 
-const preview = document.getElementById("preview");
+const fileInput =
+  document.getElementById("file");
 
-const hueCanvas = document.getElementById("hueCanvas");
-const hueCtx = hueCanvas.getContext("2d");
+const canvas =
+  document.getElementById("canvas");
 
-const hueMarker = document.getElementById("hueMarker");
-const satMarker = document.getElementById("satMarker");
-const lightMarker = document.getElementById("lightMarker");
+const ctx =
+  canvas.getContext("2d", {
+    willReadFrequently: true
+  });
 
-const hueVal = document.getElementById("hueVal");
-const satVal = document.getElementById("satVal");
-const lightVal = document.getElementById("lightVal");
+const preview =
+  document.getElementById("preview");
 
-const result = document.getElementById("result");
-const swatch = document.getElementById("swatch");
+const uploadArea =
+  document.getElementById("uploadArea");
+
+const hueCanvas =
+  document.getElementById("hueCanvas");
+
+const hueCtx =
+  hueCanvas.getContext("2d");
+
+const hueMarker =
+  document.getElementById("hueMarker");
+
+const satMarker =
+  document.getElementById("satMarker");
+
+const brightMarker =
+  document.getElementById("brightMarker");
+
+const hueVal =
+  document.getElementById("hueVal");
+
+const satVal =
+  document.getElementById("satVal");
+
+const brightVal =
+  document.getElementById("brightVal");
+
+const result =
+  document.getElementById("result");
+
+const swatch =
+  document.getElementById("swatch");
+
+const statusBox =
+  document.getElementById("status");
+
+const hexValue =
+  document.getElementById("hexValue");
+
+const rgbValue =
+  document.getElementById("rgbValue");
+
+const hsbValue =
+  document.getElementById("hsbValue");
+
+let currentObjectURL = null;
 
 
-/* ------------------------------
-   HUE GRADIENT
------------------------------- */
+/* ==========================================
+   DRAW HUE BAR
+========================================== */
 
 function drawHue() {
 
-  const width = hueCanvas.clientWidth;
-  const height = hueCanvas.clientHeight;
+  const width =
+    hueCanvas.clientWidth;
 
-  if (!width || !height) return;
+  const height =
+    hueCanvas.clientHeight;
 
-  const dpr = window.devicePixelRatio || 1;
+  if (!width || !height) {
+    return;
+  }
 
-  hueCanvas.width = width * dpr;
-  hueCanvas.height = height * dpr;
+  const dpr =
+    window.devicePixelRatio || 1;
 
-  hueCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  hueCanvas.width =
+    width * dpr;
+
+  hueCanvas.height =
+    height * dpr;
+
+  hueCtx.setTransform(
+    dpr,
+    0,
+    0,
+    dpr,
+    0,
+    0
+  );
 
   const gradient =
     hueCtx.createLinearGradient(
@@ -743,7 +1055,11 @@ function drawHue() {
       0
     );
 
-  for (let i = 0; i <= 360; i += 10) {
+  for (
+    let i = 0;
+    i <= 360;
+    i += 10
+  ) {
 
     gradient.addColorStop(
       i / 360,
@@ -752,7 +1068,8 @@ function drawHue() {
 
   }
 
-  hueCtx.fillStyle = gradient;
+  hueCtx.fillStyle =
+    gradient;
 
   hueCtx.fillRect(
     0,
@@ -760,125 +1077,333 @@ function drawHue() {
     width,
     height
   );
+
 }
 
 
-/* ------------------------------
-   HSL CONVERSION
------------------------------- */
+/* ==========================================
+   RGB → HSB
+========================================== */
 
-function rgbToHsl(r, g, b) {
+function rgbToHsb(r, g, b) {
 
   r /= 255;
   g /= 255;
   b /= 255;
 
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
+  const max =
+    Math.max(r, g, b);
+
+  const min =
+    Math.min(r, g, b);
+
+  const difference =
+    max - min;
 
   let h = 0;
-  let s = 0;
 
-  const l = (max + min) / 2;
+  let s =
+    max === 0
+      ? 0
+      : difference / max;
 
-  if (max !== min) {
+  const v = max;
 
-    const d = max - min;
 
-    s = l > 0.5
-      ? d / (2 - max - min)
-      : d / (max + min);
+  if (difference !== 0) {
 
-    switch (max) {
+    if (max === r) {
 
-      case r:
-        h = (g - b) / d + (g < b ? 6 : 0);
-        break;
+      h =
+        ((g - b) / difference) % 6;
 
-      case g:
-        h = (b - r) / d + 2;
-        break;
+    }
+    else if (max === g) {
 
-      case b:
-        h = (r - g) / d + 4;
-        break;
+      h =
+        (b - r) / difference + 2;
+
+    }
+    else {
+
+      h =
+        (r - g) / difference + 4;
 
     }
 
     h *= 60;
 
+    if (h < 0) {
+      h += 360;
+    }
+
   }
 
+
   return {
-    h,
+    h: h,
     s: s * 100,
-    l: l * 100
+    b: v * 100
   };
 
 }
 
 
-/* ------------------------------
-   IMAGE ANALYSIS
------------------------------- */
+/* ==========================================
+   HSB → RGB
+========================================== */
 
-fileInput.addEventListener("change", function(event) {
+function hsbToRgb(h, s, b) {
 
-  const file = event.target.files[0];
+  s /= 100;
+  b /= 100;
 
-  if (!file) return;
+  const c =
+    b * s;
+
+  const x =
+    c *
+    (1 -
+      Math.abs(
+        ((h / 60) % 2) - 1
+      )
+    );
+
+  const m =
+    b - c;
+
+  let r = 0;
+  let g = 0;
+  let blue = 0;
+
+
+  if (h < 60) {
+
+    r = c;
+    g = x;
+
+  }
+  else if (h < 120) {
+
+    r = x;
+    g = c;
+
+  }
+  else if (h < 180) {
+
+    g = c;
+    blue = x;
+
+  }
+  else if (h < 240) {
+
+    g = x;
+    blue = c;
+
+  }
+  else if (h < 300) {
+
+    r = x;
+    blue = c;
+
+  }
+  else {
+
+    r = c;
+    blue = x;
+
+  }
+
+
+  return {
+    r: Math.round((r + m) * 255),
+    g: Math.round((g + m) * 255),
+    b: Math.round((blue + m) * 255)
+  };
+
+}
+
+
+/* ==========================================
+   RGB → HEX
+========================================== */
+
+function rgbToHex(r, g, b) {
+
+  return "#" +
+    [r, g, b]
+      .map(value =>
+        value
+          .toString(16)
+          .padStart(2, "0")
+      )
+      .join("")
+      .toUpperCase();
+
+}
+
+
+/* ==========================================
+   STATUS
+========================================== */
+
+function showStatus(
+  message,
+  type
+) {
+
+  statusBox.textContent =
+    message;
+
+  statusBox.className =
+    `status show ${type}`;
+
+}
+
+
+/* ==========================================
+   RESET RESULTS
+========================================== */
+
+function resetResults() {
+
+  hueVal.textContent = "—";
+  satVal.textContent = "—";
+  brightVal.textContent = "—";
+
+  hueMarker.style.left = "0%";
+  satMarker.style.left = "0%";
+  brightMarker.style.left = "0%";
+
+  result.textContent =
+    "Upload an image";
+
+  swatch.style.background =
+    "transparent";
+
+  hexValue.textContent = "—";
+  rgbValue.textContent = "—";
+  hsbValue.textContent = "—";
+
+}
+
+
+/* ==========================================
+   ANALYZE IMAGE
+========================================== */
+
+function analyzeImage(file) {
+
+  if (!file) {
+    return;
+  }
 
   if (!file.type.startsWith("image/")) {
 
-    alert("Please choose an image file.");
+    showStatus(
+      "Please choose a valid image file.",
+      "error"
+    );
 
     return;
 
   }
 
-  const img = new Image();
+
+  if (currentObjectURL) {
+
+    URL.revokeObjectURL(
+      currentObjectURL
+    );
+
+  }
+
+
+  currentObjectURL =
+    URL.createObjectURL(file);
+
+
+  const img =
+    new Image();
+
 
   img.onload = function() {
 
-    /* Preview */
+    /* ------------------------------
+       PREVIEW
+    ------------------------------ */
 
     preview.innerHTML = "";
 
     const previewImage =
       document.createElement("img");
 
-    previewImage.src = img.src;
+    previewImage.src =
+      currentObjectURL;
 
-    preview.appendChild(previewImage);
+    previewImage.alt =
+      "Uploaded image";
 
-    preview.classList.add("has-image");
+    preview.appendChild(
+      previewImage
+    );
+
+    preview.classList.add(
+      "has-image"
+    );
 
 
-    /* Analysis resolution */
+    /* ------------------------------
+       KEEP ORIGINAL ASPECT RATIO
+    ------------------------------ */
 
-    const size = 250;
+    const maxSize = 300;
 
-    canvas.width = size;
-    canvas.height = size;
+    const scale =
+      Math.min(
+        maxSize / img.width,
+        maxSize / img.height,
+        1
+      );
+
+    const width =
+      Math.max(
+        1,
+        Math.round(
+          img.width * scale
+        )
+      );
+
+    const height =
+      Math.max(
+        1,
+        Math.round(
+          img.height * scale
+        )
+      );
+
+
+    canvas.width =
+      width;
+
+    canvas.height =
+      height;
+
 
     ctx.clearRect(
       0,
       0,
-      size,
-      size
+      width,
+      height
     );
 
-    /*
-      Draw image into a square.
-      This keeps processing lightweight.
-    */
 
     ctx.drawImage(
       img,
       0,
       0,
-      size,
-      size
+      width,
+      height
     );
 
 
@@ -886,24 +1411,31 @@ fileInput.addEventListener("change", function(event) {
       ctx.getImageData(
         0,
         0,
-        size,
-        size
+        width,
+        height
       ).data;
 
 
-    let sumX = 0;
-    let sumY = 0;
+    /* ------------------------------
+       COLOR BUCKETS
 
-    let totalS = 0;
-    let totalL = 0;
+       We group similar colors
+       instead of averaging every
+       unrelated color together.
+    ------------------------------ */
 
-    let count = 0;
+    const buckets =
+      new Map();
+
+    let validPixels = 0;
 
 
     /*
-      Process every few pixels instead
-      of unnecessarily processing all
-      pixels individually.
+      Sample approximately every
+      fourth pixel.
+
+      RGBA uses 4 values per pixel,
+      therefore +16 = every 4th pixel.
     */
 
     for (
@@ -912,30 +1444,45 @@ fileInput.addEventListener("change", function(event) {
       i += 16
     ) {
 
-      const r = imageData[i];
-      const g = imageData[i + 1];
-      const b = imageData[i + 2];
-      const a = imageData[i + 3];
+      const r =
+        imageData[i];
 
-      if (a < 100) continue;
+      const g =
+        imageData[i + 1];
+
+      const b =
+        imageData[i + 2];
+
+      const a =
+        imageData[i + 3];
 
 
-      const hsl =
-        rgbToHsl(r, g, b);
+      if (a < 100) {
+        continue;
+      }
+
+
+      const hsb =
+        rgbToHsb(
+          r,
+          g,
+          b
+        );
 
 
       /*
-        Ignore pixels that are nearly
-        black, white, or grayscale.
+        Ignore extremely dark,
+        extremely light, and
+        nearly gray pixels.
 
-        These pixels don't provide useful
-        hue information.
+        These aren't useful for
+        detecting a colored subject.
       */
 
       if (
-        hsl.s < 10 ||
-        hsl.l < 5 ||
-        hsl.l > 95
+        hsb.b < 8 ||
+        hsb.b > 96 ||
+        hsb.s < 12
       ) {
 
         continue;
@@ -943,165 +1490,384 @@ fileInput.addEventListener("change", function(event) {
       }
 
 
-      const radians =
-        hsl.h * Math.PI / 180;
+      validPixels++;
 
 
-      sumX += Math.cos(radians);
-      sumY += Math.sin(radians);
+      /*
+        Quantize RGB.
 
-      totalS += hsl.s;
-      totalL += hsl.l;
+        Colors that are very close
+        together end up in the
+        same bucket.
 
-      count++;
+        This lets us find the real
+        color cluster.
+      */
+
+      const qr =
+        Math.round(r / 20) * 20;
+
+      const qg =
+        Math.round(g / 20) * 20;
+
+      const qb =
+        Math.round(b / 20) * 20;
+
+
+      const key =
+        `${qr},${qg},${qb}`;
+
+
+      if (!buckets.has(key)) {
+
+        buckets.set(
+          key,
+          {
+            count: 0,
+            r: 0,
+            g: 0,
+            b: 0
+          }
+        );
+
+      }
+
+
+      const bucket =
+        buckets.get(key);
+
+
+      bucket.count++;
+
+      bucket.r += r;
+      bucket.g += g;
+      bucket.b += b;
 
     }
 
 
-    /*
-      If there are no useful pixels,
-      show a helpful message instead
-      of producing NaN.
-    */
+    /* ------------------------------
+       NOT ENOUGH COLOR
+    ------------------------------ */
 
-    if (count === 0) {
+    if (
+      validPixels < 20 ||
+      buckets.size === 0
+    ) {
 
-      hueVal.textContent = "No strong hue";
-      satVal.textContent = "—";
-      lightVal.textContent = "—";
+      resetResults();
 
-      result.textContent =
-        "Try a more colorful photo";
-
-      swatch.style.background =
-        "transparent";
-
-      hueMarker.style.left = "0%";
-      satMarker.style.left = "0%";
-      lightMarker.style.left = "0%";
+      showStatus(
+        "I couldn't find a strong color. Try a clearer photo with one noticeable color.",
+        "warning"
+      );
 
       return;
 
     }
 
 
-    /* Average circular hue */
+    /* ------------------------------
+       SORT COLOR GROUPS
+    ------------------------------ */
 
-    let hue =
-      Math.atan2(
-        sumY / count,
-        sumX / count
-      ) * 180 / Math.PI;
+    const groups =
+      Array.from(
+        buckets.values()
+      )
+      .sort(
+        (a, b) =>
+          b.count - a.count
+      );
 
 
-    if (hue < 0) {
-      hue += 360;
+    const dominant =
+      groups[0];
+
+
+    const dominantRatio =
+      dominant.count /
+      validPixels;
+
+
+    /* ------------------------------
+       CHECK COLOR CONSISTENCY
+
+       We don't want a photo where
+       red, blue and green all have
+       similar amounts.
+
+       The dominant cluster should
+       clearly lead.
+    ------------------------------ */
+
+    const second =
+      groups[1];
+
+
+    const secondRatio =
+      second
+        ? second.count / validPixels
+        : 0;
+
+
+    /*
+      Main rule:
+
+      If the dominant color does
+      not represent enough of the
+      colored pixels, reject it.
+
+      This prevents a multicolored
+      photo from generating a fake
+      average color.
+    */
+
+    if (
+      dominantRatio < 0.45 ||
+      (
+        second &&
+        secondRatio > dominantRatio * 0.75
+      )
+    ) {
+
+      resetResults();
+
+      showStatus(
+        "Multiple colors detected. Please upload a photo containing one main color.",
+        "warning"
+      );
+
+      return;
+
     }
 
 
+    /* ------------------------------
+       GET ACTUAL DOMINANT COLOR
+    ------------------------------ */
+
+    const r =
+      Math.round(
+        dominant.r /
+        dominant.count
+      );
+
+    const g =
+      Math.round(
+        dominant.g /
+        dominant.count
+      );
+
+    const b =
+      Math.round(
+        dominant.b /
+        dominant.count
+      );
+
+
+    const hsb =
+      rgbToHsb(
+        r,
+        g,
+        b
+      );
+
+
+    const hue =
+      hsb.h;
+
     const saturation =
-      totalS / count;
+      hsb.s;
 
-    const lightness =
-      totalL / count;
+    const brightness =
+      hsb.b;
 
 
-    updateUI(
-      hue,
-      saturation,
-      lightness
+    const hex =
+      rgbToHex(
+        r,
+        g,
+        b
+      );
+
+
+    /* ------------------------------
+       UPDATE UI
+    ------------------------------ */
+
+    hueVal.textContent =
+      `${hue.toFixed(1)}°`;
+
+    satVal.textContent =
+      `${saturation.toFixed(1)}%`;
+
+    brightVal.textContent =
+      `${brightness.toFixed(1)}%`;
+
+
+    hueMarker.style.left =
+      `${(hue / 360) * 100}%`;
+
+    satMarker.style.left =
+      `${saturation}%`;
+
+    brightMarker.style.left =
+      `${brightness}%`;
+
+
+    /* ------------------------------
+       HSB BARS
+
+       These now represent the
+       ACTUAL detected color.
+    ------------------------------ */
+
+    document.getElementById(
+      "satBar"
+    ).style.background =
+      `linear-gradient(
+        90deg,
+        hsl(${hue}, 0%, 50%),
+        hsl(${hue}, 100%, 50%)
+      )`;
+
+
+    document.getElementById(
+      "brightBar"
+    ).style.background =
+      `linear-gradient(
+        90deg,
+        #000000,
+        hsl(${hue}, ${saturation}%, 50%),
+        #ffffff
+      )`;
+
+
+    /* ------------------------------
+       RESULT
+    ------------------------------ */
+
+    result.textContent =
+      `HSB(${hue.toFixed(1)}, ${saturation.toFixed(1)}%, ${brightness.toFixed(1)}%)`;
+
+
+    swatch.style.background =
+      `rgb(${r}, ${g}, ${b})`;
+
+
+    hexValue.textContent =
+      hex;
+
+
+    rgbValue.textContent =
+      `RGB(${r}, ${g}, ${b})`;
+
+
+    hsbValue.textContent =
+      `${hue.toFixed(1)}° / ${saturation.toFixed(1)}% / ${brightness.toFixed(1)}%`;
+
+
+    showStatus(
+      `Single dominant color detected · ${(dominantRatio * 100).toFixed(0)}% of the analyzed colored pixels`,
+      "success"
     );
-
-
-    URL.revokeObjectURL(img.src);
 
   };
 
 
   img.onerror = function() {
 
-    result.textContent =
-      "Unable to read this image.";
+    showStatus(
+      "Unable to read this image. Please try another file.",
+      "error"
+    );
 
   };
 
 
   img.src =
-    URL.createObjectURL(file);
-
-});
-
-
-/* ------------------------------
-   UPDATE UI
------------------------------- */
-
-function updateUI(
-  hue,
-  saturation,
-  lightness
-) {
-
-  hueVal.textContent =
-    `${hue.toFixed(1)}°`;
-
-  satVal.textContent =
-    `${saturation.toFixed(1)}%`;
-
-  lightVal.textContent =
-    `${lightness.toFixed(1)}%`;
-
-
-  hueMarker.style.left =
-    `${(hue / 360) * 100}%`;
-
-  satMarker.style.left =
-    `${saturation}%`;
-
-  lightMarker.style.left =
-    `${lightness}%`;
-
-
-  /*
-    Make saturation bar reflect
-    the detected hue.
-  */
-
-  document.getElementById(
-    "satBar"
-  ).style.background =
-    `linear-gradient(
-      90deg,
-      hsl(${hue}, 0%, 50%),
-      hsl(${hue}, 100%, 50%)
-    )`;
-
-
-  /*
-    Convert HSL to a visible swatch.
-  */
-
-  const color =
-    `hsl(
-      ${hue},
-      ${saturation}%,
-      ${lightness}%
-    )`;
-
-
-  result.textContent =
-    `HSL(${hue.toFixed(1)}, ${saturation.toFixed(1)}%, ${lightness.toFixed(1)}%)`;
-
-
-  swatch.style.background =
-    color;
+    currentObjectURL;
 
 }
 
 
-/* ------------------------------
+/* ==========================================
+   FILE INPUT
+========================================== */
+
+fileInput.addEventListener(
+  "change",
+  function(event) {
+
+    const file =
+      event.target.files[0];
+
+    analyzeImage(file);
+
+  }
+);
+
+
+/* ==========================================
+   DRAG & DROP
+========================================== */
+
+uploadArea.addEventListener(
+  "dragover",
+  function(event) {
+
+    event.preventDefault();
+
+    uploadArea.classList.add(
+      "dragging"
+    );
+
+  }
+);
+
+
+uploadArea.addEventListener(
+  "dragleave",
+  function() {
+
+    uploadArea.classList.remove(
+      "dragging"
+    );
+
+  }
+);
+
+
+uploadArea.addEventListener(
+  "drop",
+  function(event) {
+
+    event.preventDefault();
+
+    uploadArea.classList.remove(
+      "dragging"
+    );
+
+
+    const file =
+      event.dataTransfer.files[0];
+
+
+    if (!file) {
+      return;
+    }
+
+
+    analyzeImage(file);
+
+  }
+);
+
+
+/* ==========================================
    RESPONSIVE HUE CANVAS
------------------------------- */
+========================================== */
 
 window.addEventListener(
   "resize",
@@ -1112,6 +1878,7 @@ window.addEventListener(
   "load",
   drawHue
 );
+
 
 drawHue();
 
