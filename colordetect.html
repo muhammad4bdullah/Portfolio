@@ -1,267 +1,1119 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Color Analyzer Pro</title>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #070709;
+  --card: rgba(255,255,255,0.065);
+  --border: rgba(255,255,255,0.12);
+  --text: #ffffff;
+  --muted: rgba(255,255,255,0.58);
+  --accent: #8b5cf6;
+}
+
 body {
   margin: 0;
-  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-  font-family: 'Segoe UI', sans-serif;
-  color: white;
+  min-height: 100vh;
+  padding: 40px 18px;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+
+  background:
+    radial-gradient(circle at 20% 10%, rgba(139,92,246,0.18), transparent 28%),
+    radial-gradient(circle at 85% 80%, rgba(59,130,246,0.12), transparent 30%),
+    linear-gradient(135deg, #050507, #101014);
+
   display: flex;
   justify-content: center;
-  padding: 40px;
+  align-items: flex-start;
 }
 
-/* GLASS CARD */
-.container {
-  width: 420px;
-  padding: 20px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 0 30px rgba(0,0,0,0.6);
+.app {
+  width: min(720px, 100%);
 }
+
+/* HEADER */
+
+.header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 12px;
+  border-radius: 999px;
+
+  background: rgba(139,92,246,0.12);
+  border: 1px solid rgba(139,92,246,0.28);
+
+  color: #c4b5fd;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+
+  margin-bottom: 14px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: clamp(32px, 6vw, 52px);
+  letter-spacing: -2px;
+
+  background: linear-gradient(90deg, #ffffff, #c4b5fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  max-width: 590px;
+  margin: 12px auto 0;
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* MAIN CARD */
+
+.container {
+  width: 100%;
+  padding: 24px;
+
+  border: 1px solid var(--border);
+  border-radius: 26px;
+
+  background: var(--card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* INSTRUCTION */
+
+.instructions {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+
+  padding: 16px;
+  margin-bottom: 20px;
+
+  border-radius: 17px;
+
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.instruction-icon {
+  min-width: 38px;
+  height: 38px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+
+  background: rgba(139,92,246,0.15);
+  font-size: 19px;
+}
+
+.instructions strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.instructions span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* UPLOAD */
 
 .upload {
-  background: rgba(255,255,255,0.08);
-  padding: 12px;
-  border-radius: 12px;
+  position: relative;
+
+  padding: 28px 20px;
+  border-radius: 19px;
+
   text-align: center;
-  margin-bottom: 20px;
+
+  border: 1px dashed rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.035);
+
   cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.upload:hover {
+  transform: translateY(-2px);
+  border-color: rgba(139,92,246,0.6);
+  background: rgba(139,92,246,0.06);
+}
+
+.upload-icon {
+  font-size: 31px;
+  margin-bottom: 8px;
+}
+
+.upload-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.upload-subtitle {
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+#file {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* PREVIEW */
+
+.preview-wrapper {
+  margin-top: 22px;
+}
+
+.section-title {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 9px;
+  font-weight: 600;
 }
 
 .preview {
   width: 100%;
-  height: 130px;
-  border-radius: 12px;
+  height: 230px;
+
+  border-radius: 19px;
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  background:
+    linear-gradient(45deg, #16161a 25%, transparent 25%),
+    linear-gradient(-45deg, #16161a 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #16161a 75%),
+    linear-gradient(-45deg, transparent 75%, #16161a 75%);
+
+  background-size: 28px 28px;
+  background-position: 0 0, 0 14px, 14px -14px, -14px 0;
+
+  overflow: hidden;
+  position: relative;
+}
+
+.preview::after {
+  content: "No image selected";
+
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  color: rgba(255,255,255,0.35);
+  font-size: 14px;
+
+  pointer-events: none;
+}
+
+.preview.has-image::after {
+  display: none;
+}
+
+.preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ANALYSIS */
+
+.analysis {
+  margin-top: 26px;
+}
+
+.metric {
   margin-bottom: 20px;
-  border: 1px solid #333;
 }
 
-.label {
-  font-size: 12px;
-  opacity: 0.7;
-  margin-top: 10px;
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 8px;
 }
 
-.value {
+.metric-name {
   font-size: 13px;
-  color: #aaa;
-  margin-bottom: 10px;
+  font-weight: 700;
 }
+
+.metric-value {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* HUE */
+
+.hue-container {
+  position: relative;
+}
+
+#hueCanvas {
+  width: 100%;
+  height: 28px;
+
+  display: block;
+
+  border-radius: 999px;
+}
+
+.marker {
+  position: absolute;
+
+  top: -3px;
+
+  width: 7px;
+  height: 34px;
+
+  background: white;
+
+  border-radius: 999px;
+
+  transform: translateX(-50%);
+
+  box-shadow:
+    0 0 0 2px rgba(0,0,0,0.5),
+    0 0 14px rgba(255,255,255,0.9);
+
+  transition: left 0.25s ease;
+}
+
+/* BARS */
 
 .bar {
   position: relative;
-  height: 16px;
-  border-radius: 10px;
+
+  width: 100%;
+  height: 18px;
+
+  border-radius: 999px;
+
   overflow: hidden;
+
+  background: rgba(255,255,255,0.1);
 }
 
-.knob {
+.bar::after {
+  content: "";
+
   position: absolute;
-  width: 6px;
-  height: 30px;
-  background: white;
-  top: 0px;
-  transform: translateX(-50%);
-  border-radius: 4px;
-  box-shadow: 0 0 10px white;
+  inset: 0;
+
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: inherit;
 }
 
 #satBar {
-  background: linear-gradient(to right, gray, red);
+  background: linear-gradient(
+    90deg,
+    #777,
+    #ff0000
+  );
 }
 
 #lightBar {
-  background: linear-gradient(to right, black, white);
+  background: linear-gradient(
+    90deg,
+    #000,
+    #777,
+    #fff
+  );
 }
 
-#hsbCanvas {
-  width: 100%;
-  height: 30px;
-  border-radius: 10px;
-  margin-bottom: 10px;
+.bar .marker {
+  top: -8px;
 }
+
+/* RESULT */
 
 .result {
-  margin-top: 20px;
-  padding: 10px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 10px;
+  margin-top: 26px;
+
+  padding: 22px;
+
   text-align: center;
-  font-weight: bold;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(139,92,246,0.14),
+      rgba(59,130,246,0.08)
+    );
+
+  border: 1px solid rgba(139,92,246,0.2);
+}
+
+.result-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.result-value {
+  font-size: clamp(21px, 5vw, 30px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+/* COLOR SWATCH */
+
+.swatch {
+  width: 75px;
+  height: 75px;
+
+  margin: 18px auto 0;
+
+  border-radius: 20px;
+
+  border: 2px solid rgba(255,255,255,0.2);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.35);
+
+  transition: background 0.3s ease;
+}
+
+/* FOOTER */
+
+.footer {
+  text-align: center;
+  color: rgba(255,255,255,0.3);
+  font-size: 11px;
+  margin-top: 20px;
+}
+
+/* MOBILE */
+
+@media (max-width: 550px) {
+
+  body {
+    padding: 22px 12px;
+  }
+
+  .container {
+    padding: 17px;
+    border-radius: 21px;
+  }
+
+  .preview {
+    height: 190px;
+  }
+
+  .instructions {
+    padding: 13px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-  <div class="upload">
-    <input type="file" id="file">
+  <header class="header">
+
+    <div class="badge">
+      🎨 COLOR ANALYSIS TOOL
+    </div>
+
+    <h1>Color Analyzer Pro</h1>
+
+    <p>
+      Upload a photo and instantly discover its dominant visual
+      color characteristics using HSL color analysis.
+    </p>
+
+  </header>
+
+
+  <main class="container">
+
+    <!-- INSTRUCTIONS -->
+
+    <div class="instructions">
+
+      <div class="instruction-icon">
+        💡
+      </div>
+
+      <div>
+        <strong>How does it work?</strong>
+
+        <span>
+          Upload a clear photo with noticeable colors.
+          The analyzer samples the image, calculates the
+          average hue, saturation, and brightness, then
+          displays the result below.
+          <br><br>
+          <b>Best results:</b> landscapes, artwork, objects,
+          clothing, rooms, food, or colorful photos.
+          Avoid completely black, white, or extremely dark images.
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- UPLOAD -->
+
+    <label class="upload">
+
+      <input
+        type="file"
+        id="file"
+        accept="image/*"
+      >
+
+      <div class="upload-icon">
+        📸
+      </div>
+
+      <div class="upload-title">
+        Choose an image
+      </div>
+
+      <div class="upload-subtitle">
+        JPG, PNG, WEBP and other image formats
+      </div>
+
+    </label>
+
+
+    <!-- PREVIEW -->
+
+    <div class="preview-wrapper">
+
+      <div class="section-title">
+        Image Preview
+      </div>
+
+      <div
+        class="preview"
+        id="preview"
+      ></div>
+
+    </div>
+
+
+    <!-- ANALYSIS -->
+
+    <div class="analysis">
+
+      <!-- HUE -->
+
+      <div class="metric">
+
+        <div class="metric-header">
+
+          <span class="metric-name">
+            Hue
+          </span>
+
+          <span
+            class="metric-value"
+            id="hueVal"
+          >
+            —
+          </span>
+
+        </div>
+
+        <div class="hue-container">
+
+          <canvas
+            id="hueCanvas"
+          ></canvas>
+
+          <div
+            class="marker"
+            id="hueMarker"
+            style="left:0%"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SATURATION -->
+
+      <div class="metric">
+
+        <div class="metric-header">
+
+          <span class="metric-name">
+            Saturation
+          </span>
+
+          <span
+            class="metric-value"
+            id="satVal"
+          >
+            —
+          </span>
+
+        </div>
+
+        <div
+          class="bar"
+          id="satBar"
+        >
+
+          <div
+            class="marker"
+            id="satMarker"
+            style="left:0%"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- BRIGHTNESS -->
+
+      <div class="metric">
+
+        <div class="metric-header">
+
+          <span class="metric-name">
+            Brightness
+          </span>
+
+          <span
+            class="metric-value"
+            id="lightVal"
+          >
+            —
+          </span>
+
+        </div>
+
+        <div
+          class="bar"
+          id="lightBar"
+        >
+
+          <div
+            class="marker"
+            id="lightMarker"
+            style="left:0%"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div class="result">
+
+      <div class="result-label">
+        Detected Color
+      </div>
+
+      <div
+        class="result-value"
+        id="result"
+      >
+        Upload an image
+      </div>
+
+      <div
+        class="swatch"
+        id="swatch"
+      ></div>
+
+    </div>
+
+  </main>
+
+
+  <div class="footer">
+    Color Analyzer Pro · Runs entirely in your browser
   </div>
-
-  <canvas id="canvas" style="display:none;"></canvas>
-
-  <div class="preview" id="preview"></div>
-
-  <!-- HUE -->
-  <div class="label">Hue</div>
-  <div style="position:relative;">
-    <canvas id="hsbCanvas" width="360" height="30"></canvas>
-    <div class="knob" id="hueKnob"></div>
-  </div>
-  <div class="value" id="hueVal"></div>
-
-  <!-- SAT -->
-  <div class="label">Saturation</div>
-  <div class="bar" id="satBar">
-    <div class="knob" id="satKnob"></div>
-  </div>
-  <div class="value" id="satVal"></div>
-
-  <!-- LIGHT -->
-  <div class="label">Brightness</div>
-  <div class="bar" id="lightBar">
-    <div class="knob" id="lightKnob"></div>
-  </div>
-  <div class="value" id="lightVal"></div>
-
-  <div class="result" id="result">Upload image</div>
 
 </div>
 
-  <script>
+
+<canvas
+  id="canvas"
+  style="display:none;"
+></canvas>
+
+
+<script>
 
 const fileInput = document.getElementById("file");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+
 const preview = document.getElementById("preview");
 
-// 🎨 HUE CANVAS
-const hsbCanvas = document.getElementById('hsbCanvas');
-const hsbCtx = hsbCanvas.getContext('2d');
+const hueCanvas = document.getElementById("hueCanvas");
+const hueCtx = hueCanvas.getContext("2d");
 
-// 🔥 FIX: make canvas match real screen size
-function resizeHue() {
-  const rect = hsbCanvas.getBoundingClientRect();
-  hsbCanvas.width = rect.width;
-  hsbCanvas.height = rect.height;
-  drawHue();
-}
+const hueMarker = document.getElementById("hueMarker");
+const satMarker = document.getElementById("satMarker");
+const lightMarker = document.getElementById("lightMarker");
+
+const hueVal = document.getElementById("hueVal");
+const satVal = document.getElementById("satVal");
+const lightVal = document.getElementById("lightVal");
+
+const result = document.getElementById("result");
+const swatch = document.getElementById("swatch");
+
+
+/* ------------------------------
+   HUE GRADIENT
+------------------------------ */
 
 function drawHue() {
-  const gradient = hsbCtx.createLinearGradient(0, 0, hsbCanvas.width, 0);
 
-  for (let i = 0; i <= 360; i += 2) {
-    gradient.addColorStop(i / 360, `hsl(${i},100%,50%)`);
+  const width = hueCanvas.clientWidth;
+  const height = hueCanvas.clientHeight;
+
+  if (!width || !height) return;
+
+  const dpr = window.devicePixelRatio || 1;
+
+  hueCanvas.width = width * dpr;
+  hueCanvas.height = height * dpr;
+
+  hueCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const gradient =
+    hueCtx.createLinearGradient(
+      0,
+      0,
+      width,
+      0
+    );
+
+  for (let i = 0; i <= 360; i += 10) {
+
+    gradient.addColorStop(
+      i / 360,
+      `hsl(${i}, 100%, 50%)`
+    );
+
   }
 
-  hsbCtx.fillStyle = gradient;
-  hsbCtx.fillRect(0, 0, hsbCanvas.width, hsbCanvas.height);
+  hueCtx.fillStyle = gradient;
+
+  hueCtx.fillRect(
+    0,
+    0,
+    width,
+    height
+  );
 }
 
-// 📷 IMAGE ANALYSIS
-fileInput.onchange = function(e) {
-  const file = e.target.files[0];
+
+/* ------------------------------
+   HSL CONVERSION
+------------------------------ */
+
+function rgbToHsl(r, g, b) {
+
+  r /= 255;
+  g /= 255;
+  b /= 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+
+  let h = 0;
+  let s = 0;
+
+  const l = (max + min) / 2;
+
+  if (max !== min) {
+
+    const d = max - min;
+
+    s = l > 0.5
+      ? d / (2 - max - min)
+      : d / (max + min);
+
+    switch (max) {
+
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+
+      case g:
+        h = (b - r) / d + 2;
+        break;
+
+      case b:
+        h = (r - g) / d + 4;
+        break;
+
+    }
+
+    h *= 60;
+
+  }
+
+  return {
+    h,
+    s: s * 100,
+    l: l * 100
+  };
+
+}
+
+
+/* ------------------------------
+   IMAGE ANALYSIS
+------------------------------ */
+
+fileInput.addEventListener("change", function(event) {
+
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+
+    alert("Please choose an image file.");
+
+    return;
+
+  }
+
   const img = new Image();
 
   img.onload = function() {
-    canvas.width = 200;
-    canvas.height = 200;
-    ctx.drawImage(img, 0, 0, 200, 200);
 
-    const data = ctx.getImageData(0, 0, 200, 200).data;
+    /* Preview */
 
-    let sumX = 0, sumY = 0;
-    let totalS = 0, totalL = 0;
+    preview.innerHTML = "";
+
+    const previewImage =
+      document.createElement("img");
+
+    previewImage.src = img.src;
+
+    preview.appendChild(previewImage);
+
+    preview.classList.add("has-image");
+
+
+    /* Analysis resolution */
+
+    const size = 250;
+
+    canvas.width = size;
+    canvas.height = size;
+
+    ctx.clearRect(
+      0,
+      0,
+      size,
+      size
+    );
+
+    /*
+      Draw image into a square.
+      This keeps processing lightweight.
+    */
+
+    ctx.drawImage(
+      img,
+      0,
+      0,
+      size,
+      size
+    );
+
+
+    const imageData =
+      ctx.getImageData(
+        0,
+        0,
+        size,
+        size
+      ).data;
+
+
+    let sumX = 0;
+    let sumY = 0;
+
+    let totalS = 0;
+    let totalL = 0;
+
     let count = 0;
 
-    for (let i = 0; i < data.length; i += 4) {
 
-      let r = data[i] / 255;
-      let g = data[i + 1] / 255;
-      let b = data[i + 2] / 255;
+    /*
+      Process every few pixels instead
+      of unnecessarily processing all
+      pixels individually.
+    */
 
-      let max = Math.max(r, g, b);
-      let min = Math.min(r, g, b);
+    for (
+      let i = 0;
+      i < imageData.length;
+      i += 16
+    ) {
 
-      let h, s, l;
-      l = (max + min) / 2;
+      const r = imageData[i];
+      const g = imageData[i + 1];
+      const b = imageData[i + 2];
+      const a = imageData[i + 3];
 
-      if (max === min) continue;
+      if (a < 100) continue;
 
-      let d = max - min;
-      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
 
-      switch (max) {
-        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-        case g: h = (b - r) / d + 2; break;
-        case b: h = (r - g) / d + 4; break;
+      const hsl =
+        rgbToHsl(r, g, b);
+
+
+      /*
+        Ignore pixels that are nearly
+        black, white, or grayscale.
+
+        These pixels don't provide useful
+        hue information.
+      */
+
+      if (
+        hsl.s < 10 ||
+        hsl.l < 5 ||
+        hsl.l > 95
+      ) {
+
+        continue;
+
       }
 
-      h *= 60;
 
-      if (s < 0.15 || l < 0.1 || l > 0.9) continue;
+      const radians =
+        hsl.h * Math.PI / 180;
 
-      let rad = h * Math.PI / 180;
-      sumX += Math.cos(rad);
-      sumY += Math.sin(rad);
 
-      totalS += s * 100;
-      totalL += l * 100;
+      sumX += Math.cos(radians);
+      sumY += Math.sin(radians);
+
+      totalS += hsl.s;
+      totalL += hsl.l;
 
       count++;
+
     }
 
-    let avgRad = Math.atan2(sumY/count, sumX/count);
-    let H = avgRad * 180 / Math.PI;
-    if (H < 0) H += 360;
 
-    let S = totalS / count;
-    let L = totalL / count;
+    /*
+      If there are no useful pixels,
+      show a helpful message instead
+      of producing NaN.
+    */
 
-    updateUI(H, S, L, img.src);
-  }
+    if (count === 0) {
 
-  img.src = URL.createObjectURL(file);
-};
+      hueVal.textContent = "No strong hue";
+      satVal.textContent = "—";
+      lightVal.textContent = "—";
 
-// 🎯 UI UPDATE
-function updateUI(h, s, l, imgSrc) {
+      result.textContent =
+        "Try a more colorful photo";
 
-  preview.style.backgroundImage = `url(${imgSrc})`;
-  preview.style.backgroundSize = "cover";
+      swatch.style.background =
+        "transparent";
 
-  const rect = hsbCanvas.getBoundingClientRect();
+      hueMarker.style.left = "0%";
+      satMarker.style.left = "0%";
+      lightMarker.style.left = "0%";
 
-  // 🔥 FIX: correct knob position
-  document.getElementById("hueKnob").style.left =
-    ((h / 360) * rect.width) + "px";
+      return;
 
-  document.getElementById("satKnob").style.left = s + "%";
-  document.getElementById("lightKnob").style.left = l + "%";
+    }
 
-  document.getElementById("satBar").style.background =
-    `linear-gradient(to right, gray, hsl(${h},100%,50%))`;
 
-  document.getElementById("hueVal").innerText = `Hue: ${h.toFixed(1)}°`;
-  document.getElementById("satVal").innerText = `Saturation: ${s.toFixed(1)}%`;
-  document.getElementById("lightVal").innerText = `Brightness: ${l.toFixed(1)}%`;
+    /* Average circular hue */
 
-  document.getElementById("result").innerHTML =
-    `HSL(${h.toFixed(1)}, ${s.toFixed(1)}%, ${l.toFixed(1)}%)`;
+    let hue =
+      Math.atan2(
+        sumY / count,
+        sumX / count
+      ) * 180 / Math.PI;
+
+
+    if (hue < 0) {
+      hue += 360;
+    }
+
+
+    const saturation =
+      totalS / count;
+
+    const lightness =
+      totalL / count;
+
+
+    updateUI(
+      hue,
+      saturation,
+      lightness
+    );
+
+
+    URL.revokeObjectURL(img.src);
+
+  };
+
+
+  img.onerror = function() {
+
+    result.textContent =
+      "Unable to read this image.";
+
+  };
+
+
+  img.src =
+    URL.createObjectURL(file);
+
+});
+
+
+/* ------------------------------
+   UPDATE UI
+------------------------------ */
+
+function updateUI(
+  hue,
+  saturation,
+  lightness
+) {
+
+  hueVal.textContent =
+    `${hue.toFixed(1)}°`;
+
+  satVal.textContent =
+    `${saturation.toFixed(1)}%`;
+
+  lightVal.textContent =
+    `${lightness.toFixed(1)}%`;
+
+
+  hueMarker.style.left =
+    `${(hue / 360) * 100}%`;
+
+  satMarker.style.left =
+    `${saturation}%`;
+
+  lightMarker.style.left =
+    `${lightness}%`;
+
+
+  /*
+    Make saturation bar reflect
+    the detected hue.
+  */
+
+  document.getElementById(
+    "satBar"
+  ).style.background =
+    `linear-gradient(
+      90deg,
+      hsl(${hue}, 0%, 50%),
+      hsl(${hue}, 100%, 50%)
+    )`;
+
+
+  /*
+    Convert HSL to a visible swatch.
+  */
+
+  const color =
+    `hsl(
+      ${hue},
+      ${saturation}%,
+      ${lightness}%
+    )`;
+
+
+  result.textContent =
+    `HSL(${hue.toFixed(1)}, ${saturation.toFixed(1)}%, ${lightness.toFixed(1)}%)`;
+
+
+  swatch.style.background =
+    color;
+
 }
 
-// init
-window.addEventListener("resize", resizeHue);
-resizeHue();
+
+/* ------------------------------
+   RESPONSIVE HUE CANVAS
+------------------------------ */
+
+window.addEventListener(
+  "resize",
+  drawHue
+);
+
+window.addEventListener(
+  "load",
+  drawHue
+);
+
+drawHue();
 
 </script>
 
