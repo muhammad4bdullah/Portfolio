@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Octal Cipher</title>
+
+<style>
+* {
+    box-sizing:border-box;
+}
+
+body {
+    min-height:100vh;
+    margin:0;
+    padding:40px 20px;
+    background:
+        radial-gradient(ellipse at top left, rgba(0,255,204,.12), transparent 38%),
+        #0b1018;
+    color:#edf4fa;
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+    text-align:center;
+}
+
+.container {
+    max-width:860px;
+    margin:auto;
+    padding:clamp(22px,5vw,42px);
+    background:rgba(21,29,41,.94);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px;
+    box-shadow:0 24px 80px rgba(0,0,0,.35);
+}
+
+h1 {
+    margin:0 0 8px;
+    font-size:clamp(2rem,5vw,3rem);
+    letter-spacing:-.04em;
+}
+
+h2 {
+    margin:0 0 10px;
+    font-size:1.35rem;
+}
+
+p {
+    color:#aab8c8;
+    line-height:1.6;
+}
+
+.subtitle {
+    margin:0 auto 28px;
+    max-width:560px;
+}
+
+.field-label {
+    display:block;
+    margin:18px 0 8px;
+    color:#c7d3df;
+    font-size:.9rem;
+    font-weight:600;
+    text-align:left;
+}
+
+.date-control {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    margin:24px 0;
+}
+
+.date-control label {
+    color:#aab8c8;
+    font-size:.9rem;
+    font-weight:600;
+}
+
+textarea {
+    display:block;
+    width:100%;
+    min-height:132px;
+    padding:16px;
+    border:1px solid #344154;
+    border-radius:12px;
+    outline:none;
+    background:#0e1520;
+    color:#eaf4fb;
+    font:15px/1.55 Consolas,monospace;
+    resize:vertical;
+    transition:border-color .2s,box-shadow .2s;
+}
+
+textarea:focus,
+input:focus-visible,
+button:focus-visible {
+    outline:2px solid #00d9ad;
+    outline-offset:2px;
+}
+
+textarea:focus {
+    border-color:#00d9ad;
+    box-shadow:0 0 0 3px rgba(0,217,173,.12);
+}
+
+input {
+    max-width:100%;
+}
+
+input[type="date"],
+input[type="file"] {
+    padding:10px 12px;
+    border:1px solid #344154;
+    border-radius:10px;
+    background:#0e1520;
+    color:#dce8f2;
+}
+
+input[type="file"] {
+    width:100%;
+    margin:12px 0;
+    cursor:pointer;
+}
+
+button {
+    min-height:44px;
+    padding:11px 20px;
+    margin:8px 5px;
+    border:0;
+    border-radius:11px;
+    background:#00d9ad;
+    color:#071510;
+    font-size:.95rem;
+    font-weight:700;
+    cursor:pointer;
+    transition:transform .18s,filter .18s,background .18s;
+}
+
+button:hover {
+    filter:brightness(1.08);
+    transform:translateY(-1px);
+}
+
+.button-secondary {
+    border:1px solid #405066;
+    background:#202b3a;
+    color:#eaf4fb;
+}
+
+#output {
+    min-height:24px;
+    margin-top:22px;
+    padding:14px 16px;
+    border:1px solid #263548;
+    border-radius:12px;
+    background:#0e1520;
+    color:#b7c7d8;
+    line-height:1.5;
+    text-align:left;
+    overflow-wrap:anywhere;
+}
+
+.image-box {
+    margin:16px 0;
+    padding:18px;
+    border:1px solid #2b394b;
+    background:#111a26;
+    border-radius:14px;
+    text-align:center;
+}
+
+.image-box img {
+    max-width:100%;
+    max-height:350px;
+    border-radius:11px;
+    margin:12px 0 4px;
+}
+
+.image-title {
+    color:#dce8f2;
+    font-weight:700;
+}
+
+.section {
+    margin-top:32px;
+    padding:26px;
+    border:1px solid #29374a;
+    border-radius:16px;
+    background:rgba(14,21,32,.58);
+}
+
+.section-description {
+    margin:6px 0 18px;
+    font-size:.92rem;
+}
+
+.button-row {
+    margin-top:10px;
+}
+
+@media (max-width:600px) {
+    body {
+        padding:18px 12px;
+    }
+
+    .section {
+        padding:20px 14px;
+    }
+
+    .date-control {
+        flex-direction:column;
+        gap:7px;
+    }
+
+    .button-row button {
+        width:100%;
+        margin:6px 0;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🔐 Octal Cipher</h1>
+<p class="subtitle">Encrypt text and images with a date-based octal cipher. Keep the encryption date with your cipher so it can be decrypted later.</p>
+
+<div class="date-control">
+    <label for="datePicker">Encryption date key</label>
+    <input type="date" id="datePicker">
+</div>
+
+<br>
+
+<textarea id="input" aria-label="Text or cipher" placeholder="Enter text or cipher"></textarea>
+
+<div class="button-row">
+    <button onclick="encode()">Encrypt Text</button>
+    <button class="button-secondary" onclick="decode()">Decrypt Text</button>
+</div>
+
+
+<!-- ====================== -->
+<!-- IMAGE ENCRYPTION -->
+<!-- ====================== -->
+
+<div class="section">
+
+<h2>🖼️ Image Encryption</h2>
+<p class="section-description">Select one or more images. The encrypted data can be downloaded as a text file.</p>
+
+<input
+    type="file"
+    id="imageInput"
+    accept="image/*"
+    multiple
+    aria-label="Choose images to encrypt"
+>
+
+<div class="button-row">
+    <button onclick="encryptImages()">🔒 Encrypt Selected Images</button>
+    <button id="downloadCipherButton" class="button-secondary" onclick="downloadImageCipher()" hidden>⬇️ Download Encrypted Text</button>
+</div>
+
+</div>
+
+
+<!-- ====================== -->
+<!-- IMAGE DECRYPTION -->
+<!-- ====================== -->
+
+<div class="section">
+
+<h2>🖼️ Image Decryption</h2>
+<p class="section-description">Upload a saved cipher file to decrypt it immediately, or paste the encrypted data below.</p>
+
+<label class="field-label" for="cipherFileInput">Upload encrypted text file</label>
+<input
+    type="file"
+    id="cipherFileInput"
+    accept=".txt,.cipher,.octal,text/plain,application/octet-stream"
+    aria-label="Upload encrypted image cipher file"
+>
+
+<textarea
+    id="imageCipher"
+    aria-label="Encrypted image data"
+    placeholder="Encrypted image data will appear here, or paste it in this box."
+></textarea>
+
+<div class="button-row">
+    <button onclick="decryptImages()">🔓 Decrypt Images</button>
+</div>
+
+</div>
+
+
+<div id="output"></div>
+
+<div id="images"></div>
+
+</div>
+
+
+<script>
+
+
+// ======================
+// GET DATE KEY
+// ======================
+
+function getDateValues(){
+
+    let picker =
+        document.getElementById("datePicker").value;
+
+    let date;
+
+    if(picker){
+
+        // Avoid timezone shifting
+        let parts = picker.split("-");
+
+        date = new Date(
+            Number(parts[0]),
+            Number(parts[1]) - 1,
+            Number(parts[2])
+        );
+
+    } else {
+
+        date = new Date();
+
+    }
+
+    return {
+        d: date.getDate(),
+        m: date.getMonth()+1,
+        y: date.getFullYear()
+    };
+}
+
+
+
+// ======================
+// BLOCK REVERSE
+// ======================
+
+function blockReverse(str,size){
+
+    let result="";
+
+    for(let i=0;i<str.length;i+=size){
+
+        result += str
+            .substring(i,i+size)
+            .split("")
+            .reverse()
+            .join("");
+
+    }
+
+    return result;
+}
+
+
+
+// ======================
+// CORE ENCRYPT
+// ======================
+// Used by BOTH text and images
+// Difference: text gets uppercase,
+// images must preserve Base64 case.
+
+function cipherEncrypt(text){
+
+    let {d,m,y}=getDateValues();
+
+    let octal="";
+
+
+    // ASCII -> Binary -> Octal
+
+    for(let ch of text){
+
+        let binary =
+            ch.charCodeAt(0)
+            .toString(2)
+            .padStart(8,"0");
+
+        let oct =
+            parseInt(binary,2)
+            .toString(8)
+            .padStart(3,"0");
+
+        octal += oct;
+
+    }
+
+
+    // Add separators
+
+    let separated="";
+
+    let toggle=true;
+
+    for(let i=0;i<octal.length;i+=3){
+
+        separated +=
+            octal.substring(i,i+3);
+
+        separated +=
+            toggle ? "8":"9";
+
+        toggle=!toggle;
+
+    }
+
+
+    // Block size
+
+    let L=separated.length;
+
+    let s=(y*d)%(L*m);
+
+    let block=5+(s%6);
+
+
+    return blockReverse(
+        separated,
+        block
+    );
+}
+
+
+
+// ======================
+// CORE DECRYPT
+// ======================
+
+function cipherDecrypt(cipher){
+
+    let {d,m,y}=getDateValues();
+
+    let L=cipher.length;
+
+    if(L === 0){
+        return "";
+    }
+
+    let s=(y*d)%(L*m);
+
+    let block=5+(s%6);
+
+
+    // Undo reverse
+
+    let text =
+        blockReverse(cipher,block);
+
+
+    // Remove separators
+
+    let blocks =
+        text
+        .split(/[89]/)
+        .filter(x => x.length);
+
+
+    let result="";
+
+
+    for(let b of blocks){
+
+        let decimal =
+            parseInt(b,8);
+
+        result +=
+            String.fromCharCode(decimal);
+
+    }
+
+
+    return result;
+}
+
+
+
+// ======================
+// NORMAL TEXT ENCRYPT
+// ======================
+
+function encode(){
+
+    let text =
+        document
+        .getElementById("input")
+        .value
+        .toUpperCase();
+
+
+    let result =
+        cipherEncrypt(text);
+
+
+    document
+        .getElementById("output")
+        .innerText=result;
+
+}
+
+
+
+// ======================
+// NORMAL TEXT DECRYPT
+// ======================
+
+function decode(){
+
+    let cipher =
+        document
+        .getElementById("input")
+        .value
+        .trim();
+
+
+    let result =
+        cipherDecrypt(cipher);
+
+
+    document
+        .getElementById("output")
+        .innerText=result;
+
+}
+
+
+
+// ==================================================
+// IMAGE ENCRYPTION
+// ==================================================
+
+async function encryptImages(){
+
+    let files =
+        document
+        .getElementById("imageInput")
+        .files;
+
+
+    if(files.length === 0){
+
+        alert("Select at least one image first.");
+
+        return;
+    }
+
+
+    let encryptedImages=[];
+
+
+    for(let file of files){
+
+        let base64 =
+            await fileToDataURL(file);
+
+
+        /*
+            base64 looks like:
+
+            data:image/png;base64,iVBORw0KGgo...
+
+            We encrypt the COMPLETE data URL
+            so the original image type is preserved.
+        */
+
+        let encrypted =
+            cipherEncrypt(base64);
+
+
+        encryptedImages.push(encrypted);
+
+    }
+
+
+    // Exact requested format:
+    //
+    // -IMG1--IMG2--IMG3-
+
+    let finalCipher =
+        "-" +
+        encryptedImages.join("--") +
+        "-";
+
+
+    document
+        .getElementById("imageCipher")
+        .value=finalCipher;
+
+    document
+        .getElementById("downloadCipherButton")
+        .hidden=false;
+
+    document
+        .getElementById("output")
+        .innerText =
+        "Encrypted " +
+        files.length +
+        " image(s).";
+
+}
+
+function downloadImageCipher(){
+
+    let cipher =
+        document
+        .getElementById("imageCipher")
+        .value;
+
+    if(!cipher){
+
+        alert("Encrypt at least one image before downloading its cipher.");
+
+        return;
+    }
+
+    let blob =
+        new Blob(
+            [cipher],
+            {type:"text/plain;charset=utf-8"}
+        );
+
+    let url =
+        URL.createObjectURL(blob);
+
+    let link =
+        document.createElement("a");
+
+    link.href=url;
+    link.download="encrypted_images.txt";
+    link.click();
+
+    setTimeout(function(){
+        URL.revokeObjectURL(url);
+    },1000);
+
+}
+
+
+// ======================
+// FILE -> DATA URL
+// ======================
+
+function fileToDataURL(file){
+
+    return new Promise((resolve,reject)=>{
+
+        let reader =
+            new FileReader();
+
+        reader.onload = () =>
+            resolve(reader.result);
+
+        reader.onerror = () =>
+            reject(reader.error);
+
+        reader.readAsDataURL(file);
+
+    });
+
+}
+
+
+
+// ==================================================
+// IMAGE DECRYPTION
+// ==================================================
+
+function handleCipherFileUpload(event){
+
+    let file =
+        event.target.files[0];
+
+    if(!file){
+        return;
+    }
+
+    let reader =
+        new FileReader();
+
+    reader.onload=function(){
+
+        if(typeof reader.result !== "string"){
+
+            alert("Could not read the selected cipher file as text.");
+
+            return;
+        }
+
+        document
+            .getElementById("imageCipher")
+            .value=reader.result.trim();
+
+        decryptImages();
+
+    };
+
+    reader.onerror=function(){
+
+        alert("Could not read the selected cipher file.");
+
+    };
+
+    reader.readAsText(file);
+
+}
+
+function decryptImages(){
+
+    let cipher =
+        document
+        .getElementById("imageCipher")
+        .value
+        .trim();
+
+
+    if(!cipher){
+
+        alert("Paste encrypted image data first.");
+
+        return;
+    }
+
+
+    /*
+        Expected:
+
+        -IMG1--IMG2--IMG3-
+    */
+
+
+    if(
+        !cipher.startsWith("-") ||
+        !cipher.endsWith("-")
+    ){
+
+        alert(
+            "Invalid image cipher format.\n\n" +
+            "Expected:\n-IMG1--IMG2--IMG3-"
+        );
+
+        return;
+    }
+
+
+    // Remove outer -
+
+    let inside =
+        cipher.substring(
+            1,
+            cipher.length - 1
+        );
+
+
+    // Split individual images
+
+    let encryptedImages =
+        inside.split("--");
+
+
+    let imageContainer =
+        document.getElementById("images");
+
+
+    imageContainer.innerHTML="";
+
+
+    let successCount=0;
+
+
+    for(let i=0;i<encryptedImages.length;i++){
+
+        let encrypted =
+            encryptedImages[i];
+
+
+        if(!encrypted){
+
+            continue;
+        }
+
+
+        try{
+
+            // Decrypt cipher -> original Data URL
+
+            let dataURL =
+                cipherDecrypt(encrypted);
+
+
+            /*
+                Validate that the decrypted
+                result actually looks like an image.
+            */
+
+            if(
+                !dataURL.startsWith("data:image/")
+            ){
+
+                throw new Error(
+                    "Invalid image data"
+                );
+
+            }
+
+
+            createImageResult(
+                dataURL,
+                i + 1
+            );
+
+
+            successCount++;
+
+
+        }catch(error){
+
+            console.error(
+                "Image " + (i+1),
+                error
+            );
+
+        }
+
+    }
+
+
+    document
+        .getElementById("output")
+        .innerText =
+        "Decrypted " +
+        successCount +
+        " image(s).";
+
+}
+
+
+
+// ==================================================
+// DISPLAY DECRYPTED IMAGE
+// ==================================================
+
+function createImageResult(
+    dataURL,
+    number
+){
+
+    let container =
+        document.createElement("div");
+
+    container.className="image-box";
+
+
+    let title =
+        document.createElement("div");
+
+    title.innerText =
+        "🖼️ Image " + number;
+    title.className="image-title";
+
+
+    let img =
+        document.createElement("img");
+
+    img.src=dataURL;
+
+
+    // Download button
+
+    let download =
+        document.createElement("button");
+
+    download.innerText =
+        "⬇️ Download Image";
+
+
+    download.onclick=function(){
+
+        let extension =
+            getImageExtension(dataURL);
+
+
+        let link =
+            document.createElement("a");
+
+        link.href=dataURL;
+
+        link.download =
+            "decrypted_image_" +
+            number +
+            "." +
+            extension;
+
+        link.click();
+
+    };
+
+
+    container.appendChild(title);
+
+    container.appendChild(img);
+
+    container.appendChild(download);
+
+
+    document
+        .getElementById("images")
+        .appendChild(container);
+
+}
+
+
+
+// ======================
+// GET IMAGE EXTENSION
+// ======================
+
+function getImageExtension(dataURL){
+
+    let match =
+        dataURL.match(
+            /^data:image\/([^;]+)/
+        );
+
+
+    if(!match){
+
+        return "png";
+
+    }
+
+
+    let type =
+        match[1].toLowerCase();
+
+
+    if(type === "jpeg"){
+        return "jpg";
+    }
+
+    if(type === "svg+xml"){
+        return "svg";
+    }
+
+    return type;
+
+}
+
+
+
+// ======================
+// DEFAULT TODAY
+// ======================
+
+document
+    .getElementById("datePicker")
+    .value =
+    new Date()
+    .toISOString()
+    .split("T")[0];
+
+document
+    .getElementById("cipherFileInput")
+    .addEventListener("change",handleCipherFileUpload);
+
+</script>
+
+</body>
+</html>
