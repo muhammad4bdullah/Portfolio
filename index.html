@@ -1,3329 +1,563 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Muhammad Abdullah | Portfolio</title>
-
-<meta
-  name="description"
-  content="Muhammad Abdullah — Developer, creator and student building interactive web experiences."
->
-
-<link
-  rel="preconnect"
-  href="https://fonts.googleapis.com"
->
-
-<link
-  rel="preconnect"
-  href="https://fonts.gstatic.com"
-  crossorigin
->
-
-<link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
-  rel="stylesheet"
->
-
-
+<meta name="description" content="Muhammad Abdullah — Developer, creator and student building interactive web experiences.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: "Inter", sans-serif;
-  background: #070a12;
-  color: #ffffff;
-  overflow-x: hidden;
-}
-
-a {
-  color: inherit;
-}
-
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
-
-
-/* =========================================================
-   VARIABLES
-========================================================= */
-
-:root {
-
-  --bg: #070a12;
-
-  --bg-secondary: #0b1020;
-
-  --card: rgba(255,255,255,0.055);
-
-  --card-hover: rgba(255,255,255,0.085);
-
-  --border: rgba(255,255,255,0.10);
-
-  --border-bright: rgba(123,92,255,0.4);
-
-  --purple: #7b5cff;
-
-  --purple-light: #a78bfa;
-
-  --cyan: #00ffe0;
-
-  --text: #ffffff;
-
-  --muted: rgba(255,255,255,0.62);
-
-  --muted-light: rgba(255,255,255,0.78);
-
-}
-
-
-/* =========================================================
-   BACKGROUND
-========================================================= */
-
-body::before {
-
-  content: "";
-
-  position: fixed;
-
-  inset: 0;
-
-  pointer-events: none;
-
-  z-index: -5;
-
-  background:
-
-    radial-gradient(
-      circle at 15% 10%,
-      rgba(123,92,255,0.15),
-      transparent 28%
-    ),
-
-    radial-gradient(
-      circle at 85% 30%,
-      rgba(0,255,224,0.08),
-      transparent 25%
-    ),
-
-    radial-gradient(
-      circle at 50% 90%,
-      rgba(123,92,255,0.10),
-      transparent 30%
-    );
-
-}
-
-
-body::after {
-
-  content: "";
-
-  position: fixed;
-
-  inset: 0;
-
-  pointer-events: none;
-
-  z-index: -4;
-
-  opacity: 0.18;
-
-  background-image:
-
-    linear-gradient(
-      rgba(255,255,255,0.025) 1px,
-      transparent 1px
-    ),
-
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,0.025) 1px,
-      transparent 1px
-    );
-
-  background-size: 45px 45px;
-
-}
-
-
-/* =========================================================
-   SCROLLBAR
-========================================================= */
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #070a12;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #292348;
-  border-radius: 20px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #7b5cff;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-header {
-
-  width: 100%;
-
-  position: fixed;
-
-  top: 0;
-
-  left: 0;
-
-  z-index: 1000;
-
-  padding: 16px 5%;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  background:
-    rgba(7,10,18,0.72);
-
-  backdrop-filter: blur(18px);
-
-  -webkit-backdrop-filter: blur(18px);
-
-  border-bottom:
-    1px solid rgba(255,255,255,0.06);
-
-  transition: 0.3s ease;
-
-}
-
-
-header.scrolled {
-
-  background:
-    rgba(7,10,18,0.94);
-
-  box-shadow:
-    0 15px 50px rgba(0,0,0,0.35);
-
-}
-
-
-.logo {
-
-  font-family: "Poppins", sans-serif;
-
-  font-size: 1.25rem;
-
-  font-weight: 700;
-
-  text-decoration: none;
-
-  letter-spacing: -0.5px;
-
-}
-
-
-.logo span {
-
-  color: var(--purple);
-
-}
-
-
-nav {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-}
-
-
-nav a {
-
-  text-decoration: none;
-
-  color: rgba(255,255,255,0.68);
-
-  font-size: 0.88rem;
-
-  font-weight: 600;
-
-  padding: 9px 13px;
-
-  border-radius: 10px;
-
-  transition: 0.25s ease;
-
-}
-
-
-nav a:hover {
-
-  color: #fff;
-
-  background:
-    rgba(123,92,255,0.10);
-
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-section {
-
-  position: relative;
-
-}
-
-
-#home {
-
-  min-height: 100vh;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  text-align: center;
-
-  padding:
-    140px 20px 100px;
-
-  overflow: hidden;
-
-}
-
-
-.hero-content {
-
-  max-width: 900px;
-
-  position: relative;
-
-  z-index: 5;
-
-}
-
-
-.hero-badge {
-
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 9px;
-
-  padding: 8px 14px;
-
-  border-radius: 999px;
-
-  background:
-    rgba(123,92,255,0.09);
-
-  border:
-    1px solid rgba(123,92,255,0.25);
-
-  color: #c4b5fd;
-
-  font-size: 0.76rem;
-
-  font-weight: 700;
-
-  margin-bottom: 22px;
-
-  animation:
-    fadeUp 0.8s ease both;
-
-}
-
-
-.status-dot {
-
-  width: 7px;
-
-  height: 7px;
-
-  background: #22c55e;
-
-  border-radius: 50%;
-
-  box-shadow:
-    0 0 12px rgba(34,197,94,0.8);
-
-  animation:
-    pulse 2s infinite;
-
-}
-
-
-.hero-content h1 {
-
-  font-family: "Poppins", sans-serif;
-
-  font-size:
-    clamp(3rem, 8vw, 6.8rem);
-
-  line-height: 0.98;
-
-  letter-spacing: -5px;
-
-  margin-bottom: 24px;
-
-  animation:
-    fadeUp 0.8s 0.1s ease both;
-
-}
-
-
-.gradient-text {
-
-  background:
-    linear-gradient(
-      100deg,
-      #ffffff 10%,
-      #a78bfa 45%,
-      #00ffe0 100%
-    );
-
-  -webkit-background-clip: text;
-
-  -webkit-text-fill-color: transparent;
-
-}
-
-
-.hero-content p {
-
-  max-width: 680px;
-
-  margin:
-    0 auto 30px;
-
-  color: var(--muted);
-
-  font-size:
-    clamp(0.95rem, 2vw, 1.12rem);
-
-  line-height: 1.8;
-
-  animation:
-    fadeUp 0.8s 0.2s ease both;
-
-}
-
-
-.hero-buttons {
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  gap: 12px;
-
-  flex-wrap: wrap;
-
-  animation:
-    fadeUp 0.8s 0.3s ease both;
-
-}
-
-
-.btn {
-
-  display: inline-flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  gap: 9px;
-
-  padding: 13px 20px;
-
-  border-radius: 13px;
-
-  text-decoration: none;
-
-  font-size: 0.88rem;
-
-  font-weight: 700;
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease;
-
-}
-
-
-.btn:hover {
-
-  transform:
-    translateY(-3px);
-
-}
-
-
-.btn-primary {
-
-  color: #fff;
-
-  background:
-    linear-gradient(
-      135deg,
-      #7b5cff,
-      #6243e8
-    );
-
-  box-shadow:
-    0 12px 35px rgba(123,92,255,0.25);
-
-}
-
-
-.btn-primary:hover {
-
-  box-shadow:
-    0 18px 45px rgba(123,92,255,0.42);
-
-}
-
-
-.btn-secondary {
-
-  border:
-    1px solid rgba(255,255,255,0.12);
-
-  background:
-    rgba(255,255,255,0.045);
-
-  color: #fff;
-
-}
-
-
-.btn-secondary:hover {
-
-  background:
-    rgba(255,255,255,0.09);
-
-}
-
-
-/* =========================================================
-   FLOATING ORBS
-========================================================= */
-
-.orb {
-
-  position: absolute;
-
-  border-radius: 50%;
-
-  filter: blur(1px);
-
-  opacity: 0.35;
-
-  pointer-events: none;
-
-}
-
-
-.orb.one {
-
-  width: 320px;
-
-  height: 320px;
-
-  top: 5%;
-
-  left: -130px;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(123,92,255,0.25),
-      transparent 70%
-    );
-
-  animation:
-    drift 12s ease-in-out infinite;
-
-}
-
-
-.orb.two {
-
-  width: 280px;
-
-  height: 280px;
-
-  right: -100px;
-
-  bottom: 5%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(0,255,224,0.17),
-      transparent 70%
-    );
-
-  animation:
-    drift 15s 2s ease-in-out infinite reverse;
-
-}
-
-
-.orb.three {
-
-  width: 120px;
-
-  height: 120px;
-
-  right: 18%;
-
-  top: 25%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(167,139,250,0.15),
-      transparent 70%
-    );
-
-  animation:
-    drift 8s ease-in-out infinite;
-
-}
-
-
-/* =========================================================
-   SECTION COMMON
-========================================================= */
-
-.section {
-
-  min-height: 100vh;
-
-  padding:
-    120px 6%;
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-}
-
-
-.section-header {
-
-  max-width: 760px;
-
-  margin:
-    0 auto 60px;
-
-  text-align: center;
-
-}
-
-
-.eyebrow {
-
-  color: var(--cyan);
-
-  font-size: 0.72rem;
-
-  font-weight: 800;
-
-  letter-spacing: 2px;
-
-  text-transform: uppercase;
-
-  margin-bottom: 12px;
-
-}
-
-
-.section-header h2 {
-
-  font-family: "Poppins", sans-serif;
-
-  font-size:
-    clamp(2rem, 5vw, 3.3rem);
-
-  letter-spacing: -2px;
-
-  margin-bottom: 15px;
-
-}
-
-
-.section-header p {
-
-  color: var(--muted);
-
-  line-height: 1.8;
-
-  font-size: 0.96rem;
-
-}
-
-
-/* =========================================================
-   ABOUT
-========================================================= */
-
-#about {
-
-  background:
-    linear-gradient(
-      180deg,
-      transparent,
-      rgba(123,92,255,0.025),
-      transparent
-    );
-
-}
-
-
-.about-grid {
-
-  width: min(1100px, 100%);
-
-  margin: auto;
-
-  display: grid;
-
-  grid-template-columns:
-    1.1fr 0.9fr;
-
-  gap: 30px;
-
-  align-items: stretch;
-
-}
-
-
-.about-card {
-
-  padding: 34px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius: 24px;
-
-  background:
-    var(--card);
-
-  backdrop-filter: blur(15px);
-
-  box-shadow:
-    0 20px 70px rgba(0,0,0,0.18);
-
-}
-
-
-.about-card h3 {
-
-  font-family: "Poppins", sans-serif;
-
-  font-size: 1.4rem;
-
-  margin-bottom: 15px;
-
-}
-
-
-.about-card p {
-
-  color: var(--muted);
-
-  line-height: 1.9;
-
-  font-size: 0.94rem;
-
-}
-
-
-.highlight {
-
-  color: #c4b5fd;
-
-}
-
-
-.stats {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(2, 1fr);
-
-  gap: 12px;
-
-}
-
-
-.stat {
-
-  min-height: 140px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-  padding: 22px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius: 20px;
-
-  background:
-    rgba(255,255,255,0.035);
-
-  transition:
-    transform 0.25s ease,
-    border-color 0.25s ease;
-
-}
-
-
-.stat:hover {
-
-  transform:
-    translateY(-5px);
-
-  border-color:
-    var(--border-bright);
-
-}
-
-
-.stat-number {
-
-  font-family: "Poppins", sans-serif;
-
-  font-size: 2rem;
-
-  font-weight: 800;
-
-  background:
-    linear-gradient(
-      90deg,
-      #fff,
-      #a78bfa
-    );
-
-  -webkit-background-clip: text;
-
-  -webkit-text-fill-color: transparent;
-
-}
-
-
-.stat-label {
-
-  color: var(--muted);
-
-  font-size: 0.78rem;
-
-  margin-top: 5px;
-
-}
-
-
-/* =========================================================
-   PROJECTS
-========================================================= */
-
-#projects {
-
-  padding-bottom: 150px;
-
-}
-
-
-.projects-wrapper {
-
-  width: min(1180px, 100%);
-
-  margin: auto;
-
-}
-
-
-/* Project grid */
-
-.projects-grid {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(2, 1fr);
-
-  gap: 22px;
-
-}
-
-
-/* Project card */
-
-.project-card {
-
-  position: relative;
-
-  min-height: 350px;
-
-  padding: 30px;
-
-  overflow: hidden;
-
-  border:
-    1px solid var(--border);
-
-  border-radius: 26px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,0.065),
-      rgba(255,255,255,0.025)
-    );
-
-  backdrop-filter: blur(18px);
-
-  transition:
-    transform 0.4s ease,
-    border-color 0.4s ease,
-    box-shadow 0.4s ease;
-
-}
-
-
-.project-card:hover {
-
-  transform:
-    translateY(-9px);
-
-  border-color:
-    rgba(123,92,255,0.42);
-
-  box-shadow:
-    0 25px 70px rgba(0,0,0,0.35),
-    0 0 45px rgba(123,92,255,0.08);
-
-}
-
-
-/* Glow */
-
-.project-card::before {
-
-  content: "";
-
-  position: absolute;
-
-  width: 220px;
-
-  height: 220px;
-
-  border-radius: 50%;
-
-  top: -100px;
-
-  right: -80px;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(123,92,255,0.18),
-      transparent 70%
-    );
-
-  transition:
-    transform 0.5s ease;
-
-}
-
-
-.project-card:hover::before {
-
-  transform:
-    scale(1.5);
-
-}
-
-
-/* Large featured card */
-
-.project-card.featured {
-
-  grid-column:
-    span 2;
-
-  min-height: 330px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: space-between;
-
-}
-
-
-.project-top {
-
-  position: relative;
-
-  z-index: 2;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: flex-start;
-
-  gap: 15px;
-
-}
-
-
-.project-icon {
-
-  width: 54px;
-
-  height: 54px;
-
-  display: grid;
-
-  place-items: center;
-
-  border-radius: 16px;
-
-  font-size: 1.45rem;
-
-  background:
-    rgba(123,92,255,0.12);
-
-  border:
-    1px solid rgba(123,92,255,0.2);
-
-}
-
-
-.project-number {
-
-  color:
-    rgba(255,255,255,0.22);
-
-  font-family: "Poppins", sans-serif;
-
-  font-weight: 800;
-
-  font-size: 0.8rem;
-
-}
-
-
-.project-content {
-
-  position: relative;
-
-  z-index: 2;
-
-  margin-top: 25px;
-
-}
-
-
-.project-content h3 {
-
-  font-family: "Poppins", sans-serif;
-
-  font-size: 1.45rem;
-
-  margin-bottom: 10px;
-
-  letter-spacing: -0.5px;
-
-}
-
-
-.project-card.featured
-.project-content h3 {
-
-  font-size: 1.8rem;
-
-}
-
-
-.project-content p {
-
-  color: var(--muted);
-
-  font-size: 0.88rem;
-
-  line-height: 1.75;
-
-  max-width: 620px;
-
-}
-
-
-/* Tags */
-
-.tags {
-
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 7px;
-
-  margin-top: 18px;
-
-}
-
-
-.tag {
-
-  padding: 6px 9px;
-
-  border-radius: 8px;
-
-  font-size: 0.68rem;
-
-  font-weight: 700;
-
-  color: #c4b5fd;
-
-  background:
-    rgba(123,92,255,0.08);
-
-  border:
-    1px solid rgba(123,92,255,0.15);
-
-}
-
-
-/* Card bottom */
-
-.project-bottom {
-
-  position: relative;
-
-  z-index: 2;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  gap: 12px;
-
-  margin-top: 25px;
-
-}
-
-
-.project-link {
-
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 7px;
-
-  text-decoration: none;
-
-  color: #fff;
-
-  font-size: 0.82rem;
-
-  font-weight: 700;
-
-  transition:
-    color 0.25s ease,
-    gap 0.25s ease;
-
-}
-
-
-.project-link:hover {
-
-  color: var(--cyan);
-
-  gap: 11px;
-
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:#000}
+body{font-family:"Inter",sans-serif;background:transparent;color:#fff;overflow-x:hidden}
+a{color:inherit}
+a,button{-webkit-tap-highlight-color:transparent}
+:root{
+  --card:rgba(2,22,12,.46);--border:rgba(122,255,191,.13);--border-bright:rgba(52,232,154,.45);
+  --green:#34e89a;--mint:#7affbf;--deep:#02160c;--text:#fff;--muted:rgba(222,255,238,.68);
+}
+#flow-wave{position:fixed;inset:0;width:100vw;height:100vh;z-index:-1;pointer-events:none}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:#02160c}
+::-webkit-scrollbar-thumb{background:#0f3d28;border-radius:20px}
+::-webkit-scrollbar-thumb:hover{background:var(--green)}
+
+/* header — floating glass pill */
+header{position:fixed;z-index:1000;top:14px;left:5%;right:5%;height:60px;padding:0 10px 0 26px;display:flex;justify-content:space-between;align-items:center;border-radius:64px;background:rgba(255,255,255,.08);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.08);transition:background .3s}
+header.scrolled{background:rgba(2,16,9,.72)}
+.logo{font-family:"Poppins",sans-serif;font-size:1.15rem;font-weight:700;text-decoration:none;letter-spacing:-.5px}
+.logo span{color:var(--green)}
+nav{display:flex;align-items:center;gap:4px}
+nav a{text-decoration:none;color:rgba(255,255,255,.7);font-size:.88rem;font-weight:600;padding:9px 14px;border-radius:30px;transition:.25s}
+nav a:hover,nav a.active{color:#fff;background:rgba(52,232,154,.14)}
+nav a.cta{background:#000;color:#fff;margin-left:6px}
+nav a.cta:hover{background:#0b2a1b}
+
+/* hero */
+#home{position:relative;min-height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;padding:140px 20px 100px}
+.hero-content{max-width:980px}
+.hero-badge{display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border-radius:999px;background:rgba(52,232,154,.09);border:1px solid rgba(52,232,154,.28);color:#a8ffd3;font-size:.76rem;font-weight:700;letter-spacing:.04em;margin-bottom:26px;animation:fadeUp .8s ease both}
+.status-dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 12px rgba(52,232,154,.9);animation:pulse 2s infinite}
+.hero-content h1{font-family:"Poppins",sans-serif;font-weight:500;font-size:clamp(2.4rem,6vw,4.6rem);line-height:1;letter-spacing:-2px;animation:fadeUp .8s .1s ease both}
+.hero-content h1 .name{display:block;margin-top:12px;font-weight:800;font-size:clamp(2.8rem,9vw,7.2rem);letter-spacing:-5px;line-height:1}
+.gradient-text{background:linear-gradient(to left,rgba(255,255,255,.3),#fff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.gradient-text.mint{background-image:linear-gradient(100deg,#fff 10%,var(--mint) 55%,var(--green) 100%)}
+.hero-content p{max-width:640px;margin:28px auto 34px;color:var(--muted);font-size:clamp(.95rem,2vw,1.12rem);line-height:1.8;animation:fadeUp .8s .2s ease both}
+.hero-buttons{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;animation:fadeUp .8s .3s ease both}
+.btn{display:inline-flex;align-items:center;gap:12px;height:56px;padding:0 26px;border-radius:64px;text-decoration:none;font-size:.95rem;font-weight:600;transition:transform .25s,background .25s}
+.btn:hover{transform:translateY(-3px)}
+.btn-primary{background:#000;color:#fff;padding-right:4px}
+.btn-primary:hover{background:#0b2a1b}
+.btn-primary .disc{width:48px;height:48px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font-size:1.1rem}
+.btn-secondary{border:1px solid rgba(255,255,255,.85);color:#fff;padding:0 34px}
+.btn-secondary:hover{background:rgba(255,255,255,.12)}
+
+/* sections */
+.section{min-height:100vh;padding:120px 6%;display:flex;flex-direction:column;justify-content:center}
+.section-header{max-width:760px;margin:0 auto 56px;text-align:center}
+.eyebrow{color:var(--mint);font-size:.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.section-header h2{font-family:"Poppins",sans-serif;font-size:clamp(2rem,5vw,3.3rem);letter-spacing:-2px;margin-bottom:15px}
+.section-header p{color:var(--muted);line-height:1.8;font-size:.96rem}
+.glass{background:var(--card);border:1px solid var(--border);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+
+/* about */
+.about-grid{width:min(1100px,100%);margin:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+.about-card{padding:34px;border-radius:26px;box-shadow:0 20px 70px rgba(0,0,0,.25)}
+.about-card h3{font-family:"Poppins",sans-serif;font-size:1.4rem;margin-bottom:15px}
+.about-card p{color:var(--muted);line-height:1.9;font-size:.94rem}
+.highlight{color:var(--mint)}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.stat{min-height:140px;display:flex;flex-direction:column;justify-content:center;padding:22px;border-radius:22px;transition:transform .25s,border-color .25s}
+.stat:hover{transform:translateY(-5px);border-color:var(--border-bright)}
+.stat-number{font-family:"Poppins",sans-serif;font-size:2rem;font-weight:800;background:linear-gradient(90deg,#fff,var(--mint));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{color:var(--muted);font-size:.78rem;margin-top:5px}
+
+/* projects */
+#projects{padding-bottom:150px}
+.projects-wrapper{width:min(1180px,100%);margin:auto}
+.project-intro{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:22px;padding:13px 18px;border-radius:64px}
+.project-intro span{color:var(--muted);font-size:.78rem}
+.project-intro strong{color:#fff}
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.project-card{position:relative;min-height:340px;padding:30px;overflow:hidden;border-radius:28px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(145deg,rgba(4,30,18,.58),rgba(2,16,9,.5));border:1px solid var(--border);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);transition:transform .4s,border-color .4s,box-shadow .4s}
+.project-card:hover{transform:translateY(-8px);border-color:rgba(52,232,154,.45);box-shadow:0 25px 70px rgba(0,0,0,.4),0 0 45px rgba(52,232,154,.1)}
+.project-card::before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;top:-100px;right:-80px;background:radial-gradient(circle,rgba(52,232,154,.2),transparent 70%);transition:transform .5s}
+.project-card:hover::before{transform:scale(1.5)}
+.project-card.featured{grid-column:span 2;min-height:320px}
+.project-top,.project-content,.project-bottom{position:relative;z-index:2}
+.project-top{display:flex;justify-content:space-between;align-items:flex-start}
+.project-icon{width:54px;height:54px;display:grid;place-items:center;border-radius:18px;font-size:1.45rem;background:rgba(52,232,154,.12);border:1px solid rgba(52,232,154,.25)}
+.project-number{color:rgba(255,255,255,.3);font-family:"Poppins",sans-serif;font-weight:800;font-size:.8rem}
+.project-content{margin-top:24px}
+.project-content h3{font-family:"Poppins",sans-serif;font-size:1.45rem;margin-bottom:10px;letter-spacing:-.5px}
+.featured .project-content h3{font-size:1.8rem}
+.project-content p{color:var(--muted);font-size:.88rem;line-height:1.75;max-width:620px}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+.tag{padding:6px 10px;border-radius:30px;font-size:.68rem;font-weight:700;color:#a8ffd3;background:rgba(52,232,154,.08);border:1px solid rgba(52,232,154,.2)}
+.project-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:24px}
+.project-link{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:#fff;font-size:.84rem;font-weight:700;transition:color .25s,gap .25s}
+.project-link:hover{color:var(--mint);gap:11px}
+.project-type{color:rgba(255,255,255,.38);font-size:.7rem;font-weight:600}
+
+/* contact */
+#contact{min-height:80vh;padding:120px 20px;display:flex;justify-content:center;align-items:center;text-align:center}
+.contact-card{width:min(820px,100%);padding:60px 30px;border-radius:36px;background:linear-gradient(145deg,rgba(52,232,154,.1),rgba(2,22,12,.5));border:1px solid var(--border);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 30px 90px rgba(0,0,0,.3)}
+.contact-card h2{font-family:"Poppins",sans-serif;font-size:clamp(2rem,6vw,3.5rem);letter-spacing:-2px;margin-bottom:14px}
+.contact-card p{color:var(--muted);max-width:550px;margin:0 auto 26px;line-height:1.8}
+.contact-links{display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+.contact-link{text-decoration:none;padding:12px 20px;border-radius:64px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);font-size:.8rem;font-weight:600;transition:transform .25s,background .25s,border-color .25s}
+.contact-link:hover{transform:translateY(-3px);background:rgba(52,232,154,.14);border-color:rgba(52,232,154,.4)}
+footer{padding:25px 20px;text-align:center;color:rgba(255,255,255,.4);font-size:.72rem;border-top:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.25)}
+footer span{color:var(--mint)}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s}
+.reveal.visible{opacity:1;transform:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+
+@media(max-width:760px){
+  header{left:14px;right:14px;top:10px;height:52px;padding:0 6px 0 18px}
+  .logo{font-size:.95rem}
+  nav{gap:0}nav a{padding:7px 8px;font-size:.7rem}
+  nav a.cta{display:none}
+  .section{padding:100px 18px}
+  .hero-content h1 .name{letter-spacing:-3px}
+  .about-grid,.projects-grid{grid-template-columns:1fr}
+  .project-card.featured{grid-column:span 1}
+  .project-intro{flex-direction:column;align-items:flex-start;border-radius:22px}
+}
+@media(max-width:480px){
+  #home{padding:120px 16px 80px}
+  .hero-buttons{flex-direction:column;align-items:stretch}
+  .hero-buttons .btn{justify-content:space-between}
+  .btn-secondary{justify-content:center!important}
+  .stats{grid-template-columns:1fr}
+  .about-card{padding:25px}
+  .project-card{padding:23px}
+  .project-bottom{align-items:flex-start;flex-direction:column}
+  .contact-card{padding:45px 20px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+  #flow-wave{display:none}
+  body{background:#02160c}
 }
-
-
-.project-type {
-
-  color:
-    rgba(255,255,255,0.3);
-
-  font-size: 0.68rem;
-
-  font-weight: 600;
-
-}
-
-
-/* =========================================================
-   PROJECT FILTER LABEL
-========================================================= */
-
-.project-intro {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  margin-bottom: 22px;
-
-  padding:
-    12px 15px;
-
-  border-radius: 14px;
-
-  border:
-    1px solid rgba(255,255,255,0.07);
-
-  background:
-    rgba(255,255,255,0.025);
-
-}
-
-
-.project-intro span {
-
-  color: var(--muted);
-
-  font-size: 0.75rem;
-
-}
-
-
-.project-intro strong {
-
-  color: #fff;
-
-}
-
-
-/* =========================================================
-   CONTACT
-========================================================= */
-
-#contact {
-
-  min-height: 80vh;
-
-  padding:
-    120px 20px;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  text-align: center;
-
-}
-
-
-.contact-card {
-
-  width: min(800px, 100%);
-
-  padding: 60px 30px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius: 30px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(123,92,255,0.09),
-      rgba(255,255,255,0.035)
-    );
-
-  box-shadow:
-    0 30px 90px rgba(0,0,0,0.25);
-
-}
-
-
-.contact-card h2 {
-
-  font-family: "Poppins", sans-serif;
-
-  font-size:
-    clamp(2rem, 6vw, 3.5rem);
-
-  letter-spacing: -2px;
-
-  margin-bottom: 14px;
-
-}
-
-
-.contact-card p {
-
-  color: var(--muted);
-
-  max-width: 550px;
-
-  margin:
-    0 auto 25px;
-
-  line-height: 1.8;
-
-}
-
-
-.contact-links {
-
-  display: flex;
-
-  justify-content: center;
-
-  flex-wrap: wrap;
-
-  gap: 10px;
-
-}
-
-
-.contact-link {
-
-  text-decoration: none;
-
-  padding: 11px 16px;
-
-  border-radius: 12px;
-
-  background:
-    rgba(255,255,255,0.05);
-
-  border:
-    1px solid rgba(255,255,255,0.09);
-
-  font-size: 0.78rem;
-
-  font-weight: 600;
-
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease,
-    border-color 0.25s ease;
-
-}
-
-
-.contact-link:hover {
-
-  transform:
-    translateY(-3px);
-
-  background:
-    rgba(123,92,255,0.12);
-
-  border-color:
-    rgba(123,92,255,0.3);
-
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer {
-
-  padding:
-    25px 20px;
-
-  text-align: center;
-
-  color:
-    rgba(255,255,255,0.35);
-
-  font-size: 0.72rem;
-
-  border-top:
-    1px solid rgba(255,255,255,0.06);
-
-}
-
-
-footer span {
-
-  color: #a78bfa;
-
-}
-
-
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
-
-.reveal {
-
-  opacity: 0;
-
-  transform:
-    translateY(30px);
-
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s ease;
-
-}
-
-
-.reveal.visible {
-
-  opacity: 1;
-
-  transform:
-    translateY(0);
-
-}
-
-
-/* =========================================================
-   ANIMATIONS
-========================================================= */
-
-@keyframes fadeUp {
-
-  from {
-
-    opacity: 0;
-
-    transform:
-      translateY(20px);
-
-  }
-
-  to {
-
-    opacity: 1;
-
-    transform:
-      translateY(0);
-
-  }
-
-}
-
-
-@keyframes pulse {
-
-  0%,
-  100% {
-
-    transform: scale(1);
-
-    opacity: 1;
-
-  }
-
-  50% {
-
-    transform: scale(1.5);
-
-    opacity: 0.5;
-
-  }
-
-}
-
-
-@keyframes drift {
-
-  0%,
-  100% {
-
-    transform:
-      translate(0,0);
-
-  }
-
-  50% {
-
-    transform:
-      translate(25px,-30px);
-
-  }
-
-}
-
-
-/* =========================================================
-   MOBILE NAV
-========================================================= */
-
-@media (max-width: 760px) {
-
-  header {
-
-    padding:
-      14px 18px;
-
-  }
-
-  .logo {
-
-    font-size:
-      1rem;
-
-  }
-
-  nav {
-
-    gap: 2px;
-
-  }
-
-  nav a {
-
-    padding:
-      7px 8px;
-
-    font-size:
-      0.7rem;
-
-  }
-
-
-  .section {
-
-    padding:
-      100px 18px;
-
-  }
-
-
-  .hero-content h1 {
-
-    letter-spacing:
-      -3px;
-
-  }
-
-
-  .about-grid {
-
-    grid-template-columns:
-      1fr;
-
-  }
-
-
-  .projects-grid {
-
-    grid-template-columns:
-      1fr;
-
-  }
-
-
-  .project-card.featured {
-
-    grid-column:
-      span 1;
-
-  }
-
-
-  .project-card {
-
-    min-height:
-      330px;
-
-  }
-
-
-  .project-intro {
-
-    align-items:
-      flex-start;
-
-    gap: 10px;
-
-    flex-direction:
-      column;
-
-  }
-
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 480px) {
-
-  #home {
-
-    padding:
-      120px 16px 80px;
-
-  }
-
-
-  .hero-buttons {
-
-    flex-direction:
-      column;
-
-    width: 100%;
-
-  }
-
-
-  .hero-buttons .btn {
-
-    width: 100%;
-
-  }
-
-
-  .stats {
-
-    grid-template-columns:
-      1fr;
-
-  }
-
-
-  .about-card {
-
-    padding:
-      25px;
-
-  }
-
-
-  .project-card {
-
-    padding:
-      23px;
-
-    min-height:
-      350px;
-
-  }
-
-
-  .project-bottom {
-
-    align-items:
-      flex-start;
-
-    flex-direction:
-      column;
-
-  }
-
-
-  .contact-card {
-
-    padding:
-      45px 20px;
-
-  }
-
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  * {
-
-    scroll-behavior:
-      auto !important;
-
-    animation:
-      none !important;
-
-    transition:
-      none !important;
-
-  }
-
-}
-
 </style>
-
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.143.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.143.0/examples/jsm/"}}
+</script>
 </head>
-
-
 <body>
 
-
-<!-- =======================================================
-     HEADER
-======================================================== -->
-
 <header id="header">
-
-  <a
-    href="#home"
-    class="logo"
-  >
-    Muhammad <span>Abdullah</span>
-  </a>
-
-
+  <a href="#home" class="logo">Muhammad <span>Abdullah</span></a>
   <nav>
-
-    <a href="#home">
-      Home
-    </a>
-
-    <a href="#about">
-      About
-    </a>
-
-    <a href="#projects">
-      Projects
-    </a>
-
-    <a href="#contact">
-      Contact
-    </a>
-
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact" class="cta">Let’s talk</a>
   </nav>
-
 </header>
 
-
-
-<!-- =======================================================
-     HERO
-======================================================== -->
-
 <section id="home">
-
-  <div class="orb one"></div>
-
-  <div class="orb two"></div>
-
-  <div class="orb three"></div>
-
-
   <div class="hero-content">
-
-    <div class="hero-badge">
-
-      <span class="status-dot"></span>
-
-      BUILDING • LEARNING • CREATING
-
-    </div>
-
-
+    <div class="hero-badge"><span class="status-dot"></span>BUILDING • LEARNING • CREATING</div>
     <h1>
-
-      Hello, I'm
-
-      <br>
-
-      <span class="gradient-text">
-        Muhammad Abdullah
-      </span>
-
+      <span class="gradient-text">Hello, I’m</span>
+      <span class="name gradient-text mint">Muhammad Abdullah</span>
     </h1>
-
-
-    <p>
-
-      I build interactive websites, creative tools,
-      experimental projects, and digital experiences
-      using code, AI, and design.
-
-    </p>
-
-
+    <p>I build interactive websites, creative tools, experimental projects, and digital experiences using code, AI, and design.</p>
     <div class="hero-buttons">
-
-      <a
-        href="#projects"
-        class="btn btn-primary"
-      >
-        Explore My Projects
-        <span>↗</span>
-      </a>
-
-
-      <a
-        href="#contact"
-        class="btn btn-secondary"
-      >
-        Get In Touch
-      </a>
-
+      <a href="#projects" class="btn btn-primary">Explore My Projects <span class="disc">↗</span></a>
+      <a href="#contact" class="btn btn-secondary">Get In Touch</a>
     </div>
-
   </div>
-
 </section>
 
-
-
-<!-- =======================================================
-     ABOUT
-======================================================== -->
-
-<section
-  id="about"
-  class="section"
->
-
-
+<section id="about" class="section">
   <div class="section-header reveal">
-
-    <div class="eyebrow">
-      About Me
-    </div>
-
-    <h2>
-      Turning ideas into
-      <span class="gradient-text">
-        digital experiences.
-      </span>
-    </h2>
-
-    <p>
-
-      I'm a student developer who enjoys experimenting
-      with technology and turning random ideas into
-      things people can actually interact with.
-
-    </p>
-
+    <div class="eyebrow">About Me</div>
+    <h2>Turning ideas into <span class="gradient-text mint">digital experiences.</span></h2>
+    <p>I’m a student developer who enjoys experimenting with technology and turning random ideas into things people can actually interact with.</p>
   </div>
-
-
   <div class="about-grid">
-
-
-    <div class="about-card reveal">
-
-      <h3>
-        A little about me 👋
-      </h3>
-
-      <p>
-
-        I'm a passionate developer and creative thinker
-        from Pakistan. I enjoy building interactive
-        web applications and experimenting with
-        <span class="highlight">HTML, CSS, JavaScript,
-        AI and modern UI design.</span>
-
-        <br><br>
-
-        I don't just want to make projects that work.
-        I want to make projects that feel interesting,
-        useful, and memorable.
-
-        <br><br>
-
-        Every project is an experiment — something new
-        to learn, break, improve, and eventually turn
-        into something I'm proud of.
-
-      </p>
-
+    <div class="about-card glass reveal">
+      <h3>A little about me 👋</h3>
+      <p>I’m a passionate developer and creative thinker from Pakistan. I enjoy building interactive web applications and experimenting with <span class="highlight">HTML, CSS, JavaScript, AI and modern UI design.</span><br><br>I don’t just want to make projects that work. I want to make projects that feel interesting, useful, and memorable.<br><br>Every project is an experiment — something new to learn, break, improve, and eventually turn into something I’m proud of.</p>
     </div>
-
-
     <div class="stats reveal">
-
-      <div class="stat">
-
-        <div class="stat-number">
-          05+
-        </div>
-
-        <div class="stat-label">
-          Projects built
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div class="stat-number">
-          ∞
-        </div>
-
-        <div class="stat-label">
-          Ideas to experiment with
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div class="stat-number">
-          JS
-        </div>
-
-        <div class="stat-label">
-          Interactive development
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div class="stat-number">
-          AI
-        </div>
-
-        <div class="stat-label">
-          Exploring intelligent tools
-        </div>
-
-      </div>
-
+      <div class="stat glass"><div class="stat-number">05+</div><div class="stat-label">Projects built</div></div>
+      <div class="stat glass"><div class="stat-number">∞</div><div class="stat-label">Ideas to experiment with</div></div>
+      <div class="stat glass"><div class="stat-number">JS</div><div class="stat-label">Interactive development</div></div>
+      <div class="stat glass"><div class="stat-number">AI</div><div class="stat-label">Exploring intelligent tools</div></div>
     </div>
-
   </div>
-
 </section>
 
-
-
-<!-- =======================================================
-     PROJECTS
-======================================================== -->
-
-<section
-  id="projects"
-  class="section"
->
-
+<section id="projects" class="section">
   <div class="section-header reveal">
-
-    <div class="eyebrow">
-      My Work
-    </div>
-
-    <h2>
-      Projects I've
-      <span class="gradient-text">
-        built.
-      </span>
-    </h2>
-
-    <p>
-      A collection of experiments, tools, and
-      interactive projects I've created while
-      learning and exploring development.
-    </p>
-
+    <div class="eyebrow">My Work</div>
+    <h2>Projects I’ve <span class="gradient-text mint">built.</span></h2>
+    <p>A collection of experiments, tools, and interactive projects I’ve created while learning and exploring development.</p>
   </div>
-
-
   <div class="projects-wrapper">
-
-
-    <div class="project-intro reveal">
-
-      <span>
-        <strong>13 projects</strong>
-        currently featured
-      </span>
-
-      <span>
-        More experiments coming soon ⚡
-      </span>
-
+    <div class="project-intro glass reveal">
+      <span><strong>13 projects</strong> currently featured</span>
+      <span>More experiments coming soon ⚡</span>
     </div>
-
-
-    <div class="projects-grid">
-
-
-      <!-- =================================================
-           PROJECT 01
-      ================================================== -->
-
-      <article
-        class="project-card featured reveal"
-      >
-
-        <div>
-
-          <div class="project-top">
-
-            <div class="project-icon">
-              🔐
-            </div>
-
-            <div class="project-number">
-              01 / 13
-            </div>
-
-          </div>
-
-
-          <div class="project-content">
-
-            <h3>
-              Symbol Cipher
-            </h3>
-
-            <p>
-              A creative cipher tool that transforms
-              ordinary text into symbols, letters,
-              and numbers. Built as an experimental
-              way to make communication more fun
-              and mysterious.
-            </p>
-
-
-            <div class="tags">
-
-              <span class="tag">
-                HTML
-              </span>
-
-              <span class="tag">
-                CSS
-              </span>
-
-              <span class="tag">
-                JavaScript
-              </span>
-
-              <span class="tag">
-                Cipher
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="project-bottom">
-
-          <span class="project-type">
-            Encryption / Interactive Tool
-          </span>
-
-          <a
-            href="https://muhammad4bdullah.github.io/Qwerty-cipher/"
-            target="_blank"
-            rel="noopener"
-            class="project-link"
-          >
-            Open Project →
-          </a>
-
-        </div>
-
-      </article>
-
-
-
-      <!-- =================================================
-           PROJECT 02
-      ================================================== -->
-
-      <article
-        class="project-card reveal"
-      >
-
-        <div>
-
-          <div class="project-top">
-
-            <div class="project-icon">
-              🔢
-            </div>
-
-            <div class="project-number">
-              02 / 13
-            </div>
-
-          </div>
-
-
-          <div class="project-content">
-
-            <h3>
-              Number Prefix Converter
-            </h3>
-
-            <p>
-              Convert numbers containing prefixes such
-              as Million, Billion, and Quintillion into
-              their full numerical values and back.
-            </p>
-
-
-            <div class="tags">
-
-              <span class="tag">
-                JavaScript
-              </span>
-
-              <span class="tag">
-                Converter
-              </span>
-
-              <span class="tag">
-                Mathematics
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="project-bottom">
-
-          <span class="project-type">
-            Utility Tool
-          </span>
-
-          <a
-            href="prefixconverter.html"
-            target="_blank"
-            class="project-link"
-          >
-            Open Project →
-          </a>
-
-        </div>
-
-      </article>
-
-
-
-      <!-- =================================================
-           PROJECT 03
-      ================================================== -->
-
-      <article
-        class="project-card reveal"
-      >
-
-        <div>
-
-          <div class="project-top">
-
-            <div class="project-icon">
-              🧩
-            </div>
-
-            <div class="project-number">
-              03 / 13
-            </div>
-
-          </div>
-
-
-          <div class="project-content">
-
-            <h3>
-              Cipher 2.0
-            </h3>
-
-            <p>
-              An emoji-based experimental cipher where
-              letters are mapped to symbols and numbers
-              receive additional randomized emoji layers.
-            </p>
-
-
-            <div class="tags">
-
-              <span class="tag">
-                JavaScript
-              </span>
-
-              <span class="tag">
-                Emoji
-              </span>
-
-              <span class="tag">
-                Encryption
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="project-bottom">
-
-          <span class="project-type">
-            Experimental Cipher
-          </span>
-
-          <a
-            href="Cipher%202.0.html"
-            target="_blank"
-            class="project-link"
-          >
-            Open Project →
-          </a>
-
-        </div>
-
-      </article>
-
-
-
-      <!-- =================================================
-           PROJECT 04
-      ================================================== -->
-
-      <article
-        class="project-card featured reveal"
-      >
-
-        <div>
-
-          <div class="project-top">
-
-            <div class="project-icon">
-              🛡️
-            </div>
-
-            <div class="project-number">
-              04 / 13
-            </div>
-
-          </div>
-
-
-          <div class="project-content">
-
-            <h3>
-              Guardian Lens
-            </h3>
-
-            <p>
-              Guardian Lens is an experimental AI-powered
-              monitoring concept designed around real-time
-              visual analysis, threat detection, and smart
-              monitoring interfaces.
-            </p>
-
-
-            <div class="tags">
-
-              <span class="tag">
-                AI
-              </span>
-
-              <span class="tag">
-                Computer Vision
-              </span>
-
-              <span class="tag">
-                JavaScript
-              </span>
-
-              <span class="tag">
-                UI / UX
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="project-bottom">
-
-          <span class="project-type">
-            AI / Computer Vision Concept
-          </span>
-
-          <a
-            href="https://muhammad4bdullah.github.io/Guardian-lens/"
-            target="_blank"
-            rel="noopener"
-            class="project-link"
-          >
-            Open Project →
-          </a>
-
-        </div>
-
-      </article>
-
-
-
-      <!-- =================================================
-           PROJECT 05
-      ================================================== -->
-
-      <article
-        class="project-card featured reveal"
-      >
-
-        <div>
-
-          <div class="project-top">
-
-            <div class="project-icon">
-              🎨
-            </div>
-
-            <div class="project-number">
-              05 / 13
-            </div>
-
-          </div>
-
-
-          <div class="project-content">
-
-            <h3>
-              Color Analyzer Pro
-            </h3>
-
-            <p>
-              An interactive color analysis application
-              that examines image pixels and identifies
-              a dominant color. It calculates HSB values
-              and avoids creating artificial colors by
-              rejecting photos containing too many
-              unrelated colors.
-            </p>
-
-
-            <div class="tags">
-
-              <span class="tag">
-                JavaScript
-              </span>
-
-              <span class="tag">
-                Canvas API
-              </span>
-
-              <span class="tag">
-                HSB
-              </span>
-
-              <span class="tag">
-                Image Analysis
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="project-bottom">
-
-          <span class="project-type">
-            Image / Color Analysis
-          </span>
-
-          <a
-            href="colordetect.html"
-            target="_blank"
-            class="project-link"
-          >
-            Open Project →
-          </a>
-
-        </div>
-
-      </article>
-
-
-
-      <!-- =================================================
-           PROJECT 06
-      ================================================== -->
-
-      <article
-        class="project-card featured reveal"
-      >
-
-        <div>
-
-          <div class="project-top">
-
-            <div class="project-icon">
-              💬
-            </div>
-
-            <div class="project-number">
-              06 / 13
-            </div>
-
-          </div>
-
-
-          <div class="project-content">
-
-            <h3>
-              ChatVerix
-            </h3>
-
-            <p>
-              A real-time web messaging application built
-              with Firebase. ChatVerix provides an interactive
-              chat experience with user authentication and
-              real-time message synchronization.
-            </p>
-
-
-            <div class="tags">
-
-              <span class="tag">
-                JavaScript
-              </span>
-
-              <span class="tag">
-                Firebase
-              </span>
-
-              <span class="tag">
-                Real-time
-              </span>
-
-              <span class="tag">
-                Web App
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="project-bottom">
-
-          <span class="project-type">
-            Real-time Messaging App
-          </span>
-
-          <a
-            href="https://muhammad4bdullah.github.io/Chatverix/"
-            target="_blank"
-            rel="noopener"
-            class="project-link"
-          >
-            Open Project →
-          </a>
-
-        </div>
-
-      </article>
-
-      <!-- =================================================
-           PROJECT 07
-      ================================================== -->
-
-      <article class="project-card reveal">
-
-        <div>
-
-          <div class="project-top">
-
-            <div class="project-icon">
-              ⌨️
-            </div>
-
-            <div class="project-number">
-              07 / 13
-            </div>
-
-          </div>
-
-          <div class="project-content">
-
-            <h3>
-              Cipher Y19 Keyboard
-            </h3>
-
-            <p>
-              An Android keyboard APK for the Cipher Y19 project.
-              Download the APK to install it on your Android device.
-            </p>
-
-            <div class="tags">
-
-              <span class="tag">
-                Android
-              </span>
-
-              <span class="tag">
-                Keyboard
-              </span>
-
-              <span class="tag">
-                APK
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="project-bottom">
-
-          <span class="project-type">
-            Android App
-          </span>
-
-          <a
-            href="base.apk"
-            download
-            class="project-link"
-          >
-            Download APK →
-          </a>
-
-        </div>
-
-      </article>
-
-
-      <!-- =================================================
-           PROJECT 08
-      ================================================== -->
-
-      <article class="project-card reveal">
-
-        <div>
-
-          <div class="project-top">
-
-            <div class="project-icon">
-              ✉️
-            </div>
-
-            <div class="project-number">
-              08 / 13
-            </div>
-
-          </div>
-
-          <div class="project-content">
-
-            <h3>
-              Email Automation
-            </h3>
-
-            <p>
-              A project exploring email automation
-              with a live website to visit.
-            </p>
-
-            <div class="tags">
-
-              <span class="tag">
-                Automation
-              </span>
-
-              <span class="tag">
-                Email
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="project-bottom">
-
-          <span class="project-type">
-            Automation Project
-          </span>
-
-          <a
-            href="https://muhammad4bdullah.github.io/email-automation/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="project-link"
-          >
-            Visit Site →
-          </a>
-
-        </div>
-
-      </article>
-
-
-      <!-- =================================================
-           PROJECT 08
-      ================================================== -->
-
-      <article class="project-card featured reveal">
-
-        <div>
-
-          <div class="project-top">
-
-            <div class="project-icon">
-              🌐
-            </div>
-
-            <div class="project-number">
-              09 / 13
-            </div>
-
-          </div>
-
-          <div class="project-content">
-
-            <h3>
-              AZPACE Workspace
-            </h3>
-
-            <p>
-              My online workspace, available at azpace.online.
-              Visit the live site.
-            </p>
-
-            <div class="tags">
-
-              <span class="tag">
-                Web App
-              </span>
-
-              <span class="tag">
-                Workspace
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="project-bottom">
-
-          <span class="project-type">
-            Online Workspace
-          </span>
-
-          <a
-            href="https://www.azpace.online"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="project-link"
-          >
-            Visit AZPACE →
-          </a>
-
-        </div>
-
-      </article>
-
-
-      <!-- =================================================
-           PROJECT 09
-      ================================================== -->
-
-      <article class="project-card reveal">
-
-        <div>
-
-          <div class="project-top">
-
-            <div class="project-icon">
-              📝
-            </div>
-
-            <div class="project-number">
-              10 / 13
-            </div>
-
-          </div>
-
-          <div class="project-content">
-
-            <h3>
-              Registration
-            </h3>
-
-            <p>
-              A registration project with a live
-              website to visit.
-            </p>
-
-            <div class="tags">
-
-              <span class="tag">
-                Registration
-              </span>
-
-              <span class="tag">
-                Web Project
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="project-bottom">
-
-          <span class="project-type">
-            Web Project
-          </span>
-
-          <a
-            href="https://muhammad4bdullah.github.io/registration/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="project-link"
-          >
-            Visit Site →
-          </a>
-
-        </div>
-
-      </article>
-
-
-      <!-- =================================================
-           PROJECT 10
-      ================================================== -->
-
-      <article class="project-card reveal">
-
-        <div>
-
-          <div class="project-top">
-
-            <div class="project-icon">
-              📚
-            </div>
-
-            <div class="project-number">
-              11 / 13
-            </div>
-
-          </div>
-
-          <div class="project-content">
-
-            <h3>
-              All-Comp Prep Notes
-            </h3>
-
-            <p>
-              A static website with notes and materials
-              I use for my competitive programming
-              preparation.
-            </p>
-
-            <div class="tags">
-
-              <span class="tag">
-                Static Website
-              </span>
-
-              <span class="tag">
-                Study Notes
-              </span>
-
-              <span class="tag">
-                Competitive Programming
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="project-bottom">
-
-          <span class="project-type">
-            Study Notes
-          </span>
-
-          <a
-            href="https://muhammad4bdullah.github.io/all-comp/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="project-link"
-          >
-            Visit Site →
-          </a>
-
-        </div>
-
-      </article>
-
-
-      <!-- =================================================
-           PROJECT 11
-      ================================================== -->
-
-      <article class="project-card featured reveal">
-
-        <div>
-
-          <div class="project-top">
-
-            <div class="project-icon">
-              🧀
-            </div>
-
-            <div class="project-number">
-              12 / 13
-            </div>
-
-          </div>
-
-          <div class="project-content">
-
-            <h3>
-              CheezeUp
-            </h3>
-
-            <p>
-              A business website project I created
-              for CheezeUp. Visit the live website.
-            </p>
-
-            <div class="tags">
-
-              <span class="tag">
-                Business Website
-              </span>
-
-              <span class="tag">
-                Client Project
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="project-bottom">
-
-          <span class="project-type">
-            Business / Client Work
-          </span>
-
-          <a
-            href="https://muhammad4bdullah.github.io/cheezeup/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="project-link"
-          >
-            Visit Site →
-          </a>
-
-        </div>
-
-      </article>
-
-      <!-- =================================================
-           PROJECT 13
-      ================================================== -->
-
-      <article class="project-card featured reveal">
-
-        <div>
-
-          <div class="project-top">
-
-            <div class="project-icon">
-              🔢
-            </div>
-
-            <div class="project-number">
-              13 / 13
-            </div>
-
-          </div>
-
-          <div class="project-content">
-
-            <h3>
-              Octal Cipher
-            </h3>
-
-            <p>
-              A fully functional cipher tool that encodes and
-              decodes text using an octal-based system.
-            </p>
-
-            <div class="tags">
-
-              <span class="tag">
-                JavaScript
-              </span>
-
-              <span class="tag">
-                Octal
-              </span>
-
-              <span class="tag">
-                Cipher
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="project-bottom">
-
-          <span class="project-type">
-            Text Encryption / Decryption
-          </span>
-
-          <a
-            href="octal_cipher.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="project-link"
-          >
-            Open Project →
-          </a>
-
-        </div>
-
-      </article>
-
-
-    </div>
-
+    <div class="projects-grid" id="projectsGrid"></div>
   </div>
-
 </section>
-
-
-<!-- =======================================================
-     CONTACT
-======================================================== -->
 
 <section id="contact">
-
   <div class="contact-card reveal">
-
-    <div class="eyebrow">
-      Let's Connect
-    </div>
-
-
-    <h2>
-      Have an idea?
-      <span class="gradient-text">
-        Let's talk.
-      </span>
-    </h2>
-
-
-    <p>
-
-      Want to collaborate, discuss a project,
-      share an idea, or just say hi?
-      You know where to find me.
-
-    </p>
-
-
+    <div class="eyebrow">Let’s Connect</div>
+    <h2>Have an idea? <span class="gradient-text mint">Let’s talk.</span></h2>
+    <p>Want to collaborate, discuss a project, share an idea, or just say hi? You know where to find me.</p>
     <div class="contact-links">
-
-      <a
-        href="mailto:muhammad4bdullah123@gmail.com"
-        class="contact-link"
-      >
-        ✉️ Email Me
-      </a>
-
-
-      <a
-        href="https://www.instagram.com/abdull4h.py"
-        target="_blank"
-        rel="noopener"
-        class="contact-link"
-      >
-        📸 Instagram
-      </a>
-
-
-      <a
-        href="#projects"
-        class="contact-link"
-      >
-        🚀 View Projects
-      </a>
-
+      <a href="mailto:muhammad4bdullah123@gmail.com" class="contact-link">✉️ Email Me</a>
+      <a href="https://www.instagram.com/abdull4h.py" target="_blank" rel="noopener" class="contact-link">📸 Instagram</a>
+      <a href="#projects" class="contact-link">🚀 View Projects</a>
     </div>
-
   </div>
-
 </section>
 
-
-
-<!-- =======================================================
-     FOOTER
-======================================================== -->
-
-<footer>
-
-  © 2026 Muhammad Abdullah
-
-  <span>
-    · Built with curiosity & code ⚡
-  </span>
-
-</footer>
-
-
+<footer>© 2026 Muhammad Abdullah <span>· Built with curiosity &amp; code ⚡</span></footer>
 
 <script>
-
-/* =========================================================
-   HEADER SCROLL EFFECT
-========================================================= */
-
-const header =
-  document.getElementById("header");
-
-
-window.addEventListener(
-  "scroll",
-  () => {
-
-    if (window.scrollY > 40) {
-
-      header.classList.add(
-        "scrolled"
-      );
-
-    } else {
-
-      header.classList.remove(
-        "scrolled"
-      );
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
-
-const revealElements =
-  document.querySelectorAll(
-    ".reveal"
-  );
-
-
-const observer =
-  new IntersectionObserver(
-    (entries) => {
-
-      entries.forEach(
-        (entry) => {
-
-          if (
-            entry.isIntersecting
-          ) {
-
-            entry.target.classList.add(
-              "visible"
-            );
-
-            observer.unobserve(
-              entry.target
-            );
-
-          }
-
-        }
-      );
-
-    },
-    {
-      threshold: 0.12
-    }
-  );
-
-
-revealElements.forEach(
-  (element) => {
-
-    observer.observe(
-      element
-    );
-
-  }
-);
-
-
-/* =========================================================
-   ACTIVE NAVIGATION
-========================================================= */
-
-const sections =
-  document.querySelectorAll(
-    "section[id]"
-  );
-
-const navLinks =
-  document.querySelectorAll(
-    "nav a"
-  );
-
-
-const navObserver =
-  new IntersectionObserver(
-    (entries) => {
-
-      entries.forEach(
-        (entry) => {
-
-          if (
-            entry.isIntersecting
-          ) {
-
-            navLinks.forEach(
-              (link) => {
-
-                link.style.color =
-                  "rgba(255,255,255,0.68)";
-
-              }
-            );
-
-
-            const active =
-              document.querySelector(
-                `nav a[href="#${entry.target.id}"]`
-              );
-
-
-            if (active) {
-
-              active.style.color =
-                "#ffffff";
-
-            }
-
-          }
-
-        }
-      );
-
-    },
-    {
-      rootMargin:
-        "-35% 0px -55% 0px"
-    }
-  );
-
-
-sections.forEach(
-  (section) => {
-
-    navObserver.observe(
-      section
-    );
-
-  }
-);
-
-
-/* =========================================================
-   MOUSE GLOW EFFECT ON PROJECT CARDS
-========================================================= */
-
-const cards =
-  document.querySelectorAll(
-    ".project-card"
-  );
-
-
-cards.forEach(
-  (card) => {
-
-    card.addEventListener(
-      "mousemove",
-      (event) => {
-
-        const rect =
-          card.getBoundingClientRect();
-
-        const x =
-          event.clientX -
-          rect.left;
-
-        const y =
-          event.clientY -
-          rect.top;
-
-
-        card.style.background =
-          `radial-gradient(
-            circle at ${x}px ${y}px,
-            rgba(123,92,255,0.10),
-            rgba(255,255,255,0.035) 45%
-          )`;
-
-      }
-    );
-
-
-    card.addEventListener(
-      "mouseleave",
-      () => {
-
-        card.style.background =
-          "linear-gradient(145deg, rgba(255,255,255,0.065), rgba(255,255,255,0.025))";
-
-      }
-    );
-
-  }
-);
-
-
-/* =========================================================
-   PREVENT HASH JUMP GLITCH
-========================================================= */
-
-document
-  .querySelectorAll(
-    'a[href^="#"]'
-  )
-  .forEach(
-    (link) => {
-
-      link.addEventListener(
-        "click",
-        function(event) {
-
-          const target =
-            document.querySelector(
-              this.getAttribute("href")
-            );
-
-
-          if (target) {
-
-            event.preventDefault();
-
-            target.scrollIntoView({
-              behavior: "smooth",
-              block: "start"
-            });
-
-          }
-
-        }
-      );
-
-    }
-  );
-
+/* ---------- projects data (edit here) ---------- */
+const PROJECTS=[
+ {i:'🔐',t:'Symbol Cipher',f:1,d:'A creative cipher tool that transforms ordinary text into symbols, letters, and numbers. Built as an experimental way to make communication more fun and mysterious.',g:['HTML','CSS','JavaScript','Cipher'],k:'Encryption / Interactive Tool',h:'https://muhammad4bdullah.github.io/Qwerty-cipher/',l:'Open Project'},
+ {i:'🔢',t:'Number Prefix Converter',d:'Convert numbers containing prefixes such as Million, Billion, and Quintillion into their full numerical values and back.',g:['JavaScript','Converter','Mathematics'],k:'Utility Tool',h:'prefixconverter.html',l:'Open Project',local:1},
+ {i:'🧩',t:'Cipher 2.0',d:'An emoji-based experimental cipher where letters are mapped to symbols and numbers receive additional randomized emoji layers.',g:['JavaScript','Emoji','Encryption'],k:'Experimental Cipher',h:'Cipher%202.0.html',l:'Open Project',local:1},
+ {i:'🛡️',t:'Guardian Lens',f:1,d:'Guardian Lens is an experimental AI-powered monitoring concept designed around real-time visual analysis, threat detection, and smart monitoring interfaces.',g:['AI','Computer Vision','JavaScript','UI / UX'],k:'AI / Computer Vision Concept',h:'https://muhammad4bdullah.github.io/Guardian-lens/',l:'Open Project'},
+ {i:'🎨',t:'Color Analyzer Pro',f:1,d:'An interactive color analysis application that examines image pixels and identifies a dominant color. It calculates HSB values and avoids creating artificial colors by rejecting photos containing too many unrelated colors.',g:['JavaScript','Canvas API','HSB','Image Analysis'],k:'Image / Color Analysis',h:'colordetect.html',l:'Open Project',local:1},
+ {i:'💬',t:'ChatVerix',f:1,d:'A real-time web messaging application built with Firebase. ChatVerix provides an interactive chat experience with user authentication and real-time message synchronization.',g:['JavaScript','Firebase','Real-time','Web App'],k:'Real-time Messaging App',h:'https://muhammad4bdullah.github.io/Chatverix/',l:'Open Project'},
+ {i:'⌨️',t:'Cipher Y19 Keyboard',d:'An Android keyboard APK for the Cipher Y19 project. Download the APK to install it on your Android device.',g:['Android','Keyboard','APK'],k:'Android App',h:'base.apk',l:'Download APK',dl:1},
+ {i:'✉️',t:'Email Automation',d:'A project exploring email automation with a live website to visit.',g:['Automation','Email'],k:'Automation Project',h:'https://muhammad4bdullah.github.io/email-automation/',l:'Visit Site'},
+ {i:'🌐',t:'AZPACE Workspace',f:1,d:'My online workspace, available at azpace.online. Visit the live site.',g:['Web App','Workspace'],k:'Online Workspace',h:'https://www.azpace.online',l:'Visit AZPACE'},
+ {i:'📝',t:'Registration',d:'A registration project with a live website to visit.',g:['Registration','Web Project'],k:'Web Project',h:'https://muhammad4bdullah.github.io/registration/',l:'Visit Site'},
+ {i:'📚',t:'All-Comp Prep Notes',d:'A static website with notes and materials I use for my competitive programming preparation.',g:['Static Website','Study Notes','Competitive Programming'],k:'Study Notes',h:'https://muhammad4bdullah.github.io/all-comp/',l:'Visit Site'},
+ {i:'🧀',t:'CheezeUp',f:1,d:'A business website project I created for CheezeUp. Visit the live website.',g:['Business Website','Client Project'],k:'Business / Client Work',h:'https://muhammad4bdullah.github.io/cheezeup/',l:'Visit Site'},
+ {i:'🔢',t:'Octal Cipher',f:1,d:'A fully functional cipher tool that encodes and decodes text using an octal-based system.',g:['JavaScript','Octal','Cipher'],k:'Text Encryption / Decryption',h:'octal_cipher.html',l:'Open Project',local:1}
+];
+const grid=document.getElementById('projectsGrid');
+grid.innerHTML=PROJECTS.map((p,n)=>`
+<article class="project-card${p.f?' featured':''} reveal">
+  <div>
+    <div class="project-top"><div class="project-icon">${p.i}</div><div class="project-number">${String(n+1).padStart(2,'0')} / ${PROJECTS.length}</div></div>
+    <div class="project-content"><h3>${p.t}</h3><p>${p.d}</p>
+      <div class="tags">${p.g.map(x=>`<span class="tag">${x}</span>`).join('')}</div></div>
+  </div>
+  <div class="project-bottom"><span class="project-type">${p.k}</span>
+    <a href="${p.h}" class="project-link" ${p.dl?'download':'target="_blank" rel="noopener noreferrer"'}>${p.l} →</a></div>
+</article>`).join('');
+
+/* header state */
+const header=document.getElementById('header');
+addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>40),{passive:true});
+
+/* scroll reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* active nav */
+const links=[...document.querySelectorAll('nav a:not(.cta)')];
+const no=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-35% 0px -55% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>no.observe(s));
+
+/* smooth hash links */
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  const t=document.querySelector(a.getAttribute('href'));
+  if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+}));
 </script>
 
+<script type="module">
+import * as THREE from 'three'
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js'
+import { GammaCorrectionShader } from 'three/addons/shaders/GammaCorrectionShader.js'
+import { CopyShader } from 'three/addons/shaders/CopyShader.js'
 
+const bgColor='#02160c', flameColor='#0aff7f', flameColor2='#aef0c0', flameAmt=2.55
+const atmoColor='#7affbf', atmoCount=280, atmoSize=12, atmoSpeed=0.4
+const colorLow='#02160c', colorHigh='#34e89a', opacity=0.26, pointSize=5.5, brightness=0.45
+const waveHeight=3, flow=1, tilt=0, scale=0.275, scrollRise=1.0
+const camStartY=7, camStartZ=16, camEndY=0.8, camEndZ=-2, lookStartZ=2, lookEndZ=-16
+const parallax=1.2, pointerRadius=7.0, pointerStrength=0.9
+
+const Lerp=(a,b,t)=>a+(b-a)*t
+const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v))
+function hexToVec3(hex){const n=parseInt(hex.slice(1),16);return new THREE.Vector3(((n>>16)&255)/255,((n>>8)&255)/255,(n&255)/255)}
+
+const LAYERS={NONE:0,TORUS_SCENE:1,BLOOM_SCENE:2,ENTIRE_SCENE:3}
+
+const SNOISE=`
+vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
+vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
+float snoise(vec3 v){
+  const vec2 C = vec2(1.0/6.0, 1.0/3.0); const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+  vec3 i = floor(v + dot(v, C.yyy)); vec3 x0 = v - i + dot(i, C.xxx);
+  vec3 g = step(x0.yzx, x0.xyz); vec3 l = 1.0 - g;
+  vec3 i1 = min(g.xyz, l.zxy); vec3 i2 = max(g.xyz, l.zxy);
+  vec3 x1 = x0 - i1 + 1.0 * C.xxx; vec3 x2 = x0 - i2 + 2.0 * C.xxx; vec3 x3 = x0 - 1.0 + 3.0 * C.xxx;
+  i = mod(i, 289.0);
+  vec4 p = permute(permute(permute(i.z + vec4(0.0, i1.z, i2.z, 1.0)) + i.y + vec4(0.0, i1.y, i2.y, 1.0)) + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+  float n_ = 1.0/7.0; vec3 ns = n_ * D.wyz - D.xzx;
+  vec4 j = p - 49.0 * floor(p * ns.z *ns.z);
+  vec4 x_ = floor(j * ns.z); vec4 y_ = floor(j - 7.0 * x_);
+  vec4 x = x_ *ns.x + ns.yyyy; vec4 y = y_ *ns.x + ns.yyyy; vec4 h = 1.0 - abs(x) - abs(y);
+  vec4 b0 = vec4(x.xy, y.xy); vec4 b1 = vec4(x.zw, y.zw);
+  vec4 s0 = floor(b0)*2.0 + 1.0; vec4 s1 = floor(b1)*2.0 + 1.0; vec4 sh = -step(h, vec4(0.0));
+  vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy; vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
+  vec3 p0 = vec3(a0.xy,h.x); vec3 p1 = vec3(a0.zw,h.y); vec3 p2 = vec3(a1.xy,h.z); vec3 p3 = vec3(a1.zw,h.w);
+  vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+  p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+  vec4 m = max(0.5 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0); m = m * m;
+  return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
+}`
+
+// ---------- renderer / scene / camera ----------
+const canvas=document.createElement('canvas')
+canvas.id='flow-wave'
+document.body.prepend(canvas)
+const renderer=new THREE.WebGL1Renderer({canvas,antialias:true})
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2))
+renderer.shadowMap.enabled=true
+renderer.shadowMap.type=THREE.VSMShadowMap
+const scene=new THREE.Scene()
+scene.background=new THREE.Color(0x000000)
+scene.fog=new THREE.Fog(0x000000,0,15)
+const camera=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,0.1,400)
+camera.position.set(0,7,16)
+camera.layers.enable(LAYERS.TORUS_SCENE)
+camera.layers.enable(LAYERS.BLOOM_SCENE)
+camera.layers.enable(LAYERS.ENTIRE_SCENE)
+scene.add(camera)
+
+// ---------- composers ----------
+const renderPass=new RenderPass(scene,camera)
+const torusComposer=new EffectComposer(renderer)
+torusComposer.renderToScreen=false
+torusComposer.addPass(renderPass)
+torusComposer.addPass(new ShaderPass(GammaCorrectionShader))
+torusComposer.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),0.22,0.2,0))
+torusComposer.addPass(new ShaderPass(CopyShader))
+
+const bloomComposer=new EffectComposer(renderer)
+bloomComposer.renderToScreen=false
+bloomComposer.addPass(renderPass)
+bloomComposer.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),0.4,0.55,0))
+bloomComposer.addPass(new ShaderPass(GammaCorrectionShader))
+
+const FinalShader={
+  uniforms:{iTime:{value:0},tDiffuse:{value:null},torusTexture:{value:null},bloomTexture:{value:null},haloTexture:{value:null},
+    uBg:{value:hexToVec3(bgColor)},uFlameA:{value:hexToVec3(flameColor)},uFlameB:{value:hexToVec3(flameColor2)},uFlameAmt:{value:flameAmt}},
+  vertexShader:`varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position, 1.0); }`,
+  fragmentShader:`uniform float iTime; uniform sampler2D tDiffuse; uniform sampler2D bloomTexture; uniform sampler2D torusTexture; uniform sampler2D haloTexture;
+uniform vec3 uBg; uniform vec3 uFlameA; uniform vec3 uFlameB; uniform float uFlameAmt;
+varying vec2 vUv;
+vec3 warp3d(vec3 pos, float t){ float curv=.8,a=1.9,b=0.7; pos*=2.;
+  pos.x+=curv*sin(t+a*pos.y)+t*b; pos.y+=curv*cos(t+a*pos.x);
+  pos.y+=curv*sin(t+a*pos.z)+t*b; pos.z+=curv*cos(t+a*pos.y);
+  pos.z+=curv*sin(t+a*pos.x)+t*b; pos.x+=curv*cos(t+a*pos.z);
+  return 0.5+0.5*cos(pos.xyz+vec3(1,2,4)); }
+void main(){
+  vec2 uv = 2.*vUv - 1.;
+  vec3 w = pow(warp3d(vec3(uv.x, sin(uv.y), uv.y), iTime*1.5), vec3(1.5));
+  vec3 flame = 1.5*uFlameA*w.x; flame*=w.y; flame += uFlameB*w.z;
+  flame *= smoothstep(0.25, 1., abs(uv.y));
+  float md = smoothstep(-0.7, 1., -uv.y*uv.x); flame *= md*md;
+  vec3 bg = uBg * (1.0 - 0.4 * length(uv));
+  vec3 halo = texture2D(haloTexture, vUv).xyz;
+  gl_FragColor = vec4(bg + flame*uFlameAmt + texture2D(bloomTexture, vUv).xyz + texture2D(torusTexture, vUv).xyz + texture2D(tDiffuse, vUv).xyz + halo, 1.);
+}`}
+const finalPass=new ShaderPass(FinalShader)
+const finalComposer=new EffectComposer(renderer)
+finalComposer.addPass(renderPass)
+finalComposer.addPass(finalPass)
+finalPass.uniforms.bloomTexture.value=bloomComposer.renderTarget1.texture
+finalPass.uniforms.torusTexture.value=torusComposer.renderTarget1.texture
+
+// ---------- points sheet ----------
+const group=new THREE.Group()
+scene.add(group)
+const uniforms={
+  uTime:{value:0},uStream:{value:0},uAppear:{value:0},uColLow:{value:hexToVec3(colorLow)},uColHigh:{value:hexToVec3(colorHigh)},
+  uOpacity:{value:opacity},uSize:{value:pointSize},uBrightness:{value:brightness},uWaveHeight:{value:waveHeight},uFlow:{value:flow},uScale:{value:scale},
+  uCursor:{value:new THREE.Vector3()},uRepelRadius:{value:pointerRadius},uRepelStrength:{value:pointerStrength},uActivity:{value:0}}
+const mat=new THREE.ShaderMaterial({uniforms,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
+vertexShader:`uniform float uTime; uniform float uStream; uniform float uSize; uniform float uWaveHeight; uniform float uFlow; uniform float uScale;
+uniform vec3 uColLow; uniform vec3 uColHigh;
+uniform vec3 uCursor; uniform float uRepelRadius; uniform float uRepelStrength; uniform float uActivity;
+varying float vFade; varying vec3 vColor;
+${SNOISE}
+void main() {
+  vec3 wp = vec3(position.x * 13.0, 0.0, position.z * 25.0);
+  wp.x += position.y * 6.0;
+  float zc = wp.z + uStream;
+  float wn = snoise(vec3(wp.x * 0.08, zc * 0.08, uTime * 0.15 * uFlow)) * 2.0;
+  wn += snoise(vec3(wp.x * 0.16, zc * 0.16, uTime * 0.3 * uFlow)) * 0.8;
+  wp.y += wn * uWaveHeight;
+  vec3 finalPos = wp * uScale;
+  vec4 modelPosition = modelMatrix * vec4(finalPos, 1.0);
+  vec3 toP = modelPosition.xyz - uCursor;
+  float cd = length(toP);
+  float fall = smoothstep(uRepelRadius, 0.0, cd);
+  modelPosition.xyz += normalize(toP + vec3(0.0001)) * fall * uRepelStrength * uActivity;
+  vec4 mvPosition = viewMatrix * modelPosition;
+  float colMix = smoothstep(-3.0, 3.0, position.y + position.x * 0.5);
+  vColor = mix(uColLow, uColHigh, clamp(colMix, 0.0, 1.0));
+  vFade = 1.0;
+  gl_PointSize = uSize * (10.0 / -mvPosition.z);
+  gl_PointSize = max(gl_PointSize, 1.5);
+  gl_Position = projectionMatrix * mvPosition;
+}`,
+fragmentShader:`uniform float uOpacity; uniform float uBrightness; uniform float uAppear;
+varying float vFade; varying vec3 vColor;
+void main() {
+  vec2 xy = gl_PointCoord - 0.5;
+  float ll = length(xy);
+  if (ll > 0.5) discard;
+  float a = smoothstep(0.5, 0.1, ll);
+  gl_FragColor = vec4(vColor * uBrightness, vFade * a * uOpacity * uAppear);
+}`})
+const points=new THREE.Points(new THREE.SphereGeometry(4.2,200,600),mat)
+points.frustumCulled=false
+points.layers.enable(LAYERS.ENTIRE_SCENE)
+group.add(points)
+
+// ---------- ambient motes ----------
+const atmoMat=new THREE.ShaderMaterial({transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,depthTest:false,
+uniforms:{uTime:{value:0},uColor:{value:hexToVec3(atmoColor)},uRes:{value:new THREE.Vector2(innerWidth*devicePixelRatio,innerHeight*devicePixelRatio)}},
+vertexShader:`attribute float size; attribute float seed; uniform float uTime; uniform vec2 uRes;
+varying float vA;
+vec3 warp(vec3 p, float t){ float c=0.9,a=1.9,b=0.02,s=0.05; p*=2.;
+  p.x+=c*sin(s*t+a*p.y)+t*b; p.y+=c*cos(s*t+a*p.x); p.y+=c*sin(s*t+a*p.z)+t*b;
+  p.z+=c*cos(s*t+a*p.y); p.z+=c*sin(s*t+a*p.x)+t*b; p.x+=c*cos(s*t+a*p.z);
+  return cos(p+vec3(1,2,4)); }
+void main(){
+  vec3 v = position*4.0 + warp(position, uTime)*1.2;
+  vec4 mv = modelViewMatrix * vec4(v, 1.0);
+  float r = length(v); float farF = 1.0 - smoothstep(5.0, 6.5, r); float nearF = smoothstep(0.0, 0.5, -mv.z);
+  vA = farF * nearF;
+  gl_PointSize = size * uRes.y / 900.0 / -mv.z; gl_PointSize = max(gl_PointSize, 1.0);
+  gl_Position = projectionMatrix * mv;
+}`,
+fragmentShader:`uniform vec3 uColor; varying float vA;
+void main(){ vec2 p = gl_PointCoord - 0.5; float l = length(p); if (l > 0.5) discard;
+  float tex = smoothstep(0.5, 0.0, l); gl_FragColor = vec4(uColor * tex, tex * vA * 0.6); }`})
+;(()=>{
+  const N=Math.round(atmoCount)
+  const positions=new Float32Array(N*3),sizes=new Float32Array(N),seeds=new Float32Array(N)
+  for(let i=0;i<N;i++){
+    positions[i*3]=2*Math.random()-1;positions[i*3+1]=2*Math.random()-1;positions[i*3+2]=2*Math.random()-1
+    sizes[i]=atmoSize*(0.4+Math.random());seeds[i]=Math.random()
+  }
+  const g=new THREE.BufferGeometry()
+  g.setAttribute('position',new THREE.BufferAttribute(positions,3))
+  g.setAttribute('size',new THREE.BufferAttribute(sizes,1))
+  g.setAttribute('seed',new THREE.BufferAttribute(seeds,1))
+  const pts=new THREE.Points(g,atmoMat)
+  pts.frustumCulled=false
+  pts.layers.enable(LAYERS.ENTIRE_SCENE)
+  pts.onBeforeRender=()=>{
+    const t=performance.now()/1000
+    atmoMat.uniforms.uTime.value=t*atmoSpeed*8.0
+    pts.position.copy(camera.position)
+    finalPass.uniforms.iTime.value=t
+  }
+  scene.add(pts)
+})()
+
+// ---------- input ----------
+let scrollTarget=0,scrollSmooth=0,scrollCurrent=0
+const mouseTarget={x:0,y:0},mouse={x:0,y:0}
+const POINTER={world:new THREE.Vector3(),activity:0,active:false,lastMove:performance.now()}
+function updateScroll(){
+  const max=document.documentElement.scrollHeight-innerHeight
+  scrollTarget=max>0?clamp(scrollY/max,0,1):0
+}
+addEventListener('scroll',updateScroll,{passive:true})
+addEventListener('mousemove',e=>{
+  mouseTarget.x=(e.clientX/innerWidth)*2-1
+  mouseTarget.y=-((e.clientY/innerHeight)*2-1)
+  POINTER.active=true;POINTER.lastMove=performance.now()
+},{passive:true})
+addEventListener('mouseout',()=>{POINTER.active=false})
+
+const _ndc=new THREE.Vector3(),_dir=new THREE.Vector3(),_tgt=new THREE.Vector3()
+function updatePointerWorld(){
+  _tgt.set(0,0,0)
+  if(POINTER.active){
+    _ndc.set(mouse.x,mouse.y,0.5).unproject(camera)
+    _dir.copy(_ndc).sub(camera.position).normalize()
+    const dn=_dir.z
+    if(Math.abs(dn)>1e-4){const tt=-camera.position.z/dn;if(tt>0&&Number.isFinite(tt))_tgt.copy(camera.position).addScaledVector(_dir,tt)}
+  }
+  POINTER.world.lerp(_tgt,0.12)
+  const idle=(performance.now()-POINTER.lastMove)/1000
+  POINTER.activity+=(((POINTER.active&&idle<3)?1:0)-POINTER.activity)*0.06
+}
+
+// ---------- per-frame scene update ----------
+const sceneObj={
+  stream:0,appearStart:performance.now(),t0:performance.now()/1000,
+  render(scroll,m){
+    const t=performance.now()/1000
+    const dt=Math.min(0.05,t-this.t0);this.t0=t
+    uniforms.uTime.value=t
+    this.stream+=dt*(flow*2.0)*4.0
+    uniforms.uStream.value=this.stream
+    uniforms.uWaveHeight.value=waveHeight*(1+scroll*scrollRise)
+    const ea=Math.min(scroll/0.35,1.0)
+    const e=ea*ea*(3-2*ea)
+    const camY=Lerp(camStartY,camEndY,e)
+    const camZ=Lerp(camStartZ,camEndZ,e)
+    camera.position.set(m.x*parallax,camY+m.y*parallax*0.3,camZ)
+    camera.lookAt(m.x*parallax*0.5,Lerp(0.0,0.6,e),Lerp(lookStartZ,lookEndZ,e))
+    group.rotation.x=-tilt
+    group.rotation.y=0
+    updatePointerWorld()
+    uniforms.uCursor.value.copy(POINTER.world)
+    uniforms.uActivity.value=POINTER.activity
+    const elapsed=(performance.now()-this.appearStart)/1000
+    uniforms.uAppear.value=Math.max(0,Math.min(1,(elapsed-0.2)/1.4))
+  }}
+
+// ---------- resize ----------
+function resize(){
+  const w=innerWidth,h=innerHeight,dpr=devicePixelRatio
+  renderer.setPixelRatio(dpr)
+  renderer.setSize(w,h,false)
+  camera.aspect=w/h;camera.updateProjectionMatrix()
+  atmoMat.uniforms.uRes.value.set(w*dpr,h*dpr)
+  for(const c of [torusComposer,bloomComposer,finalComposer]){c.setPixelRatio(dpr);c.setSize(w,h)}
+  updateScroll()
+}
+addEventListener('resize',resize)
+resize()
+
+// ---------- loop ----------
+function loop(){
+  requestAnimationFrame(loop)
+  scrollSmooth=Lerp(scrollSmooth,scrollTarget,0.10)
+  scrollCurrent=Lerp(scrollCurrent,scrollSmooth,0.06)
+  mouse.x=Lerp(mouse.x,mouseTarget.x,0.06)
+  mouse.y=Lerp(mouse.y,mouseTarget.y,0.06)
+  sceneObj.render(scrollCurrent,mouse)
+  camera.layers.set(LAYERS.TORUS_SCENE);torusComposer.render()
+  camera.layers.set(LAYERS.BLOOM_SCENE);bloomComposer.render()
+  camera.layers.set(LAYERS.ENTIRE_SCENE);finalComposer.render()
+}
+loop()
+
+
+</script>
 </body>
-
 </html>
