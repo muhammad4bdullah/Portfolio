@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Muhammad Abdullah | Portfolio</title>
-<meta name="description" content="Muhammad Abdullah — Developer, creator and student building interactive web experiences.">
+<meta name="description" content="Muhammad Abdullah is a developer from Pakistan building practical web apps, useful tools, and thoughtful digital experiences.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -144,6 +144,164 @@ footer span{color:var(--mint)}
   #flow-wave{display:none}
   body{background:#02160c}
 }
+
+:root{
+  --card:rgba(255,255,255,.025);
+  --border:rgba(255,255,255,.11);
+  --border-bright:rgba(184,215,166,.38);
+  --green:#b8d7a6;
+  --mint:#c9e2ba;
+  --deep:#0c1110;
+  --text:#f3f5f1;
+  --muted:rgba(243,245,241,.68);
+}
+
+html{background:#0c1110}
+body{color:var(--text)}
+#flow-wave{opacity:.22}
+header,header.scrolled{
+  background:rgba(12,17,16,.9);
+  border-color:rgba(255,255,255,.08);
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+}
+header.scrolled{box-shadow:0 12px 35px rgba(0,0,0,.2)}
+.logo span{color:var(--mint)}
+nav a:hover,nav a.active{background:rgba(184,215,166,.08)}
+nav a.cta{background:#b8d7a6;color:#111710}
+nav a.cta:hover{background:#c9e2ba}
+.status-dot{background:var(--green);box-shadow:0 0 12px rgba(184,215,166,.55)}
+.hero-badge{
+  color:var(--mint);
+  background:rgba(184,215,166,.07);
+  border-color:rgba(184,215,166,.2);
+}
+#home{
+  justify-content:flex-start;
+  text-align:left;
+  padding-left:max(8%,calc((100vw - 1180px)/2));
+}
+.hero-content{max-width:860px}
+.hero-content h1{letter-spacing:-.065em}
+.hero-content p{margin-left:0}
+.gradient-text{
+  background:linear-gradient(100deg,#f3f5f1 12%,#c9e2ba 92%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.gradient-text.mint{background-image:linear-gradient(100deg,#f3f5f1 12%,#b8d7a6 92%)}
+.btn-primary{
+  color:#111710;
+  background:#b8d7a6;
+  box-shadow:none;
+}
+.btn-primary:hover{
+  background:#c9e2ba;
+  box-shadow:0 10px 28px rgba(184,215,166,.15);
+}
+.btn-primary .disc{background:#111710;color:#f3f5f1}
+.btn-secondary:hover{background:rgba(255,255,255,.08)}
+.section-header{
+  text-align:left;
+  margin-left:max(0px,calc((100% - 1180px)/2));
+  margin-right:auto;
+}
+.eyebrow{color:var(--mint)}
+.about-card,.stat,.project-card,.contact-card{
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+  box-shadow:none;
+}
+.about-card{
+  border-radius:16px;
+  background:rgba(255,255,255,.025);
+}
+.highlight{color:var(--mint)}
+.stat{
+  border-radius:14px;
+  background:rgba(255,255,255,.025);
+}
+.stat-number{
+  background:none;
+  color:var(--mint);
+  -webkit-text-fill-color:currentColor;
+}
+#projects{padding-bottom:120px}
+.projects-wrapper{width:min(1180px,100%)}
+.projects-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+.project-card,.project-card.featured{
+  min-width:0;
+  min-height:270px;
+  padding:26px;
+  border-radius:16px;
+  background:rgba(255,255,255,.025);
+  transition:border-color .25s ease,background .25s ease;
+}
+.project-card.featured{grid-column:span 2;min-height:255px}
+.project-card::before{display:none}
+.project-card:hover{
+  transform:none;
+  border-color:rgba(184,215,166,.38);
+  background:rgba(255,255,255,.045);
+  box-shadow:none;
+}
+.project-icon{
+  width:42px;
+  height:42px;
+  border-radius:11px;
+  color:var(--mint);
+  background:rgba(184,215,166,.08);
+  border-color:rgba(184,215,166,.16);
+  font-family:"Poppins",sans-serif;
+  font-size:.78rem;
+  font-weight:700;
+}
+.project-number{color:rgba(243,245,241,.36);font-size:.72rem}
+.project-content{margin-top:20px}
+.project-content h3,.project-card.featured .project-content h3{
+  font-size:1.3rem;
+  letter-spacing:-.03em;
+}
+.project-content p{max-width:560px;line-height:1.7}
+.tag{
+  color:#c9e2ba;
+  background:rgba(184,215,166,.055);
+  border-color:rgba(184,215,166,.13);
+}
+.project-bottom{margin-top:24px}
+.project-type{color:rgba(243,245,241,.48)}
+.project-link{color:var(--mint)}
+.project-link:hover{color:#e0efd7}
+.project-intro{
+  border-radius:12px;
+  border-color:var(--border);
+  background:rgba(255,255,255,.02);
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+}
+.contact-card{
+  border-radius:18px;
+  border-color:var(--border);
+  background:rgba(255,255,255,.03);
+}
+footer{color:rgba(243,245,241,.5)}
+a:focus-visible{outline:2px solid var(--mint);outline-offset:4px}
+
+@media(max-width:760px){
+  #home{padding-left:24px}
+  .section-header{margin-left:0}
+  .projects-grid{grid-template-columns:minmax(0,1fr)}
+  .project-card.featured{grid-column:span 1}
+}
+@media(max-width:480px){
+  #home{text-align:center}
+  .hero-content p{margin-right:auto;margin-left:auto}
+  .project-card,.project-card.featured{min-height:0;padding:23px}
+}
+@media(prefers-reduced-motion:reduce){body{background:#0c1110}}
 </style>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.143.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.143.0/examples/jsm/"}}
@@ -163,12 +321,12 @@ footer span{color:var(--mint)}
 
 <section id="home">
   <div class="hero-content">
-    <div class="hero-badge"><span class="status-dot"></span>BUILDING • LEARNING • CREATING</div>
+    <div class="hero-badge"><span class="status-dot"></span>WEB DEVELOPER &middot; PAKISTAN</div>
     <h1>
       <span class="gradient-text">Hello, I’m</span>
       <span class="name gradient-text mint">Muhammad Abdullah</span>
     </h1>
-    <p>I build interactive websites, creative tools, experimental projects, and digital experiences using code, AI, and design.</p>
+    <p>I'm a developer from Pakistan focused on building practical web apps, useful tools, and thoughtful digital experiences.</p>
     <div class="hero-buttons">
       <a href="#projects" class="btn btn-primary">Explore My Projects <span class="disc">↗</span></a>
       <a href="#contact" class="btn btn-secondary">Get In Touch</a>
@@ -179,33 +337,33 @@ footer span{color:var(--mint)}
 <section id="about" class="section">
   <div class="section-header reveal">
     <div class="eyebrow">About Me</div>
-    <h2>Turning ideas into <span class="gradient-text mint">digital experiences.</span></h2>
-    <p>I’m a student developer who enjoys experimenting with technology and turning random ideas into things people can actually interact with.</p>
+    <h2>Building useful <span class="gradient-text mint">digital products.</span></h2>
+    <p>I'm a developer who turns practical ideas into useful, well-crafted web experiences.</p>
   </div>
   <div class="about-grid">
     <div class="about-card glass reveal">
-      <h3>A little about me 👋</h3>
-      <p>I’m a passionate developer and creative thinker from Pakistan. I enjoy building interactive web applications and experimenting with <span class="highlight">HTML, CSS, JavaScript, AI and modern UI design.</span><br><br>I don’t just want to make projects that work. I want to make projects that feel interesting, useful, and memorable.<br><br>Every project is an experiment — something new to learn, break, improve, and eventually turn into something I’m proud of.</p>
+      <h3>About my work</h3>
+      <p>I'm a developer from Pakistan focused on building interactive web applications with <span class="highlight">HTML, CSS, and JavaScript.</span><br><br>I care about making projects clear, useful, and enjoyable to use.<br><br>I keep learning by taking ideas from a first sketch to a working product.</p>
     </div>
     <div class="stats reveal">
-      <div class="stat glass"><div class="stat-number">05+</div><div class="stat-label">Projects built</div></div>
-      <div class="stat glass"><div class="stat-number">∞</div><div class="stat-label">Ideas to experiment with</div></div>
-      <div class="stat glass"><div class="stat-number">JS</div><div class="stat-label">Interactive development</div></div>
-      <div class="stat glass"><div class="stat-number">AI</div><div class="stat-label">Exploring intelligent tools</div></div>
+      <div class="stat glass"><div class="stat-number">16</div><div class="stat-label">Selected projects</div></div>
+      <div class="stat glass"><div class="stat-number">JS</div><div class="stat-label">Main language</div></div>
+      <div class="stat glass"><div class="stat-number">Web</div><div class="stat-label">App focus</div></div>
+      <div class="stat glass"><div class="stat-number">UI</div><div class="stat-label">Design focus</div></div>
     </div>
   </div>
 </section>
 
 <section id="projects" class="section">
   <div class="section-header reveal">
-    <div class="eyebrow">My Work</div>
-    <h2>Projects I’ve <span class="gradient-text mint">built.</span></h2>
-    <p>A collection of experiments, tools, and interactive projects I’ve created while learning and exploring development.</p>
+    <div class="eyebrow">Selected work</div>
+    <h2>A few things I've <span class="gradient-text mint">made.</span></h2>
+    <p>Web apps, useful tools, client work, and experiments in AI.</p>
   </div>
   <div class="projects-wrapper">
     <div class="project-intro glass reveal">
-      <span><strong>13 projects</strong> currently featured</span>
-      <span>More experiments coming soon ⚡</span>
+      <span><strong>16 projects</strong> selected</span>
+      <span>Apps &middot; tools &middot; AI &middot; client work</span>
     </div>
     <div class="projects-grid" id="projectsGrid"></div>
   </div>
@@ -217,42 +375,45 @@ footer span{color:var(--mint)}
     <h2>Have an idea? <span class="gradient-text mint">Let’s talk.</span></h2>
     <p>Want to collaborate, discuss a project, share an idea, or just say hi? You know where to find me.</p>
     <div class="contact-links">
-      <a href="mailto:muhammad4bdullah123@gmail.com" class="contact-link"> Email Me</a>
-      <a href="https://www.instagram.com/abd7llah.exe" target="_blank" rel="noopener" class="contact-link">Instagram</a>
-      <a href="#projects" class="contact-link"> View Projects</a>
+      <a href="mailto:muhammad4bdullah123@gmail.com" class="contact-link">Email</a>
+      <a href="https://www.instagram.com/abdull4h.py" target="_blank" rel="noopener noreferrer" class="contact-link">Instagram</a>
+      <a href="#projects" class="contact-link">Selected work</a>
     </div>
   </div>
 </section>
 
-<footer>© 2026 Muhammad Abdullah <span>· Built with curiosity &amp; code ⚡</span></footer>
+<footer>© 2026 Muhammad Abdullah <span>· Designed and built with care.</span></footer>
 
 <script>
 /* ---------- projects data (edit here) ---------- */
 const PROJECTS=[
- {i:'🔐',t:'Symbol Cipher',f:1,d:'A creative cipher tool that transforms ordinary text into symbols, letters, and numbers. Built as an experimental way to make communication more fun and mysterious.',g:['HTML','CSS','JavaScript','Cipher'],k:'Encryption / Interactive Tool',h:'https://muhammad4bdullah.github.io/Qwerty-cipher/',l:'Open Project'},
- {i:'🔢',t:'Number Prefix Converter',d:'Convert numbers containing prefixes such as Million, Billion, and Quintillion into their full numerical values and back.',g:['JavaScript','Converter','Mathematics'],k:'Utility Tool',h:'prefixconverter.html',l:'Open Project',local:1},
- {i:'🧩',t:'Cipher 2.0',d:'An emoji-based experimental cipher where letters are mapped to symbols and numbers receive additional randomized emoji layers.',g:['JavaScript','Emoji','Encryption'],k:'Experimental Cipher',h:'Cipher%202.0.html',l:'Open Project',local:1},
- {i:'🛡️',t:'Guardian Lens',f:1,d:'Guardian Lens is an experimental AI-powered monitoring concept designed around real-time visual analysis, threat detection, and smart monitoring interfaces.',g:['AI','Computer Vision','JavaScript','UI / UX'],k:'AI / Computer Vision Concept',h:'https://muhammad4bdullah.github.io/Guardian-lens/',l:'Open Project'},
- {i:'🎨',t:'Color Analyzer Pro',f:1,d:'An interactive color analysis application that examines image pixels and identifies a dominant color. It calculates HSB values and avoids creating artificial colors by rejecting photos containing too many unrelated colors.',g:['JavaScript','Canvas API','HSB','Image Analysis'],k:'Image / Color Analysis',h:'colordetect.html',l:'Open Project',local:1},
- {i:'💬',t:'ChatVerix',f:1,d:'A real-time web messaging application built with Firebase. ChatVerix provides an interactive chat experience with user authentication and real-time message synchronization.',g:['JavaScript','Firebase','Real-time','Web App'],k:'Real-time Messaging App',h:'https://muhammad4bdullah.github.io/Chatverix/',l:'Open Project'},
- {i:'⌨️',t:'Cipher Y19 Keyboard',d:'An Android keyboard APK for the Cipher Y19 project. Download the APK to install it on your Android device.',g:['Android','Keyboard','APK'],k:'Android App',h:'base.apk',l:'Download APK',dl:1},
- {i:'✉️',t:'Email Automation',d:'A project exploring email automation with a live website to visit.',g:['Automation','Email'],k:'Automation Project',h:'https://muhammad4bdullah.github.io/email-automation/',l:'Visit Site'},
- {i:'🌐',t:'AZPACE Workspace',f:1,d:'My online workspace, available at azpace.online. Visit the live site.',g:['Web App','Workspace'],k:'Online Workspace',h:'https://www.azpace.online',l:'Visit AZPACE'},
- {i:'📝',t:'Registration',d:'A registration project with a live website to visit.',g:['Registration','Web Project'],k:'Web Project',h:'https://muhammad4bdullah.github.io/registration/',l:'Visit Site'},
- {i:'📚',t:'All-Comp Prep Notes',d:'A static website with notes and materials I use for my competitive programming preparation.',g:['Static Website','Study Notes','Competitive Programming'],k:'Study Notes',h:'https://muhammad4bdullah.github.io/all-comp/',l:'Visit Site'},
- {i:'🧀',t:'CheezeUp',f:1,d:'A business website project I created for CheezeUp. Visit the live website.',g:['Business Website','Client Project'],k:'Business / Client Work',h:'https://muhammad4bdullah.github.io/cheezeup/',l:'Visit Site'},
- {i:'🔢',t:'Octal Cipher',f:1,d:'A fully functional cipher tool that encodes and decodes text using an octal-based system.',g:['JavaScript','Octal','Cipher'],k:'Text Encryption / Decryption',h:'octal_cipher.html',l:'Open Project',local:1}
+ {i:'CV',t:'ChatVerix',f:1,d:'A real-time messaging app built with Firebase, featuring user authentication and synchronized conversations.',g:['JavaScript','Firebase','Real-time'],k:'Web application',h:'https://muhammad4bdullah.github.io/Chatverix/',l:'View project'},
+ {i:'CA',t:'Color Analyzer Pro',d:'An image analysis tool that finds dominant colors and calculates HSB values from image pixels.',g:['JavaScript','Canvas API','Image analysis'],k:'Interactive tool',h:'colordetect.html',l:'View project',local:1},
+ {i:'CU',t:'CheezeUp',d:'A business website created for CheezeUp, bringing a client project from brief to a live web presence.',g:['Client work','Web design'],k:'Business website',h:'https://muhammad4bdullah.github.io/cheezeup/',l:'Visit website'},
+ {i:'AW',t:'AZPACE Workspace',d:'An online workspace project. Explore the live site to see the product and its available tools.',g:['Web app','Workspace'],k:'Online workspace',h:'https://www.azpace.online',l:'Visit AZPACE'},
+ {i:'GL',t:'Guardian Lens',d:'An AI monitoring concept for real-time visual analysis, threat detection, and a smart monitoring interface.',g:['AI','Computer vision','Monitoring'],k:'AI / computer vision concept',h:'https://muhammad4bdullah.github.io/Guardian-lens/',l:'View project'},
+ {i:'CY',t:'Cipher Y19 Keyboard',d:'An Android keyboard APK for the Cipher Y19 project. Download the package to install it on Android.',g:['Android','Keyboard','APK'],k:'Android app',h:'base.apk',l:'Download APK',dl:1},
+ {i:'EA',t:'Email Automation',d:'A project exploring email automation, with a live interface to see the project in action.',g:['Automation','Email'],k:'Automation project',h:'https://muhammad4bdullah.github.io/email-automation/',l:'Visit project'},
+ {i:'AM',t:'Amun',d:'A registration web project focused on a clear sign-up experience.',g:['Registration','Web app'],k:'Web application',h:'https://muhammad4bdullah.github.io/registration/',l:'Visit project'},
+ {i:'OC',t:'Octal Cipher',d:'A text tool that encodes and decodes messages using an octal-based system.',g:['JavaScript','Octal','Cipher'],k:'Text encoding / decoding',h:'octal_cipher.html',l:'View project',local:1},
+ {i:'FB',t:'Fine Browser',d:'A custom browser project for exploring the web in a clean, focused interface.',g:['Browser','Web'],k:'Browser project'},
+ {i:'CAT',t:'CAT',d:'A 5.7-million-parameter AI model trained on 100,000 Wikipedia articles.',g:['AI','Language model','5.7M parameters'],k:'AI language model'},
+ {i:'CE',t:'Chess Engine',d:'A chess engine with an estimated playing strength of around 1,000 Elo.',g:['Chess','Engine','AI'],k:'Chess engine'},
+ {i:'OCR',t:'OCR Engine',d:'An optical character recognition engine that extracts text from images.',g:['OCR','Text recognition','Images'],k:'Image-to-text tool'},
+ {i:'PW',t:'Pagewise',d:'A browser-based PDF study tool with page text and bookmark navigation, AI explanations, voice tutoring, and optional two-person study.',g:['PDF study','AI tutor','Voice'],k:'AI study tool'},
+ {i:'MA',t:'Master AI IDE',d:'A multi-provider AI coding workspace with a built-in editor, chat and agent modes, and review-before-apply code changes.',g:['AI','Developer tools','Coding agents'],k:'AI coding workspace'},
+ {i:'SR',t:'Studyroom',d:'A student resource library for subjects and exam preparation, with admin-managed uploads and student messaging.',g:['Education','Study resources','Messaging'],k:'Student platform'}
 ];
 const grid=document.getElementById('projectsGrid');
 grid.innerHTML=PROJECTS.map((p,n)=>`
 <article class="project-card${p.f?' featured':''} reveal">
   <div>
-    <div class="project-top"><div class="project-icon">${p.i}</div><div class="project-number">${String(n+1).padStart(2,'0')} / ${PROJECTS.length}</div></div>
+    <div class="project-top"><div class="project-icon" aria-hidden="true">${p.i}</div><div class="project-number">${String(n+1).padStart(2,'0')} / ${PROJECTS.length}</div></div>
     <div class="project-content"><h3>${p.t}</h3><p>${p.d}</p>
-      <div class="tags">${p.g.map(x=>`<span class="tag">${x}</span>`).join('')}</div></div>
+      <div class="tags" aria-label="Project details">${p.g.map(x=>`<span class="tag">${x}</span>`).join('')}</div></div>
   </div>
   <div class="project-bottom"><span class="project-type">${p.k}</span>
-    <a href="${p.h}" class="project-link" ${p.dl?'download':'target="_blank" rel="noopener noreferrer"'}>${p.l} →</a></div>
+    ${p.h?`<a href="${p.h}" class="project-link" ${p.dl?'download':p.local?'':'target="_blank" rel="noopener noreferrer"'}>${p.l} <span aria-hidden="true">${p.dl?'&#8595;':'&#8599;'}</span></a>`:''}</div>
 </article>`).join('');
 
 /* header state */
@@ -284,9 +445,9 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js'
 import { GammaCorrectionShader } from 'three/addons/shaders/GammaCorrectionShader.js'
 import { CopyShader } from 'three/addons/shaders/CopyShader.js'
 
-const bgColor='#02160c', flameColor='#0aff7f', flameColor2='#aef0c0', flameAmt=2.55
-const atmoColor='#7affbf', atmoCount=280, atmoSize=12, atmoSpeed=0.4
-const colorLow='#02160c', colorHigh='#34e89a', opacity=0.26, pointSize=5.5, brightness=0.45
+const bgColor='#0c1110', flameColor='#b8d7a6', flameColor2='#d9e8ca', flameAmt=1.35
+const atmoColor='#c9e2ba', atmoCount=280, atmoSize=12, atmoSpeed=0.4
+const colorLow='#111816', colorHigh='#b8d7a6', opacity=0.16, pointSize=5.5, brightness=0.3
 const waveHeight=3, flow=1, tilt=0, scale=0.275, scrollRise=1.0
 const camStartY=7, camStartZ=16, camEndY=0.8, camEndZ=-2, lookStartZ=2, lookEndZ=-16
 const parallax=1.2, pointerRadius=7.0, pointerStrength=0.9
